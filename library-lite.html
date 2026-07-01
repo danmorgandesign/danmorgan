@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Lite — Dan Morgan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+
+    @keyframes scanLine {
+      0%   { top: 8%;  opacity: 1; }
+      50%  { top: 82%; opacity: 0.5; }
+      100% { top: 8%;  opacity: 1; }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .scan-line  { animation: scanLine 2s ease-in-out infinite; }
+    .screen-anim { animation: fadeUp 0.22s ease-out both; }
+
+    .sim-trigger { transition: all 0.15s ease; }
+    .sim-trigger.active { box-shadow: 0 0 0 2px currentColor; }
+  </style>
+</head>
+<body class="bg-white text-gray-900">
+
+  <!-- Nav -->
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
+    <div class="max-w-3xl mx-auto px-6 h-14 flex items-center justify-between">
+      <a href="index.html" class="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-gray-900 transition-colors duration-150">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19 12H5M12 5l-7 7 7 7"/>
+        </svg>
+        Dan Morgan
+      </a>
+      <span class="text-sm text-gray-300 hidden sm:block">Case Study</span>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ── Hero ──────────────────────────────────────────── -->
+    <header class="max-w-3xl mx-auto px-6 pt-16 pb-14">
+      <div class="flex flex-wrap gap-2 mb-7">
+        <span class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 border border-gray-200 rounded-full px-3 py-1">UX Design</span>
+        <span class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 border border-gray-200 rounded-full px-3 py-1">Interaction Design</span>
+        <span class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 border border-gray-200 rounded-full px-3 py-1">Mobile App</span>
+      </div>
+
+      <h1 class="text-5xl sm:text-6xl font-light tracking-tight leading-[1.05] text-gray-900 mb-5">Library Lite</h1>
+      <p class="text-xl text-gray-400 font-light leading-relaxed max-w-xl">A fast, scan-first library management app designed for the reality of a busy school — not the ideal of a quiet desk.</p>
+
+      <dl class="grid grid-cols-2 sm:grid-cols-3 gap-y-6 gap-x-8 mt-12 pt-10 border-t border-gray-100">
+        <div>
+          <dt class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 mb-1.5">Role</dt>
+          <dd class="text-sm text-gray-700">UX Designer</dd>
+        </div>
+        <div>
+          <dt class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 mb-1.5">Context</dt>
+          <dd class="text-sm text-gray-700">Personal Project</dd>
+        </div>
+        <div>
+          <dt class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 mb-1.5">Focus</dt>
+          <dd class="text-sm text-gray-700">Speed &amp; Accessibility</dd>
+        </div>
+      </dl>
+    </header>
+
+    <div class="max-w-3xl mx-auto px-6"><hr class="border-gray-100"></div>
+
+    <!-- ── 01 The Problem ────────────────────────────────── -->
+    <section class="max-w-3xl mx-auto px-6 py-16">
+      <p class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 mb-3">01 — The Problem</p>
+      <h2 class="text-3xl font-light tracking-tight text-gray-900 mb-10">Legacy Software vs. a Room Full of Kids</h2>
+
+      <div class="space-y-6 text-[1.0625rem] leading-[1.85] text-gray-500">
+        <p>School libraries run on a kind of beautiful chaos. Picture thirty kids descending on you at once, everyone wanting something different, and roughly forty-five seconds per checkout before someone knocks a display stand over. That's the actual working environment.</p>
+        <p>The software the librarian was using wasn't built for any of that. It was built for someone sitting quietly at a desk, with time to navigate nested menus and type in ISBN numbers by hand. Calm, considered, sequential. Everything a busy school library is not.</p>
+        <p>In practice, she'd quietly stopped using it for daily checkouts. She was keeping a <em class="text-gray-700 not-italic font-medium">paper notebook</em>.</p>
+        <p>That told me everything I needed to know about where to start.</p>
+      </div>
+    </section>
+
+    <div class="max-w-3xl mx-auto px-6"><hr class="border-gray-100"></div>
+
+    <!-- ── 02 The Solution ───────────────────────────────── -->
+    <section class="max-w-3xl mx-auto px-6 py-16">
+      <p class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 mb-3">02 — The Solution</p>
+      <h2 class="text-3xl font-light tracking-tight text-gray-900 mb-10">Scan First, Think Later</h2>
+
+      <div class="space-y-6 text-[1.0625rem] leading-[1.85] text-gray-500 mb-14">
+        <p>The whole thing came down to one idea: make the scan happen first, and let everything else follow from that. No menus to dig through before you know what book you're dealing with. No decisions to make before the app knows what it's looking at.</p>
+        <p>Point. Scan. Act. That's it.</p>
+      </div>
+
+      <!-- ── Scan State Simulator ──────────────────────── -->
+      <div class="bg-gray-50 rounded-3xl p-6 sm:p-10 mb-14">
+        <p class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 text-center mb-7">Scan State Simulator</p>
+
+        <!-- Trigger buttons -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-10">
+          <button
+            id="btn-unrecognized"
+            class="sim-trigger text-sm font-medium px-4 py-3.5 rounded-xl border-2 border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-100"
+            onclick="setSimState('unrecognized')"
+          >Scan Unrecognized Book</button>
+          <button
+            id="btn-available"
+            class="sim-trigger text-sm font-medium px-4 py-3.5 rounded-xl border-2 border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
+            onclick="setSimState('available')"
+          >Scan Available Book</button>
+          <button
+            id="btn-loaned"
+            class="sim-trigger text-sm font-medium px-4 py-3.5 rounded-xl border-2 border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100"
+            onclick="setSimState('loaned')"
+          >Scan Loaned Out Book</button>
+        </div>
+
+        <!-- Tablet frame -->
+        <div class="mx-auto" style="max-width: 300px;">
+          <div class="bg-gray-800 rounded-[2.25rem] p-[10px] shadow-2xl ring-1 ring-black/10">
+            <div class="bg-white rounded-[1.75rem] overflow-hidden flex flex-col" style="min-height: 530px;">
+
+              <!-- Status bar -->
+              <div class="bg-gray-900 flex items-center justify-between px-5 pt-3 pb-1.5 shrink-0">
+                <span class="text-white text-xs font-semibold" style="font-variant-numeric: tabular-nums;">9:41</span>
+                <div class="flex items-center gap-1.5">
+                  <!-- Signal -->
+                  <svg width="15" height="11" viewBox="0 0 15 11" fill="white" aria-hidden="true">
+                    <rect x="0" y="5" width="2.5" height="6" rx="0.5" opacity="0.35"/>
+                    <rect x="4" y="3" width="2.5" height="8" rx="0.5" opacity="0.6"/>
+                    <rect x="8" y="1" width="2.5" height="10" rx="0.5" opacity="0.85"/>
+                    <rect x="12" y="0" width="2.5" height="11" rx="0.5"/>
+                  </svg>
+                  <!-- Battery -->
+                  <svg width="22" height="11" viewBox="0 0 22 11" fill="none" aria-hidden="true">
+                    <rect x="0.5" y="0.5" width="18" height="10" rx="2" stroke="white" stroke-opacity="0.5"/>
+                    <rect x="2" y="2" width="14" height="7" rx="1" fill="white"/>
+                    <path d="M19.5 3.5v4a1.5 1.5 0 0 0 0-4z" fill="white" fill-opacity="0.4"/>
+                  </svg>
+                </div>
+              </div>
+
+              <!-- App bar -->
+              <div class="bg-gray-900 px-5 pb-4 flex items-center justify-between shrink-0">
+                <span class="text-white text-base font-semibold tracking-tight">Library Lite</span>
+                <button class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center" aria-label="Search">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Dynamic screen area -->
+              <div id="sim-screen" class="flex-1 flex flex-col">
+                <!-- Default idle state -->
+                <div class="screen-anim flex-1 flex flex-col items-center justify-center p-8 text-center gap-5">
+                  <div class="relative w-40 h-28 rounded-lg border-2 border-dashed border-gray-200 overflow-hidden flex items-center justify-center">
+                    <div class="scan-line absolute left-0 right-0 h-0.5 bg-blue-400" style="top: 8%;"></div>
+                    <svg width="36" height="26" viewBox="0 0 48 32" fill="#e5e7eb" aria-hidden="true">
+                      <rect x="0"  y="0" width="3"  height="32"/>
+                      <rect x="5"  y="0" width="1"  height="32"/>
+                      <rect x="8"  y="0" width="4"  height="32"/>
+                      <rect x="14" y="0" width="1"  height="32"/>
+                      <rect x="17" y="0" width="2"  height="32"/>
+                      <rect x="21" y="0" width="5"  height="32"/>
+                      <rect x="28" y="0" width="1"  height="32"/>
+                      <rect x="31" y="0" width="3"  height="32"/>
+                      <rect x="36" y="0" width="1"  height="32"/>
+                      <rect x="39" y="0" width="4"  height="32"/>
+                      <rect x="45" y="0" width="2"  height="32"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-sm font-medium text-gray-400">Aim camera at book barcode</p>
+                    <p class="text-xs text-gray-300 mt-1">or select a state above to preview</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Home indicator -->
+              <div class="shrink-0 bg-white pt-1 pb-2.5 flex justify-center">
+                <div class="w-20 h-1 bg-gray-200 rounded-full"></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /Simulator -->
+
+      <div class="space-y-6 text-[1.0625rem] leading-[1.85] text-gray-500">
+        <p>The three states cover virtually every real-world scenario. Unknown book — the app flags it immediately and asks if you want to add it. Available — it drops you straight into checkout. Already on loan — it tells you who has it and gives you a one-tap return. No dead ends. No "what do I do now?"</p>
+      </div>
+    </section>
+
+    <div class="max-w-3xl mx-auto px-6"><hr class="border-gray-100"></div>
+
+    <!-- ── 03 How I Got There ────────────────────────────── -->
+    <section class="max-w-3xl mx-auto px-6 py-16">
+      <p class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 mb-3">03 — How I Got There</p>
+      <h2 class="text-3xl font-light tracking-tight text-gray-900 mb-10">Reality-Checking the Prototype</h2>
+
+      <div class="space-y-6 text-[1.0625rem] leading-[1.85] text-gray-500">
+        <p>The first prototype looked great in Figma. Elegant, considered, nicely spaced. Then I handed it to the librarian and watched what happened.</p>
+        <p>She picked up the phone, pointed it at a book, and immediately asked "so... what do I press?" The confirmation button I'd designed was sitting quietly in the bottom-right corner. Tasteful. Completely invisible when you're distracted and surrounded by noise.</p>
+        <p>That was the moment I stopped designing for calm and started designing for chaos.</p>
+        <p>Everything got bigger. Confirmations became full-screen states instead of small overlays. Buttons expanded until they were impossible to miss. Colour contrast went up until it had headroom to spare above accessibility thresholds.</p>
+        <p>The question I kept coming back to: <em class="text-gray-700 not-italic font-medium">if someone's half-distracted and a bit rushed, is this still obvious?</em> If the answer was no, it wasn't done yet.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="max-w-3xl mx-auto px-6 py-12 border-t border-gray-100 flex items-center justify-between flex-wrap gap-4">
+    <a href="index.html" class="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-gray-900 transition-colors">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M19 12H5M12 5l-7 7 7 7"/>
+      </svg>
+      Back to portfolio
+    </a>
+    <span class="text-sm text-gray-300">Dan Morgan — UX Designer</span>
+  </footer>
+
+
+  <script>
+    const screens = {
+      unrecognized: `
+        <div class="screen-anim flex-1 flex flex-col">
+          <div class="flex-1 flex flex-col items-center justify-center px-6 py-8 text-center bg-amber-50">
+            <div class="w-16 h-16 rounded-full bg-amber-100 flex items-center justify-center mb-5">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 leading-tight mb-2">Not in System</h3>
+            <p class="text-sm text-gray-500 leading-relaxed mb-8">This book isn't in the library catalogue yet. Want to add it?</p>
+            <div class="w-full space-y-3">
+              <button class="w-full py-4 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-white text-base font-semibold rounded-2xl transition-all">Add to System</button>
+              <button class="w-full py-4 bg-white border-2 border-gray-200 text-gray-500 text-base font-medium rounded-2xl transition-all hover:border-gray-300">Skip for Now</button>
+            </div>
+          </div>
+        </div>
+      `,
+      available: `
+        <div class="screen-anim flex-1 flex flex-col">
+          <div class="bg-emerald-50 px-5 py-4 border-b border-emerald-100">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
+              <span class="text-[0.6875rem] font-semibold uppercase tracking-widest text-emerald-600">Available</span>
+            </div>
+            <p class="text-base font-semibold text-gray-900 leading-tight">Charlotte's Web</p>
+            <p class="text-sm text-gray-500">E.B. White</p>
+          </div>
+          <div class="flex-1 px-5 py-5 flex flex-col gap-4">
+            <p class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400">Checking out to</p>
+            <button class="w-full border-2 border-gray-200 rounded-2xl p-4 flex items-center justify-between hover:border-gray-300 transition-colors text-left">
+              <div>
+                <p class="text-[0.6875rem] text-gray-400 mb-0.5">Class</p>
+                <p class="text-base font-semibold text-gray-900">Class 7B</p>
+              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <button class="w-full border-2 border-gray-200 rounded-2xl p-4 flex items-center justify-between hover:border-gray-300 transition-colors text-left">
+              <div>
+                <p class="text-[0.6875rem] text-gray-400 mb-0.5">Student</p>
+                <p class="text-base font-semibold text-gray-900">Sam Mitchell</p>
+              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <button class="w-full py-4 bg-emerald-500 hover:bg-emerald-600 active:scale-[0.98] text-white text-base font-semibold rounded-2xl transition-all mt-auto">Confirm Checkout</button>
+          </div>
+        </div>
+      `,
+      loaned: `
+        <div class="screen-anim flex-1 flex flex-col">
+          <div class="bg-rose-50 px-5 py-4 border-b border-rose-100">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="w-2 h-2 rounded-full bg-rose-500 inline-block"></span>
+              <span class="text-[0.6875rem] font-semibold uppercase tracking-widest text-rose-600">Checked Out</span>
+            </div>
+            <p class="text-base font-semibold text-gray-900 leading-tight">The Hobbit</p>
+            <p class="text-sm text-gray-500">J.R.R. Tolkien</p>
+          </div>
+          <div class="flex-1 px-5 py-5 flex flex-col gap-4">
+            <p class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400">Currently with</p>
+            <div class="bg-gray-50 rounded-2xl p-4 space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-gray-400">Student</span>
+                <span class="text-sm font-semibold text-gray-900">Jamie Chen</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-gray-400">Class</span>
+                <span class="text-sm font-semibold text-gray-900">6A</span>
+              </div>
+              <div class="h-px bg-gray-200"></div>
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-gray-400">Due back</span>
+                <span class="text-sm font-semibold text-rose-600">15 Jul 2026</span>
+              </div>
+            </div>
+            <button class="w-full py-5 bg-gray-900 hover:bg-gray-700 active:scale-[0.98] text-white text-base font-semibold rounded-2xl transition-all mt-auto">
+              Return to Shelf
+            </button>
+            <button class="w-full text-sm text-gray-400 hover:text-gray-600 transition-colors py-1">Flag as overdue</button>
+          </div>
+        </div>
+      `
+    };
+
+    function setSimState(state) {
+      const screen = document.getElementById('sim-screen');
+      screen.innerHTML = screens[state];
+
+      document.querySelectorAll('.sim-trigger').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('btn-' + state).classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
