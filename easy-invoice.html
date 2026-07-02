@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Easy Invoice — Dan Morgan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes popIn {
+      0%   { opacity: 0; transform: scale(0.8); }
+      70%  { transform: scale(1.05); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .screen-anim { animation: fadeUp 0.22s ease-out both; }
+    .pop-anim    { animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+
+    .sim-trigger { transition: all 0.15s ease; }
+    .sim-trigger.active { box-shadow: 0 0 0 2px currentColor; }
+  </style>
+</head>
+<body class="bg-white text-gray-900">
+
+  <!-- Nav -->
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
+    <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+      <a href="index.html" class="block w-9 h-9 rounded-full overflow-hidden ring-2 ring-gray-200 hover:ring-gray-400 transition-all duration-150" aria-label="Home">
+        <img src="images/crisp-profile.jpg" alt="Dan Morgan" class="w-full h-full object-cover object-top">
+      </a>
+      <a href="portfolio.html" class="hidden sm:inline-flex items-center gap-2 text-[0.9375rem] font-medium text-gray-500 px-4 py-2 border border-gray-200 rounded-full transition-all duration-200 hover:text-gray-900 hover:border-gray-400">Portfolio</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ── Hero ──────────────────────────────────────────── -->
+    <header class="max-w-6xl mx-auto px-6 pt-16 pb-14">
+      <div class="flex flex-wrap gap-2 mb-7">
+        <span class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 border border-gray-200 rounded-full px-3 py-1">Product Design</span>
+        <span class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 border border-gray-200 rounded-full px-3 py-1">UX Design</span>
+        <span class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 border border-gray-200 rounded-full px-3 py-1">Mobile App</span>
+      </div>
+
+      <h1 class="text-5xl sm:text-6xl font-light tracking-tight leading-[1.05] text-gray-900 mb-5">Easy Invoice</h1>
+      <p class="text-xl text-gray-400 font-light leading-relaxed max-w-xl">A frictionless invoicing app for freelancers and sole traders — built around how people actually work, not how accountants think they should.</p>
+
+      <dl class="grid grid-cols-2 sm:grid-cols-3 gap-y-6 gap-x-8 mt-12 pt-10 border-t border-gray-100">
+        <div>
+          <dt class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 mb-1.5">Role</dt>
+          <dd class="text-sm text-gray-700">UX Designer</dd>
+        </div>
+        <div>
+          <dt class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 mb-1.5">Context</dt>
+          <dd class="text-sm text-gray-700">Personal Project</dd>
+        </div>
+        <div>
+          <dt class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 mb-1.5">Focus</dt>
+          <dd class="text-sm text-gray-700">Friction &amp; Automation</dd>
+        </div>
+      </dl>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-6"><hr class="border-gray-100"></div>
+
+    <!-- ── 01 The Problem ────────────────────────────────── -->
+    <section class="max-w-6xl mx-auto px-6 py-16">
+      <p class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 mb-3">01 — The Problem</p>
+      <h2 class="text-3xl font-light tracking-tight text-gray-900 mb-10">Spreadsheets, Paper, and the Awkward Money Chat</h2>
+
+      <div class="space-y-6 text-[1.0625rem] leading-[1.85] text-gray-500">
+        <p>Running a freelance business or a small trade involves a lot of "I'll sort the invoicing later." Later arrives, and you're staring at a notebook, a few WhatsApp messages, and a vague memory of what you agreed with that client back in March.</p>
+        <p>The tools that exist tend to fall into two camps: massive accounting suites with more features than a small business will ever need, or a blank invoice template someone emailed you in 2019. Neither is designed for how people actually work — job to job, week to week, fitting invoicing in around everything else.</p>
+        <p>And then there's chasing. Nobody enjoys sending the third "just checking in" message to a client who owes them money. It feels awkward, a bit desperate, and it puts a weird tension on what was otherwise a good working relationship.</p>
+      </div>
+    </section>
+
+    <div class="max-w-6xl mx-auto px-6"><hr class="border-gray-100"></div>
+
+    <!-- ── 02 The Solution ───────────────────────────────── -->
+    <section class="max-w-6xl mx-auto px-6 py-16">
+      <p class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 mb-3">02 — The Solution</p>
+      <h2 class="text-3xl font-light tracking-tight text-gray-900 mb-10">Zero Friction Tracking and the Automated Buffer</h2>
+
+      <div class="space-y-6 text-[1.0625rem] leading-[1.85] text-gray-500 mb-14">
+        <p>The idea came down to two things. First, reduce the friction of capturing work to almost zero — log a job when it happens, in seconds, and let the invoicing side sort itself out. Second, take the awkwardness out of chasing by making the reminders automatic.</p>
+        <p>Not "I'm chasing you" — "the system sent a reminder." That small psychological buffer turns an uncomfortable personal exchange into a neutral admin event. The relationship stays intact.</p>
+      </div>
+
+      <!-- ── Invoice State Simulator ───────────────────── -->
+      <div class="bg-gray-50 rounded-3xl p-6 sm:p-10 mb-14">
+        <p class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 text-center mb-7">Invoice State Simulator</p>
+
+        <!-- Trigger buttons -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-10">
+          <button
+            id="btn-toinvoice"
+            class="sim-trigger text-sm font-medium px-4 py-3.5 rounded-xl border-2 border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100"
+            onclick="setSimState('toinvoice')"
+          >To Invoice</button>
+          <button
+            id="btn-chasing"
+            class="sim-trigger text-sm font-medium px-4 py-3.5 rounded-xl border-2 border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-100"
+            onclick="setSimState('chasing')"
+          >Unpaid / Chasing</button>
+          <button
+            id="btn-paid"
+            class="sim-trigger text-sm font-medium px-4 py-3.5 rounded-xl border-2 border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
+            onclick="setSimState('paid')"
+          >Paid</button>
+        </div>
+
+        <!-- Phone frame -->
+        <div class="mx-auto" style="max-width: 280px;">
+          <div class="bg-gray-800 rounded-[2.75rem] p-[10px] shadow-2xl ring-1 ring-black/10">
+            <div class="bg-white rounded-[2.25rem] overflow-hidden flex flex-col" style="min-height: 560px;">
+
+              <!-- Notch / status bar -->
+              <div class="bg-gray-900 flex items-center justify-between px-5 pt-3 pb-2 shrink-0">
+                <span class="text-white text-xs font-semibold" style="font-variant-numeric: tabular-nums;">9:41</span>
+                <div class="w-16 h-4 bg-gray-800 rounded-full mx-auto absolute left-1/2 -translate-x-1/2 mt-1"></div>
+                <div class="flex items-center gap-1.5">
+                  <svg width="15" height="11" viewBox="0 0 15 11" fill="white" aria-hidden="true">
+                    <rect x="0" y="5" width="2.5" height="6" rx="0.5" opacity="0.35"/>
+                    <rect x="4" y="3" width="2.5" height="8" rx="0.5" opacity="0.6"/>
+                    <rect x="8" y="1" width="2.5" height="10" rx="0.5" opacity="0.85"/>
+                    <rect x="12" y="0" width="2.5" height="11" rx="0.5"/>
+                  </svg>
+                  <svg width="22" height="11" viewBox="0 0 22 11" fill="none" aria-hidden="true">
+                    <rect x="0.5" y="0.5" width="18" height="10" rx="2" stroke="white" stroke-opacity="0.5"/>
+                    <rect x="2" y="2" width="14" height="7" rx="1" fill="white"/>
+                    <path d="M19.5 3.5v4a1.5 1.5 0 0 0 0-4z" fill="white" fill-opacity="0.4"/>
+                  </svg>
+                </div>
+              </div>
+
+              <!-- App header -->
+              <div class="bg-gray-900 px-5 pb-4 flex items-center justify-between shrink-0">
+                <span class="text-white text-base font-semibold tracking-tight">Easy Invoice</span>
+                <button class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center" aria-label="Add job">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+                    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Dynamic screen -->
+              <div id="sim-screen" class="flex-1 flex flex-col">
+                <!-- Default idle -->
+                <div class="screen-anim flex-1 flex flex-col items-center justify-center p-8 text-center gap-4">
+                  <div class="w-14 h-14 rounded-2xl bg-gray-100 flex items-center justify-center">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                      <polyline points="14,2 14,8 20,8"/>
+                      <line x1="12" y1="18" x2="12" y2="12"/>
+                      <line x1="9" y1="15" x2="15" y2="15"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-sm font-medium text-gray-400">Select a state above</p>
+                    <p class="text-xs text-gray-300 mt-1">to preview the invoice lifecycle</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Home indicator -->
+              <div class="shrink-0 bg-white pt-1 pb-3 flex justify-center">
+                <div class="w-20 h-1 bg-gray-200 rounded-full"></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /Simulator -->
+
+      <div class="space-y-6 text-[1.0625rem] leading-[1.85] text-gray-500">
+        <p>The three states map to the entire invoice lifecycle.</p>
+        <ul class="space-y-3 list-none">
+          <li class="flex gap-3"><span class="text-gray-300 select-none">—</span><span>Jobs sit in "To Invoice" until you're ready to batch them and send.</span></li>
+          <li class="flex gap-3"><span class="text-gray-300 select-none">—</span><span>Anything unpaid sits clearly in "Chasing", with the automated reminder badge so you can see at a glance what the client already knows.</span></li>
+          <li class="flex gap-3"><span class="text-gray-300 select-none">—</span><span>"Paid" is exactly as satisfying as it should be.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="max-w-6xl mx-auto px-6"><hr class="border-gray-100"></div>
+
+    <!-- ── 03 How I Got There ────────────────────────────── -->
+    <section class="max-w-6xl mx-auto px-6 py-16">
+      <p class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 mb-3">03 — How I Got There</p>
+      <h2 class="text-3xl font-light tracking-tight text-gray-900 mb-10">Testing with the Trio and Visual Reality Checks</h2>
+
+      <div class="space-y-6 text-[1.0625rem] leading-[1.85] text-gray-500">
+        <p>I tested with three people — a freelance photographer, a self-employed plumber, and a graphic designer. The Trio, I started calling them. Different industries, same core frustration.</p>
+        <p>All three said the same thing early on: the job logging needed to be genuinely fast. If it took more than ten seconds, they'd do it later. And later, as we established, is where invoices go to die.</p>
+        <p>The other thing that came through clearly in testing was how much the visual design of "Paid" mattered. A small green dot and a status change didn't cut it. People wanted to <em class="text-gray-700 not-italic font-medium">feel</em> it — a proper, obvious, you-got-paid moment. The big thumbs up came directly from one of those conversations: "Make it look like something good just happened."</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="max-w-6xl mx-auto px-6 py-12 border-t border-gray-100 flex items-center justify-between flex-wrap gap-4">
+    <a href="https://www.linkedin.com/in/dan-morgan-design/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-[0.9375rem] font-medium text-gray-500 no-underline px-4 py-2.5 border border-gray-200 rounded-full transition-all duration-200 hover:text-[#0A66C2] hover:border-[#0A66C2] hover:bg-[#0A66C2]/[0.06]">
+      <svg class="w-[1.125rem] h-[1.125rem]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+      </svg>
+      LinkedIn
+    </a>
+    <span class="text-sm text-gray-300">Dan Morgan — UX Designer</span>
+  </footer>
+
+
+  <script>
+    const screens = {
+
+      toinvoice: `
+        <div class="screen-anim flex-1 flex flex-col">
+          <div class="px-5 pt-5 pb-3">
+            <p class="text-[0.6875rem] font-semibold uppercase tracking-widest text-indigo-500 mb-1">Ready to Invoice</p>
+            <p class="text-2xl font-bold text-gray-900 tracking-tight">3 completed jobs</p>
+            <p class="text-xs text-gray-400 mt-0.5">Total: £1,270.00</p>
+          </div>
+          <div class="flex-1 px-4 space-y-2 overflow-auto">
+            <div class="bg-gray-50 rounded-2xl px-4 py-3.5 flex items-center justify-between">
+              <div>
+                <p class="text-sm font-semibold text-gray-900 leading-tight">Website Redesign</p>
+                <p class="text-xs text-gray-400 mt-0.5">Acme Studio · 12 Jun</p>
+              </div>
+              <span class="text-sm font-bold text-gray-900">£850</span>
+            </div>
+            <div class="bg-gray-50 rounded-2xl px-4 py-3.5 flex items-center justify-between">
+              <div>
+                <p class="text-sm font-semibold text-gray-900 leading-tight">Logo Refresh</p>
+                <p class="text-xs text-gray-400 mt-0.5">Bright Ideas Co · 8 Jun</p>
+              </div>
+              <span class="text-sm font-bold text-gray-900">£300</span>
+            </div>
+            <div class="bg-gray-50 rounded-2xl px-4 py-3.5 flex items-center justify-between">
+              <div>
+                <p class="text-sm font-semibold text-gray-900 leading-tight">Strategy Call</p>
+                <p class="text-xs text-gray-400 mt-0.5">Solo Labs · 3 Jun</p>
+              </div>
+              <span class="text-sm font-bold text-gray-900">£120</span>
+            </div>
+          </div>
+          <div class="px-4 pb-4 pt-3 shrink-0">
+            <button class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] text-white text-base font-bold rounded-2xl transition-all tracking-tight">
+              Generate Invoice →
+            </button>
+          </div>
+        </div>
+      `,
+
+      chasing: `
+        <div class="screen-anim flex-1 flex flex-col">
+          <div class="bg-amber-50 border-b border-amber-100 px-5 py-4 shrink-0">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold uppercase tracking-widest text-amber-600 bg-amber-100 px-2.5 py-1 rounded-full">Overdue</span>
+              <span class="text-xs text-gray-400">Due 1 Jun</span>
+            </div>
+            <p class="text-2xl font-bold text-gray-900 tracking-tight">£1,270.00</p>
+            <p class="text-sm text-gray-500 mt-0.5">Invoice #0042 · Acme Studio</p>
+          </div>
+          <div class="flex-1 px-5 py-4 flex flex-col gap-3">
+            <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4">
+              <div class="flex items-start gap-3">
+                <div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center shrink-0 mt-0.5">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.25h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-xs font-bold text-amber-700">Auto reminder sent</p>
+                  <p class="text-xs text-amber-600 mt-0.5">3 days ago · "Invoice #0042 is now overdue"</p>
+                </div>
+              </div>
+            </div>
+            <p class="text-xs text-gray-400 text-center px-2">The client has been notified automatically. No awkward follow-up needed from you.</p>
+          </div>
+          <div class="px-4 pb-4 pt-2 shrink-0 space-y-2">
+            <button class="w-full py-4 bg-gray-900 hover:bg-gray-700 active:scale-[0.98] text-white text-base font-bold rounded-2xl transition-all">
+              Mark as Paid
+            </button>
+            <button class="w-full py-3 border-2 border-gray-200 text-gray-500 text-sm font-medium rounded-2xl hover:border-gray-300 transition-all">
+              Add Note
+            </button>
+          </div>
+        </div>
+      `,
+
+      paid: `
+        <div class="screen-anim flex-1 flex flex-col items-center justify-center bg-emerald-500 p-8 text-center">
+          <div class="pop-anim mb-6">
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+              <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
+            </svg>
+          </div>
+          <p class="text-5xl font-black text-white tracking-tight mb-1">PAID</p>
+          <p class="text-2xl font-bold text-emerald-100 mb-6">£1,270.00</p>
+          <div class="bg-emerald-600/50 rounded-2xl px-5 py-3 w-full">
+            <p class="text-sm font-semibold text-white">Invoice #0042 · Acme Studio</p>
+            <p class="text-xs text-emerald-200 mt-0.5">Received 15 Jun 2026</p>
+          </div>
+        </div>
+      `
+    };
+
+    function setSimState(state) {
+      const screen = document.getElementById('sim-screen');
+      screen.innerHTML = screens[state];
+
+      document.querySelectorAll('.sim-trigger').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('btn-' + state).classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
