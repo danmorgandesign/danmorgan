@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Dan Morgan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+
+    .marquee {
+      position: relative;
+      overflow: hidden;
+    }
+    .marquee::before,
+    .marquee::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 4rem;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .marquee::before { left: 0; background: linear-gradient(to right, #fff, transparent); }
+    .marquee::after { right: 0; background: linear-gradient(to left, #fff, transparent); }
+    .marquee__track {
+      display: flex;
+      width: max-content;
+      animation: marquee-scroll 26s linear infinite;
+      will-change: transform;
+      --marquee-distance: -50%;
+    }
+    .marquee__group {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      padding-right: 2.5rem;
+      flex-shrink: 0;
+    }
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(var(--marquee-distance)); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .marquee__track { animation: none; }
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-900">
+
+  <!-- Nav -->
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
+    <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+      <a href="index.html" class="block w-9 h-9 rounded-full overflow-hidden ring-2 ring-gray-200 hover:ring-gray-400 transition-all duration-150" aria-label="Home">
+        <img src="images/crisp-profile.jpg" alt="Dan Morgan" class="w-full h-full object-cover object-top">
+      </a>
+      <a href="portfolio.html" class="hidden sm:inline-flex items-center gap-2 text-[0.9375rem] font-medium text-gray-500 px-4 py-2 border border-gray-200 rounded-full transition-all duration-200 hover:text-gray-900 hover:border-gray-400">Portfolio</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ── Header ────────────────────────────────────────── -->
+    <header class="max-w-6xl mx-auto px-6 pt-16 pb-14">
+      <p class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 mb-3">UX Designer</p>
+      <h1 class="text-5xl sm:text-6xl font-light tracking-tight leading-[1.05] text-gray-900 mb-5">Dan Morgan</h1>
+      <p class="text-xl text-gray-400 font-light leading-relaxed max-w-xl">Crafting intuitive digital experiences that connect people and technology.</p>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-6"><hr class="border-gray-100"></div>
+
+    <!-- ── Bio ───────────────────────────────────────────── -->
+    <section class="max-w-6xl mx-auto px-6 py-16">
+      <div class="space-y-6 text-[1.0625rem] leading-[1.85] text-gray-500 max-w-3xl">
+        <p>I'm a UX Designer who's spent the last 16 years teaching in primary schools, obsessing with how people learn, navigate, and solve problems. I love diving into the 'why' behind user behaviour and turning messy, complex information into something that feels simple and intuitive.</p>
+        <p>For me, design is all about empathy and common sense; I'm a firm believer in data-driven iteration and making sure every pixel serves a real human purpose. I'm always looking for ways to bridge the gap between technical systems and the people who use them to create products that genuinely make life a bit easier.</p>
+      </div>
+    </section>
+
+    <!-- ── Skills & Tools ────────────────────────────────── -->
+    <section class="marquee border-y border-gray-100 py-6" aria-label="Skills and tools">
+      <div class="marquee__track">
+        <div class="marquee__group">
+          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">Wireframing &amp; Prototyping</span>
+          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">User Research &amp; Usability Testing</span>
+          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">Information Architecture</span>
+          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">UX Design / Product Design</span>
+          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">Figma</span>
+          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">Claude</span>
+          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">Lovable</span>
+          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">GitHub</span>
+        </div>
+        <div class="marquee__group" aria-hidden="true">
+          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">Wireframing &amp; Prototyping</span>
+          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">User Research &amp; Usability Testing</span>
+          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">Information Architecture</span>
+          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">UX Design / Product Design</span>
+          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">Figma</span>
+          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">Claude</span>
+          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">Lovable</span>
+          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">GitHub</span>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      (function () {
+        var track = document.querySelector('.marquee__track');
+        var group = document.querySelector('.marquee__group');
+        function setMarqueeDistance() {
+          track.style.setProperty('--marquee-distance', -group.getBoundingClientRect().width + 'px');
+        }
+        setMarqueeDistance();
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(setMarqueeDistance);
+        }
+        window.addEventListener('resize', setMarqueeDistance);
+      })();
+    </script>
+
+    <!-- ── Portfolio ─────────────────────────────────────── -->
+    <section class="max-w-6xl mx-auto px-6 py-16">
+      <h2 class="text-3xl font-light tracking-tight text-gray-900 mb-10">Portfolio</h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+        <!-- Card 1: Library Lite (active) -->
+        <a href="library-lite.html" class="group relative flex flex-col justify-between rounded-3xl overflow-hidden bg-white border-2 border-gray-200 p-8 min-h-[320px] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-gray-300">
+          <div>
+            <span class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400">UX Design · Mobile App</span>
+          </div>
+          <div>
+            <h3 class="text-2xl font-semibold text-gray-900 tracking-tight mb-2">Library Lite</h3>
+            <p class="text-sm text-gray-500 leading-relaxed mb-6">Scan-first library management designed for the reality of a busy school.</p>
+            <div class="inline-flex items-center gap-2 text-sm font-medium text-gray-900 group-hover:gap-3 transition-all duration-200">
+              View case study
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- Placeholder (reserved) -->
+        <div class="rounded-3xl bg-white border-2 border-gray-200 min-h-[320px]"></div>
+
+        <!-- Bike Bus -->
+        <a href="bike-bus.html" class="group relative flex flex-col justify-between rounded-3xl overflow-hidden bg-white border-2 border-gray-200 p-8 min-h-[320px] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-gray-300">
+          <div>
+            <span class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400">UX Design · Mobile App</span>
+          </div>
+          <div>
+            <h3 class="text-2xl font-semibold text-gray-900 tracking-tight mb-2">Bike Bus</h3>
+            <p class="text-sm text-gray-500 leading-relaxed mb-6">A decentralized school bike bus, built so no single parent can cancel it by accident.</p>
+            <div class="inline-flex items-center gap-2 text-sm font-medium text-gray-900 group-hover:gap-3 transition-all duration-200">
+              View case study
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- Placeholder (reserved) -->
+        <div class="rounded-3xl bg-white border-2 border-gray-200 min-h-[320px]"></div>
+
+        <!-- Easy Invoice -->
+        <a href="easy-invoice.html" class="group relative flex flex-col justify-between rounded-3xl overflow-hidden bg-white border-2 border-gray-200 p-8 min-h-[320px] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-gray-300">
+          <div>
+            <span class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400">Product Design · Mobile App</span>
+          </div>
+          <div>
+            <h3 class="text-2xl font-semibold text-gray-900 tracking-tight mb-2">Easy Invoice</h3>
+            <p class="text-sm text-gray-500 leading-relaxed mb-6">Frictionless invoicing for freelancers — built around how people actually work.</p>
+            <div class="inline-flex items-center gap-2 text-sm font-medium text-gray-900 group-hover:gap-3 transition-all duration-200">
+              View case study
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- Placeholder (reserved) -->
+        <div class="rounded-3xl bg-white border-2 border-gray-200 min-h-[320px]"></div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="max-w-6xl mx-auto px-6 py-12 border-t border-gray-100 flex items-center justify-between flex-wrap gap-4">
+    <a href="https://www.linkedin.com/in/dan-morgan-design/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-[0.9375rem] font-medium text-gray-500 no-underline px-4 py-2.5 border border-gray-200 rounded-full transition-all duration-200 hover:text-[#0A66C2] hover:border-[#0A66C2] hover:bg-[#0A66C2]/[0.06]">
+      <svg class="w-[1.125rem] h-[1.125rem]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+      </svg>
+      LinkedIn
+    </a>
+    <span class="text-sm text-gray-300">Dan Morgan — UX Designer</span>
+  </footer>
+
+</body>
+</html>
