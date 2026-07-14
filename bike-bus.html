@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bike Bus — Dan Morgan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-900">
+
+  <!-- Nav -->
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
+    <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+      <a href="index.html" class="block w-9 h-9 rounded-full overflow-hidden ring-2 ring-gray-200 hover:ring-gray-400 transition-all duration-150" aria-label="Home">
+        <img src="images/crisp-profile.jpg" alt="Dan Morgan" class="w-full h-full object-cover object-top">
+      </a>
+      <div class="flex items-center gap-3">
+        <a href="about.html" class="hidden sm:inline-flex items-center gap-2 text-[0.9375rem] font-medium text-gray-500 px-4 py-2 border border-gray-200 rounded-full transition-all duration-200 hover:text-gray-900 hover:border-gray-400">About</a>
+        <a href="portfolio.html" class="hidden sm:inline-flex items-center gap-2 text-[0.9375rem] font-medium text-gray-500 px-4 py-2 border border-gray-200 rounded-full transition-all duration-200 hover:text-gray-900 hover:border-gray-400">Portfolio</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ── Hero ──────────────────────────────────────────── -->
+    <header class="max-w-6xl mx-auto px-6 pt-16 pb-14">
+      <div class="flex flex-wrap gap-2 mb-7">
+        <span class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 border border-gray-200 rounded-full px-3 py-1">UX Design</span>
+        <span class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 border border-gray-200 rounded-full px-3 py-1">Interaction Design</span>
+        <span class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 border border-gray-200 rounded-full px-3 py-1">Mobile App</span>
+      </div>
+
+      <h1 class="text-5xl sm:text-6xl font-light tracking-tight leading-[1.05] text-gray-900 mb-5">Bike Bus</h1>
+      <p class="text-xl text-gray-400 font-light leading-relaxed max-w-xl">A bike bus shouldn't collapse because one parent slept in. Bike Bus turns a fragile, single-leader school run into something almost impossible to cancel.</p>
+
+      <dl class="grid grid-cols-2 sm:grid-cols-3 gap-y-6 gap-x-8 mt-12 pt-10 border-t border-gray-100">
+        <div>
+          <dt class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 mb-1.5">Role</dt>
+          <dd class="text-sm text-gray-700">UX Designer</dd>
+        </div>
+        <div>
+          <dt class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 mb-1.5">Context</dt>
+          <dd class="text-sm text-gray-700">Personal Project</dd>
+        </div>
+        <div>
+          <dt class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 mb-1.5">Focus</dt>
+          <dd class="text-sm text-gray-700">Decentralized &amp; Resilient</dd>
+        </div>
+      </dl>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-6"><hr class="border-gray-100"></div>
+
+    <!-- ── 01 The Problem ────────────────────────────────── -->
+    <section class="max-w-6xl mx-auto px-6 py-16">
+      <p class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 mb-3">01 — The Problem</p>
+      <h2 class="text-3xl font-light tracking-tight text-gray-900 mb-10">When the WhatsApp Group Goes Quiet</h2>
+
+      <div class="space-y-6 text-[1.0625rem] leading-[1.85] text-gray-500">
+        <p>Every bike bus starts the same way: a WhatsApp group, one keen parent, and a great idea. Then real life gets in the way.</p>
+        <p>The lead parent takes a sick day, gets stuck in traffic, or goes on holiday — and the whole thing quietly stalls. Nobody wants to be the one standing on the corner in the rain, waiting for a ride that was cancelled at 7:41am and buried under forty other messages about the school fair.</p>
+        <p>The usual workaround makes it worse. Someone shares a mobile number or an email so people can "just message directly" — and hands it to a group that keeps growing every term. It doesn't take long before that becomes a spam magnet, or something less innocent.</p>
+        <p>The problem was never enthusiasm. It was that the whole system depended on one person being available, awake, and glued to their phone, every single morning.</p>
+      </div>
+    </section>
+
+    <div class="max-w-6xl mx-auto px-6"><hr class="border-gray-100"></div>
+
+    <!-- ── 02 The Solution ───────────────────────────────── -->
+    <section class="max-w-6xl mx-auto px-6 py-16">
+      <p class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 mb-3">02 — The Solution</p>
+      <h2 class="text-3xl font-light tracking-tight text-gray-900 mb-10">The Flock, Not the Leader</h2>
+
+      <div class="space-y-6 text-[1.0625rem] leading-[1.85] text-gray-500">
+        <p>So the fix wasn't a better leader. It was removing the idea of a leader altogether.</p>
+        <p>Bike Bus behaves like a flock rather than a chain of command. Any parent in the group can open the app and tap Start Ride — there's no admin, no gatekeeper, no single point of failure. Whoever gets there first switches on a live beacon, and the ride exists from that moment, for everyone.</p>
+        <p>Getting the notifications right mattered more than the map itself. Nobody wants their kid standing on a cold corner ten minutes early, and nobody wants them to miss the bus because they weren't staring at their phone. So there are two triggers, not one:</p>
+        <ul class="space-y-3 list-none">
+          <li class="flex gap-3"><span class="text-gray-300 select-none">—</span><span><strong class="text-gray-700 font-medium">First Beacon Active</strong> — the moment someone starts a ride, everyone still at home gets a nudge. No more guessing whether today's the day.</span></li>
+          <li class="flex gap-3"><span class="text-gray-300 select-none">—</span><span><strong class="text-gray-700 font-medium">500m Proximity Alert</strong> — when the beacon gets close, the next family gets pinged. Not before, not vaguely — close enough that stepping outside actually means something.</span></li>
+        </ul>
+        <p>Two notifications, timed right, and nobody's standing in the rain for nothing.</p>
+      </div>
+    </section>
+
+    <div class="max-w-6xl mx-auto px-6"><hr class="border-gray-100"></div>
+
+    <!-- ── 03 How I Got There ────────────────────────────── -->
+    <section class="max-w-6xl mx-auto px-6 py-16">
+      <p class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 mb-3">03 — How I Got There</p>
+      <h2 class="text-3xl font-light tracking-tight text-gray-900 mb-10">Designing for Privacy &amp; Trust</h2>
+
+      <div class="space-y-6 text-[1.0625rem] leading-[1.85] text-gray-500">
+        <p>The moment you're building something that tracks children's location, the brief changes. This isn't a feature to get right — it's the whole product, and there's no version of "close enough" that's acceptable here.</p>
+        <p>The first decision was to make the data disappear. Location is only ever live during an active ride, and it's automatically destroyed 60 minutes after that ride ends. There's no archive of where anyone's kid was three Tuesdays ago, because that archive is a liability nobody needs and no parent asked for.</p>
+        <p>The second decision was harder to justify on a whiteboard but obvious in practice: access to a bus is granted entirely through the WhatsApp groups parents already use to organise the school run. No public sign-up, no searchable directory, no stranger requesting to join. If you're already in the group, you're already vetted by the parents who built it. The social layer does the security work, so the app doesn't need a heavy permissions system bolted on top.</p>
+        <p>It's not the most sophisticated security model on paper. But it matches how trust actually works at a school gate, and it meant I could keep the app simple instead of asking parents to manage settings they'd never touch.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="max-w-6xl mx-auto px-6 py-12 border-t border-gray-100 flex items-center justify-between flex-wrap gap-4">
+    <a href="https://www.linkedin.com/in/dan-morgan-design/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-[0.9375rem] font-medium text-gray-500 no-underline px-4 py-2.5 border border-gray-200 rounded-full transition-all duration-200 hover:text-[#0A66C2] hover:border-[#0A66C2] hover:bg-[#0A66C2]/[0.06]">
+      <svg class="w-[1.125rem] h-[1.125rem]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+      </svg>
+      LinkedIn
+    </a>
+    <span class="text-sm text-gray-300">Dan Morgan — UX Designer</span>
+  </footer>
+
+
+
+</body>
+</html>
