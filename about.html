@@ -23,44 +23,6 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; }
     body { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
-
-    .marquee {
-      position: relative;
-      overflow: hidden;
-    }
-    .marquee::before,
-    .marquee::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 4rem;
-      z-index: 1;
-      pointer-events: none;
-    }
-    .marquee::before { left: 0; background: linear-gradient(to right, #fff, transparent); }
-    .marquee::after { right: 0; background: linear-gradient(to left, #fff, transparent); }
-    .marquee__track {
-      display: flex;
-      width: max-content;
-      animation: marquee-scroll 26s linear infinite;
-      will-change: transform;
-      --marquee-distance: -50%;
-    }
-    .marquee__group {
-      display: flex;
-      align-items: center;
-      gap: 2.5rem;
-      padding-right: 2.5rem;
-      flex-shrink: 0;
-    }
-    @keyframes marquee-scroll {
-      from { transform: translateX(0); }
-      to   { transform: translateX(var(--marquee-distance)); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .marquee__track { animation: none; }
-    }
   </style>
 </head>
 <body class="bg-white text-gray-900">
@@ -93,47 +55,6 @@
         <p>For me, design is all about empathy and common sense; I'm a firm believer in data-driven iteration and making sure every pixel serves a real human purpose. I'm always looking for ways to bridge the gap between technical systems and the people who use them to create products that genuinely make life a bit easier.</p>
       </div>
     </section>
-
-    <!-- ── Skills & Tools ────────────────────────────────── -->
-    <section class="marquee border-y border-gray-100 py-6" aria-label="Skills and tools">
-      <div class="marquee__track">
-        <div class="marquee__group">
-          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">Wireframing &amp; Prototyping</span>
-          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">User Research &amp; Usability Testing</span>
-          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">Information Architecture</span>
-          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">UX Design / Product Design</span>
-          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">Figma</span>
-          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">Claude</span>
-          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">Lovable</span>
-          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">GitHub</span>
-        </div>
-        <div class="marquee__group" aria-hidden="true">
-          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">Wireframing &amp; Prototyping</span>
-          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">User Research &amp; Usability Testing</span>
-          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">Information Architecture</span>
-          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">UX Design / Product Design</span>
-          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">Figma</span>
-          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">Claude</span>
-          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">Lovable</span>
-          <span class="text-[0.9375rem] font-medium text-gray-400 whitespace-nowrap">GitHub</span>
-        </div>
-      </div>
-    </section>
-
-    <script>
-      (function () {
-        var track = document.querySelector('.marquee__track');
-        var group = document.querySelector('.marquee__group');
-        function setMarqueeDistance() {
-          track.style.setProperty('--marquee-distance', -group.getBoundingClientRect().width + 'px');
-        }
-        setMarqueeDistance();
-        if (document.fonts && document.fonts.ready) {
-          document.fonts.ready.then(setMarqueeDistance);
-        }
-        window.addEventListener('resize', setMarqueeDistance);
-      })();
-    </script>
 
     <!-- ── Portfolio ─────────────────────────────────────── -->
     <section class="max-w-6xl mx-auto px-6 py-16">
