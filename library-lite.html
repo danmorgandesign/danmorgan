@@ -38,7 +38,10 @@
       <a href="index.html" class="block w-9 h-9 rounded-full overflow-hidden ring-2 ring-gray-200 hover:ring-gray-400 transition-all duration-150" aria-label="Home">
         <img src="images/crisp-profile.jpg" alt="Dan Morgan" class="w-full h-full object-cover object-top">
       </a>
-      <a href="portfolio.html" class="hidden sm:inline-flex items-center gap-2 text-[0.9375rem] font-medium text-gray-500 px-4 py-2 border border-gray-200 rounded-full transition-all duration-200 hover:text-gray-900 hover:border-gray-400">Portfolio</a>
+      <div class="flex items-center gap-3">
+        <a href="about.html" class="hidden sm:inline-flex items-center gap-2 text-[0.9375rem] font-medium text-gray-500 px-4 py-2 border border-gray-200 rounded-full transition-all duration-200 hover:text-gray-900 hover:border-gray-400">About</a>
+        <a href="portfolio.html" class="hidden sm:inline-flex items-center gap-2 text-[0.9375rem] font-medium text-gray-500 px-4 py-2 border border-gray-200 rounded-full transition-all duration-200 hover:text-gray-900 hover:border-gray-400">Portfolio</a>
+      </div>
     </div>
   </nav>
 
@@ -70,6 +73,13 @@
         </div>
       </dl>
     </header>
+
+    <!-- ── Hero Screenshot ───────────────────────────────── -->
+    <div class="max-w-6xl mx-auto px-6 pb-16">
+      <div class="max-w-3xl mx-auto">
+        <img src="images/library-lite-landing.png" alt="Library Lite landing screen with search, nav, and the Scan a Book CTA, shown in a landscape iPad frame" class="w-full h-auto block">
+      </div>
+    </div>
 
     <div class="max-w-6xl mx-auto px-6"><hr class="border-gray-100"></div>
 
@@ -218,6 +228,50 @@
           <li class="flex gap-3"><span class="text-gray-300 select-none">—</span><span>Available — it drops you straight into checkout.</span></li>
           <li class="flex gap-3"><span class="text-gray-300 select-none">—</span><span>Already on loan — it tells you who has it and gives you a one-tap return.</span></li>
         </ul>
+      </div>
+
+      <!-- ── Scan Flow Screens ────────────────────────────── -->
+      <div class="mt-14">
+        <p class="text-[0.6875rem] font-semibold uppercase tracking-widest text-gray-400 text-center mb-8">The Actual Screens</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-5">
+
+          <figure>
+            <div class="bg-gray-900 rounded-[1.75rem] p-2 shadow-lg">
+              <div class="bg-white rounded-[1.25rem] overflow-hidden aspect-[3/4]">
+                <img src="images/library-lite-scan.png" alt="Scan screen with camera viewfinder and scan instructions" class="w-full h-full object-cover object-top">
+              </div>
+            </div>
+            <figcaption class="text-center text-sm text-gray-500 mt-3">Scan</figcaption>
+          </figure>
+
+          <figure>
+            <div class="bg-gray-900 rounded-[1.75rem] p-2 shadow-lg">
+              <div class="bg-white rounded-[1.25rem] overflow-hidden aspect-[3/4]">
+                <img src="images/library-lite-not-in-catalogue.png" alt="Result screen for a book not yet in the catalogue, with an Add and Loan option" class="w-full h-full object-cover object-top">
+              </div>
+            </div>
+            <figcaption class="text-center text-sm text-gray-500 mt-3">Not in Catalogue</figcaption>
+          </figure>
+
+          <figure>
+            <div class="bg-gray-900 rounded-[1.75rem] p-2 shadow-lg">
+              <div class="bg-white rounded-[1.25rem] overflow-hidden aspect-[3/4]">
+                <img src="images/library-lite-in-catalogue.png" alt="Result screen for a book that is available to loan" class="w-full h-full object-cover object-top">
+              </div>
+            </div>
+            <figcaption class="text-center text-sm text-gray-500 mt-3">Available</figcaption>
+          </figure>
+
+          <figure>
+            <div class="bg-gray-900 rounded-[1.75rem] p-2 shadow-lg">
+              <div class="bg-white rounded-[1.25rem] overflow-hidden aspect-[3/4]">
+                <img src="images/library-lite-on-loan.png" alt="Result screen for a book currently on loan, with a one-tap return option" class="w-full h-full object-cover object-top">
+              </div>
+            </div>
+            <figcaption class="text-center text-sm text-gray-500 mt-3">Checked Out</figcaption>
+          </figure>
+
+        </div>
       </div>
     </section>
 
