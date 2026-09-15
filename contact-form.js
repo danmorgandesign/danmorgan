@@ -67,7 +67,8 @@
   }
 
   document.querySelectorAll('[data-copy-email]').forEach(function (el) {
-    el.textContent = address;
+    var label = el.querySelector('[data-copy-email-label]') || el;
+    label.textContent = address;
 
     el.addEventListener('click', function () {
       var copied = navigator.clipboard && navigator.clipboard.writeText
@@ -77,8 +78,8 @@
       copied
         .catch(function () { fallbackCopy(address); })
         .finally(function () {
-          el.textContent = 'Copied!';
-          setTimeout(function () { el.textContent = address; }, 1500);
+          label.textContent = 'Copied!';
+          setTimeout(function () { label.textContent = address; }, 1500);
         });
     });
   });
