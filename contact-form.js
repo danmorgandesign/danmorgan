@@ -49,13 +49,37 @@
     });
   });
 
-  // Mailto fallback, assembled at runtime from character codes so the
-  // address never appears as plain text for scrapers to lift.
+  // Copy-to-clipboard fallback, address assembled at runtime from character
+  // codes so it never appears as plain text for scrapers to lift.
   var addressCodes = [100, 101, 115, 105, 103, 110, 64, 100, 97, 110, 109, 111, 114, 103, 97, 110, 46, 99, 111, 46, 117, 107];
   var address = String.fromCharCode.apply(null, addressCodes);
 
-  document.querySelectorAll('[data-mailto-link]').forEach(function (el) {
-    el.href = 'mailto:' + address;
+  function fallbackCopy(text) {
+    var tmp = document.createElement('textarea');
+    tmp.value = text;
+    tmp.style.position = 'fixed';
+    tmp.style.opacity = '0';
+    document.body.appendChild(tmp);
+    tmp.focus();
+    tmp.select();
+    try { document.execCommand('copy'); } catch (err) {}
+    document.body.removeChild(tmp);
+  }
+
+  document.querySelectorAll('[data-copy-email]').forEach(function (el) {
     el.textContent = address;
+
+    el.addEventListener('click', function () {
+      var copied = navigator.clipboard && navigator.clipboard.writeText
+        ? navigator.clipboard.writeText(address)
+        : Promise.resolve(fallbackCopy(address));
+
+      copied
+        .catch(function () { fallbackCopy(address); })
+        .finally(function () {
+          el.textContent = 'Copied!';
+          setTimeout(function () { el.textContent = address; }, 1500);
+        });
+    });
   });
 })();
