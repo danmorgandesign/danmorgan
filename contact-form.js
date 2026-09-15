@@ -1,7 +1,7 @@
 (function () {
   // Get a free key at https://web3forms.com — it relays submissions to your
   // inbox without ever exposing your email address in the page source.
-  var WEB3FORMS_ACCESS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY';
+  var WEB3FORMS_ACCESS_KEY = '9d1f6b27-4c09-4bb9-9bed-e0f0e0f1355f';
 
   document.querySelectorAll('form[data-contact-form]').forEach(function (form) {
     var status = form.querySelector('[data-form-status]');
