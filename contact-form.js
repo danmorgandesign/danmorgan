@@ -48,4 +48,14 @@
         });
     });
   });
+
+  // Mailto fallback, assembled at runtime from character codes so the
+  // address never appears as plain text for scrapers to lift.
+  var addressCodes = [100, 101, 115, 105, 103, 110, 64, 100, 97, 110, 109, 111, 114, 103, 97, 110, 46, 99, 111, 46, 117, 107];
+  var address = String.fromCharCode.apply(null, addressCodes);
+
+  document.querySelectorAll('[data-mailto-link]').forEach(function (el) {
+    el.href = 'mailto:' + address;
+    el.textContent = address;
+  });
 })();

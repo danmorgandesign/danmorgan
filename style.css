@@ -165,6 +165,13 @@ body {
   flex-shrink: 0;
 }
 
+.social-link--neutral:hover,
+.social-link--neutral:focus-visible {
+  color: var(--color-text);
+  border-color: var(--color-text-muted);
+  background-color: color-mix(in srgb, var(--color-text) 6%, transparent);
+}
+
 /* CTA button */
 .cta-button {
   display: inline-flex;
