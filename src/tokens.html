@@ -1,0 +1,258 @@
+---
+title: Design Tokens — Dan Morgan
+permalink: tokens.html
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }}</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Google+Sans+Flex:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      background: var(--surface-base);
+      color: var(--text-primary);
+    }
+    h1, h2, h3 { font-family: var(--font-headline); font-weight: var(--font-weight-bold); margin: 0; }
+    main { max-width: 72rem; margin: 0 auto; padding: var(--space-16) var(--space-6) var(--space-24); }
+    p { color: var(--text-muted); }
+
+    .page-header { margin-bottom: var(--space-16); }
+    .page-header p { max-width: 40rem; margin-top: var(--space-2); }
+
+    section { margin-bottom: var(--space-16); }
+    section > h2 { font-size: var(--font-size-2xl); margin-bottom: var(--space-6); }
+
+    .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+    @media (max-width: 640px) { .mode-grid { grid-template-columns: 1fr; } }
+
+    .mode-panel {
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-card);
+      padding: var(--space-card-padding);
+      background: var(--surface-card);
+      color: var(--text-primary);
+    }
+    .mode-panel__label {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: var(--space-4);
+    }
+
+    /*
+     * .theme-dark mirrors tokens.css's @media (prefers-color-scheme: dark) block,
+     * but as a class so a "Dark" panel can render next to a "Light" one regardless
+     * of the viewer's OS setting — this page needs both visible at once to check
+     * against Figma's side-by-side Light/Dark specimens.
+     */
+    .theme-dark {
+      --surface-base: var(--slate-900);
+      --surface-card: var(--slate-800);
+      --surface-disabled: var(--slate-800);
+      --text-primary: var(--slate-50);
+      --text-muted: var(--slate-400);
+      --text-link: var(--magenta-300);
+      --border-subtle: var(--slate-800);
+      --border-strong: var(--slate-50);
+      --status-success: var(--green-300);
+      --status-warning: var(--amber-300);
+      --status-error: var(--red-300);
+      --status-info: var(--cyan-300);
+      --interactive-disabled-bg: var(--slate-800);
+      --interactive-disabled-border: var(--slate-500);
+      --interactive-disabled-text: var(--slate-500);
+    }
+    .theme-dark { background: var(--surface-base); }
+
+    .token-row { display: flex; align-items: center; gap: var(--space-4); margin-bottom: var(--space-4); }
+    .token-row:last-child { margin-bottom: 0; }
+    .swatch {
+      width: 3rem; height: 3rem; flex-shrink: 0;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+    }
+    .token-meta { font-size: var(--font-size-sm); }
+    .token-name { font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+    .token-alias { color: var(--text-muted); }
+
+    .text-sample { font-size: var(--font-size-lg); margin-bottom: var(--space-4); }
+    .text-sample:last-child { margin-bottom: 0; }
+    .text-sample--headline { font-family: var(--font-headline); font-weight: var(--font-weight-bold); font-size: var(--font-size-xl); color: var(--text-primary); }
+    .text-sample--body { font-family: var(--font-body); color: var(--text-muted); }
+    .text-sample--link { font-family: var(--font-body); color: var(--text-link); text-decoration: underline; }
+
+    .swatch-mini { display: inline-flex; flex-direction: column; align-items: center; gap: var(--space-2); margin-right: var(--space-6); }
+    .swatch-mini__box { width: 3.5rem; height: 3.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
+    .swatch-mini__label { font-size: var(--font-size-xs); color: var(--text-muted); }
+
+    .disabled-demo {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: var(--space-2) var(--space-4);
+      background: var(--interactive-disabled-bg);
+      border: 1px solid var(--interactive-disabled-border);
+      color: var(--interactive-disabled-text);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+    }
+
+    .border-demo { display: flex; gap: var(--space-4); }
+    .border-demo__box {
+      flex: 1; padding: var(--space-4);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-xs);
+      color: var(--text-muted);
+    }
+    .border-demo__box--subtle { border: 1px solid var(--border-subtle); }
+    .border-demo__box--strong { border: 2px solid var(--border-strong); }
+
+    .space-demo {
+      display: inline-block;
+      background: var(--brand-primary);
+      border-radius: var(--radius-sm);
+    }
+    .space-demo-wrap { border: 1px dashed var(--border-subtle); border-radius: var(--radius-md); display: inline-block; }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="page-header">
+      <h1 style="font-size: var(--font-size-3xl);">Design Tokens</h1>
+      <p>Every semantic token from the "Design System V1" Figma file, Light and Dark side by side, for checking against the Figma specimens. Not linked from the site nav — direct-URL only.</p>
+    </header>
+
+    <!-- Surface -->
+    <section>
+      <h2>Surface</h2>
+      <div class="mode-grid">
+        <div class="mode-panel">
+          <p class="mode-panel__label">Light</p>
+          <div class="token-row"><div class="swatch" style="background: var(--surface-base);"></div><div class="token-meta"><div class="token-name">surface-base</div><div class="token-alias">→ slate-50</div></div></div>
+          <div class="token-row"><div class="swatch" style="background: var(--surface-card);"></div><div class="token-meta"><div class="token-name">surface-card</div><div class="token-alias">→ neutral-white</div></div></div>
+          <div class="token-row"><div class="swatch" style="background: var(--surface-disabled);"></div><div class="token-meta"><div class="token-name">surface-disabled</div><div class="token-alias">→ slate-100</div></div></div>
+        </div>
+        <div class="mode-panel theme-dark">
+          <p class="mode-panel__label">Dark</p>
+          <div class="token-row"><div class="swatch" style="background: var(--surface-base);"></div><div class="token-meta"><div class="token-name">surface-base</div><div class="token-alias">→ slate-900</div></div></div>
+          <div class="token-row"><div class="swatch" style="background: var(--surface-card);"></div><div class="token-meta"><div class="token-name">surface-card</div><div class="token-alias">→ slate-800</div></div></div>
+          <div class="token-row"><div class="swatch" style="background: var(--surface-disabled);"></div><div class="token-meta"><div class="token-name">surface-disabled</div><div class="token-alias">→ slate-800</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Text -->
+    <section>
+      <h2>Text</h2>
+      <div class="mode-grid">
+        <div class="mode-panel">
+          <p class="mode-panel__label">Light</p>
+          <p class="text-sample text-sample--headline">Design System V1</p>
+          <p class="text-sample text-sample--body">text-primary / text-muted — body copy in font-body, on surface-card.</p>
+          <p class="text-sample text-sample--link">text-link — view documentation →</p>
+        </div>
+        <div class="mode-panel theme-dark">
+          <p class="mode-panel__label">Dark</p>
+          <p class="text-sample text-sample--headline">Design System V1</p>
+          <p class="text-sample text-sample--body">text-primary / text-muted — body copy in font-body, on surface-card.</p>
+          <p class="text-sample text-sample--link">text-link — view documentation →</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Border -->
+    <section>
+      <h2>Border</h2>
+      <div class="mode-grid">
+        <div class="mode-panel">
+          <p class="mode-panel__label">Light</p>
+          <div class="border-demo">
+            <div class="border-demo__box border-demo__box--subtle">border-subtle → slate-200</div>
+            <div class="border-demo__box border-demo__box--strong">border-strong → slate-900</div>
+          </div>
+        </div>
+        <div class="mode-panel theme-dark">
+          <p class="mode-panel__label">Dark</p>
+          <div class="border-demo">
+            <div class="border-demo__box border-demo__box--subtle">border-subtle → slate-800</div>
+            <div class="border-demo__box border-demo__box--strong">border-strong → slate-50</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Brand & Focus (mode-invariant) -->
+    <section>
+      <h2>Brand &amp; Focus <span style="font-family: var(--font-body); font-weight: var(--font-weight-regular); font-size: var(--font-size-sm); color: var(--text-muted); text-transform: none; letter-spacing: normal;">— mode-invariant, same value in both modes</span></h2>
+      <div class="mode-panel">
+        <div class="token-row"><div class="swatch" style="background: var(--brand-primary);"></div><div class="token-meta"><div class="token-name">brand-primary</div><div class="token-alias">→ lime-500</div></div></div>
+        <div class="token-row"><div class="swatch" style="background: var(--focus-ring);"></div><div class="token-meta"><div class="token-name">focus-ring</div><div class="token-alias">→ cyan-500</div></div></div>
+      </div>
+    </section>
+
+    <!-- Status -->
+    <section>
+      <h2>Status</h2>
+      <div class="mode-grid">
+        <div class="mode-panel">
+          <p class="mode-panel__label">Light</p>
+          <div class="swatch-mini"><div class="swatch-mini__box" style="background: var(--status-success);"></div><div class="swatch-mini__label">success</div></div>
+          <div class="swatch-mini"><div class="swatch-mini__box" style="background: var(--status-warning);"></div><div class="swatch-mini__label">warning</div></div>
+          <div class="swatch-mini"><div class="swatch-mini__box" style="background: var(--status-error);"></div><div class="swatch-mini__label">error</div></div>
+          <div class="swatch-mini"><div class="swatch-mini__box" style="background: var(--status-info);"></div><div class="swatch-mini__label">info</div></div>
+        </div>
+        <div class="mode-panel theme-dark">
+          <p class="mode-panel__label">Dark</p>
+          <div class="swatch-mini"><div class="swatch-mini__box" style="background: var(--status-success);"></div><div class="swatch-mini__label">success</div></div>
+          <div class="swatch-mini"><div class="swatch-mini__box" style="background: var(--status-warning);"></div><div class="swatch-mini__label">warning</div></div>
+          <div class="swatch-mini"><div class="swatch-mini__box" style="background: var(--status-error);"></div><div class="swatch-mini__label">error</div></div>
+          <div class="swatch-mini"><div class="swatch-mini__box" style="background: var(--status-info);"></div><div class="swatch-mini__label">info</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive disabled -->
+    <section>
+      <h2>Interactive — Disabled</h2>
+      <div class="mode-grid">
+        <div class="mode-panel">
+          <p class="mode-panel__label">Light</p>
+          <div class="disabled-demo">Confirm action</div>
+        </div>
+        <div class="mode-panel theme-dark">
+          <p class="mode-panel__label">Dark</p>
+          <div class="disabled-demo">Confirm action</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Spacing & Radius (non-color, mode-invariant) -->
+    <section>
+      <h2>Spacing &amp; Radius <span style="font-family: var(--font-body); font-weight: var(--font-weight-regular); font-size: var(--font-size-sm); color: var(--text-muted); text-transform: none; letter-spacing: normal;">— mode-invariant</span></h2>
+      <div class="mode-panel">
+        <div class="token-row">
+          <span class="space-demo-wrap"><span class="space-demo" style="width: var(--space-card-padding); height: var(--space-card-padding);"></span></span>
+          <div class="token-meta"><div class="token-name">space-card-padding</div><div class="token-alias">→ space-6 (24px)</div></div>
+        </div>
+        <div class="token-row">
+          <span class="space-demo-wrap"><span class="space-demo" style="width: var(--space-element-gap); height: var(--space-element-gap);"></span></span>
+          <div class="token-meta"><div class="token-name">space-element-gap</div><div class="token-alias">→ space-4 (16px)</div></div>
+        </div>
+        <div class="token-row">
+          <span class="swatch" style="background: var(--surface-disabled); border-radius: var(--radius-card);"></span>
+          <div class="token-meta"><div class="token-name">radius-card</div><div class="token-alias">→ radius-lg (12px)</div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

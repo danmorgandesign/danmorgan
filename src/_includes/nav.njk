@@ -1,0 +1,19 @@
+  <!-- Nav -->
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
+    <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+      <a href="index.html" class="group flex items-center gap-2.5">
+        <span class="block w-9 h-9 rounded-full overflow-hidden ring-2 ring-gray-200 group-hover:ring-gray-400 transition-all duration-150">
+          <img src="images/crisp-profile.jpg" alt="" class="w-full h-full object-cover object-top">
+        </span>
+        <span class="text-lg font-medium text-gray-900">Dan Morgan</span>
+      </a>
+      <div class="flex items-center gap-3">
+        {% if nav != "about" %}<a href="about.html" class="hidden sm:inline-flex items-center gap-2 text-[0.9375rem] font-medium text-gray-500 px-4 py-2 border border-gray-200 rounded-full transition-all duration-200 hover:text-gray-900 hover:border-gray-400">About</a>{% endif %}
+        {% if nav != "portfolio" %}<a href="portfolio.html" class="hidden sm:inline-flex items-center gap-2 text-[0.9375rem] font-medium text-gray-500 px-4 py-2 border border-gray-200 rounded-full transition-all duration-200 hover:text-gray-900 hover:border-gray-400">Portfolio</a>{% endif %}
+        {% if nav == "about" or nav == "portfolio" %}<a href="contact.html" class="hidden sm:inline-flex items-center gap-2 text-[0.9375rem] font-medium text-gray-500 px-4 py-2 border border-gray-200 rounded-full transition-all duration-200 hover:text-gray-900 hover:border-gray-400">Contact</a>{% endif %}
+        {% if nav == "case-study" %}<a href="portfolio.html" class="flex sm:hidden items-center justify-center w-9 h-9 rounded-full border border-gray-200 text-gray-500 transition-all duration-200 hover:text-gray-900 hover:border-gray-400" aria-label="Close and return to portfolio">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </a>{% endif %}
+      </div>
+    </div>
+  </nav>

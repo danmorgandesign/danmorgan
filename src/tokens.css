@@ -1,0 +1,196 @@
+/*
+ * Design tokens for the v2 restyle direction.
+ * Source: Figma "Dan Morgan Design Website" (Hrq0aL2IaT6DpSCmuTW7uY),
+ * page "Design System V1" — Primitive Token Library + semantic specimens.
+ * Not wired into any page yet. Hand-editing primitives will drift from Figma —
+ * re-generate this section from the file instead.
+ */
+
+:root {
+  /* ---- Primitives: color ---- */
+  --neutral-white: #ffffff;
+  --neutral-black: #000000;
+
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+
+  --lime-50: #feffeb;
+  --lime-100: #fcffcc;
+  --lime-200: #f8ff99;
+  --lime-300: #f6ff73;
+  --lime-400: #f1ff33;
+  --lime-500: #eeff00;
+  --lime-600: #d1e000;
+  --lime-700: #b2bf00;
+  --lime-800: #949e00;
+  --lime-900: #778000;
+
+  --cyan-50: #f1fdfd;
+  --cyan-100: #dcfafb;
+  --cyan-200: #b9f5f6;
+  --cyan-300: #9ef2f3;
+  --cyan-400: #72eced;
+  --cyan-500: #4fe7e9;
+  --cyan-600: #46cbcd;
+  --cyan-700: #3badaf;
+  --cyan-800: #318f90;
+  --cyan-900: #287475;
+
+  --magenta-50: #ffebf8;
+  --magenta-100: #ffccee;
+  --magenta-200: #ff99dd;
+  --magenta-300: #ff73d0;
+  --magenta-400: #ff33bb;
+  --magenta-500: #ff00aa;
+  --magenta-600: #e00096;
+  --magenta-700: #bf0080;
+  --magenta-800: #9e0069;
+  --magenta-900: #800055;
+
+  --green-50: #ebfdf4;
+  --green-100: #ccfae4;
+  --green-200: #99f5c8;
+  --green-300: #73f1b4;
+  --green-400: #33eb91;
+  --green-500: #00e676;
+  --green-600: #00ca68;
+  --green-700: #00ad59;
+  --green-800: #008f49;
+  --green-900: #00733b;
+
+  --amber-50: #fff8eb;
+  --amber-100: #ffeecc;
+  --amber-200: #ffdd99;
+  --amber-300: #ffd173;
+  --amber-400: #ffbc33;
+  --amber-500: #ffab00;
+  --amber-600: #e09700;
+  --amber-700: #bf8000;
+  --amber-800: #9e6a00;
+  --amber-900: #805600;
+
+  --red-50: #ffefee;
+  --red-100: #ffd8d6;
+  --red-200: #ffb1ac;
+  --red-300: #ff938d;
+  --red-400: #ff6259;
+  --red-500: #ff3b30;
+  --red-600: #e0342a;
+  --red-700: #bf2c24;
+  --red-800: #9e251e;
+  --red-900: #801d18;
+
+  /* ---- Primitives: spacing ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+
+  /* ---- Primitives: radius ---- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* ---- Primitives: typography ---- */
+  --font-headline: "Montserrat", sans-serif;
+  --font-body: "Google Sans Flex", sans-serif;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.5rem;     /* 24px */
+  --font-size-2xl: 1.875rem;  /* 30px */
+  --font-size-3xl: 2.25rem;   /* 36px */
+  --font-size-4xl: 3rem;      /* 48px */
+  --font-size-5xl: 3.75rem;   /* 60px */
+  --font-size-6xl: 4.5rem;    /* 72px */
+
+  --line-height-xs: 1.5;
+  --line-height-sm: 1.5;
+  --line-height-base: 1.5;
+  --line-height-lg: 1.5;
+  --line-height-xl: 1.2;
+  --line-height-2xl: 1.2;
+  --line-height-3xl: 1.2;
+  --line-height-4xl: 1.1;
+  --line-height-5xl: 1.1;
+  --line-height-6xl: 1.1;
+
+  --letter-spacing-3xl: -0.02em;
+  --letter-spacing-4xl: -0.02em;
+  --letter-spacing-5xl: -0.02em;
+  --letter-spacing-6xl: -0.02em;
+
+  /* ---- Semantic tokens (Light — default mode) ---- */
+  --surface-base: var(--slate-50);
+  --surface-card: var(--neutral-white);
+  --surface-disabled: var(--slate-100);
+
+  --text-primary: var(--slate-900);
+  --text-muted: var(--slate-500);
+  --text-link: var(--magenta-900);
+
+  --border-subtle: var(--slate-200);
+  --border-strong: var(--slate-900);
+
+  --brand-primary: var(--lime-500);
+  --focus-ring: var(--cyan-500);
+
+  --status-success: var(--green-500);
+  --status-warning: var(--amber-500);
+  --status-error: var(--red-500);
+  --status-info: var(--cyan-500);
+
+  --interactive-disabled-bg: var(--lime-100);
+  --interactive-disabled-border: var(--slate-200);
+  --interactive-disabled-text: var(--slate-400);
+
+  --space-card-padding: var(--space-6);
+  --space-element-gap: var(--space-4);
+  --radius-card: var(--radius-lg);
+}
+
+/* ---- Semantic tokens (Dark mode) ---- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface-base: var(--slate-900);
+    --surface-card: var(--slate-800);
+    --surface-disabled: var(--slate-800);
+
+    --text-primary: var(--slate-50);
+    --text-muted: var(--slate-400);
+    --text-link: var(--magenta-300);
+
+    --border-subtle: var(--slate-800);
+    --border-strong: var(--slate-50);
+
+    /* brand-primary and focus-ring are mode-invariant — no override needed */
+
+    --status-success: var(--green-300);
+    --status-warning: var(--amber-300);
+    --status-error: var(--red-300);
+    --status-info: var(--cyan-300);
+
+    --interactive-disabled-bg: var(--slate-800);
+    --interactive-disabled-border: var(--slate-500);
+    --interactive-disabled-text: var(--slate-500);
+  }
+}
