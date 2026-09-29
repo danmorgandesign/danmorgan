@@ -23,3 +23,4 @@ Personal portfolio and design engineering lab for **Dan Morgan** (UX/Product Des
 # Development
 npm run dev           # Start local dev server (http://localhost:8080)
 npm run build         # Production build test
+```
