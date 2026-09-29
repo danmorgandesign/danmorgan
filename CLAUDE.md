@@ -21,6 +21,5 @@ Personal portfolio and design engineering lab for **Dan Morgan** (UX/Product Des
 
 ```bash
 # Development
-npm run dev           # Start local dev server (http://localhost:3000)
+npm run dev           # Start local dev server (http://localhost:8080)
 npm run build         # Production build test
-npm run lint          # Run ESLint checks
