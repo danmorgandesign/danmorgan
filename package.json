@@ -2,7 +2,7 @@
   "name": "danmorgan-portfolio",
   "private": true,
   "scripts": {
-    "dev": "eleventy --serve --port=3000",
+    "dev": "eleventy --serve --port=8080",
     "build": "eleventy"
   },
   "devDependencies": {
