@@ -57,7 +57,7 @@ Content max width is 1728px (`--size-content-max`). Use `.page-container` for th
 
 ## Theme
 
-Light is the default. Dark applies when the OS prefers dark, **or** when `<html data-theme="dark">` is set. `data-theme="light"` forces light. The Theme Toggle writes `localStorage.theme`, and `Base.astro` applies it before first paint. Show/hide sun and moon with CSS, not the Figma `theme-is-*` booleans.
+Dark applies when the OS prefers dark, **or** when `<html data-theme="dark">` is set. `data-theme="light"` forces light. With no override the site follows the device (light if it states no preference). The Theme Toggle writes an override to `localStorage.theme` (applied by `Base.astro` before first paint); the override is cleared when toggled back to match the device or when the device theme changes. Show/hide sun and moon with CSS, not the Figma `theme-is-*` booleans.
 
 ## Typography
 
