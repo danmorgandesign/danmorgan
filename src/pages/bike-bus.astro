@@ -1,0 +1,129 @@
+---
+// Case Study / Bike Bus (Figma 722:787 / Tablet 722:969 / Mobile 722:1128).
+// Copy and alt text come from the Figma frames and their Dev Mode annotations.
+import CaseStudy from '../layouts/CaseStudy.astro';
+import CaseStudyHero from '../components/case-study/CaseStudyHero.astro';
+import HeroImages from '../components/case-study/HeroImages.astro';
+import Divider from '../components/case-study/Divider.astro';
+import CaseSection from '../components/case-study/CaseSection.astro';
+import FeatureRow from '../components/case-study/FeatureRow.astro';
+import FeatureMedia from '../components/case-study/FeatureMedia.astro';
+import ZoomableImage from '../components/case-study/ZoomableImage.astro';
+
+import heroLandingPage from '../assets/images/bike-bus/hero-landing-page.png';
+import heroRouteDashboard from '../assets/images/bike-bus/hero-route-dashboard.png';
+import heroReviewRoute from '../assets/images/bike-bus/hero-review-route.png';
+import joinByInvitation from '../assets/images/card-bike-bus.png';
+import oneTapStart from '../assets/images/bike-bus/feature-one-tap-start.png';
+import twoViews from '../assets/images/bike-bus/feature-two-views.png';
+import notifications from '../assets/images/bike-bus/feature-notifications.png';
+import zoomJoinByInvitation from '../assets/images/bike-bus/zoom-join-by-invitation.png';
+import zoomOneTapStart from '../assets/images/bike-bus/zoom-one-tap-start.png';
+import zoomTwoViews from '../assets/images/bike-bus/zoom-two-views.png';
+import zoomNotifications from '../assets/images/bike-bus/zoom-notifications.png';
+
+const mediaSizes = '(min-width: 1280px) 55vw, 90vw';
+---
+<CaseStudy
+  title="Bike Bus – Dan Morgan"
+  description="An award-winning, simplified tool to co-ordinate parents to get the school bike bus running smoothly."
+>
+  <section class="hero page-gutter" aria-labelledby="hero-title">
+    <CaseStudyHero
+      tags={['UX Design', 'Interaction Design', 'Mobile App']}
+      title="Bike Bus"
+      summary="An Award Winning, simplified tool to co-ordinate parents to get the school bike bus running smoothly."
+      date="May 2026"
+      details={[
+        { label: 'Role', value: 'Product Designer' },
+        { label: 'Context', value: 'Personal Project' },
+        { label: 'Focus', value: 'Streamlined & Clear' },
+        { label: 'Tools', value: 'Lovable, Figma & Claude Code' },
+      ]}
+    />
+    <HeroImages
+      images={[
+        { src: heroLandingPage, ratio: '3:2', alt: 'Bike Bus landing page with the headline "Ride together, arrive together.", a photo of children’s bikes and a How it works section.' },
+        { src: heroRouteDashboard, ratio: '3:2', alt: 'Two Bike Bus phone screens: a follower’s live view of the Morning Commute route with distance and time to their stop, and the dashboard of rides they follow.' },
+        { src: heroReviewRoute, ratio: '3:2', alt: 'Bike Bus desktop route page for Morning Commute, showing the schedule, followers, stops and route actions beside a map.' },
+      ]}
+    />
+  </section>
+
+  <Divider />
+
+  <CaseSection id="problem" title="01 — The Problem">
+    <p>Bike buses run on enthusiasm, but coordinating them in WhatsApp made the school run more stressful, so families defaulted back to the car.</p>
+    <ul class="bullets">
+      <li>Bike buses were coordinated in busy, unofficial WhatsApp groups.</li>
+      <li>Working and non-working parents alike found an already pressured time of day made worse by uncertainty.</li>
+      <li>The car was easier, but not the solution that was wanted. The solution needed to match the enthusiasm.</li>
+    </ul>
+    <p>The UK school run means traffic congestion, poor air quality and safety worries. Many parents are "Reluctant Drivers": cycling alone with children feels dangerous and logistically overwhelming. Bike buses solve the safety part through numbers</p>
+  </CaseSection>
+
+  <Divider />
+
+  <CaseSection id="hypothesis" title="02 — The Hypothesis">
+    <p>If parents could see where the bike bus is in real time and get a nudge just before it reaches them, the morning uncertainty would go away. Then more families, especially reluctant drivers, would choose the bike bus over the car.</p>
+
+    <Fragment slot="features">
+      <FeatureRow title="Join by invitation only">
+        <p>To keep children safe, routes aren't searchable. Parents join through a unique link, see the route, distance, duration and riders, then agree that they stay responsible for their own child.</p>
+        <FeatureMedia slot="media">
+          <ZoomableImage src={joinByInvitation} zoom={zoomJoinByInvitation} ratio="3:2" sizes={mediaSizes} alt="Two Bike Bus screens: the Morning Commute route with a Follow the Bus button, and the confirmation that you're now following it." />
+        </FeatureMedia>
+      </FeatureRow>
+
+      <FeatureRow title="One tap to start the bus">
+        <p>The leader checks the route and starts the ride. The screen says exactly what happens next: tracking switches on and every follower is told.</p>
+        <FeatureMedia slot="media">
+          <ZoomableImage src={oneTapStart} zoom={zoomOneTapStart} ratio="3:2" sizes={mediaSizes} alt="Bike Bus Confirm Ride screen with the Morning Commute route map, what happens next, and a Start Ride & Go Live button." />
+        </FeatureMedia>
+      </FeatureRow>
+
+      <FeatureRow title="Two views of the same ride">
+        <p>The follower sees distance and time to their stop. The leader sees the route and next stop. Same ride but different questions.</p>
+        <FeatureMedia slot="media">
+          <ZoomableImage src={twoViews} zoom={zoomTwoViews} ratio="3:2" sizes={mediaSizes} alt="The same live Bike Bus ride side by side: the follower's view and the leader's view, each with distance and timing details." />
+        </FeatureMedia>
+      </FeatureRow>
+
+      <FeatureRow title="Notifications with purpose">
+        <p>Two alerts only: "First Beacon Active" when a ride starts and a 500m alert when it's close. Parents can switch them on or off.</p>
+        <FeatureMedia slot="media">
+          <ZoomableImage src={notifications} zoom={zoomNotifications} ratio="3:2" sizes={mediaSizes} alt="Bike Bus dashboard listing followed rides, with toggles for ride-starting and ride-update notifications." />
+        </FeatureMedia>
+      </FeatureRow>
+    </Fragment>
+  </CaseSection>
+
+  <Divider />
+
+  <CaseSection id="journey" title="03 — The Journey">
+    <p>The early journey began as a Lovable project winning a Hackathon.</p>
+    <p>When putting the early wireframes together it threw up a number of user obstacles needing to be overcome.</p>
+    <p>The pioneer parents worried families would think they were handing their child over to the ride leader so we had to build in very clear user agreements with parents making sure it was a community app not a commercial app offering child services - children's parents remained the responsible adults at all times.</p>
+    <p>Initially routes had a start and end point, but there were already informal stopping points where meeting points were logical. Interim stopping points were added into the route setup.</p>
+    <p>Safety and access to information understandably was a recurring theme. Routes were setup to be invite only through a unique link; they weren’t searchable or public,</p>
+    <p>At the end of the ride, data and records were dropped, only anonymised route stats are kept.</p>
+  </CaseSection>
+
+  <Divider />
+
+  <CaseSection id="outcome" title="04 — Outcome & Reflection">
+    <ul class="bullets">
+      <li>Rough first, polish later. Keeping the AI wireframes deliberately rough let you test the flows before committing to visuals.</li>
+      <li>Trust was the real feature. Privacy, invite-only routes and data deletion mattered as much to parents as a live map.</li>
+      <li>Further testing with Google Maps embedded.</li>
+    </ul>
+  </CaseSection>
+</CaseStudy>
+
+<style>
+  .hero {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-section-sm);
+  }
+</style>
