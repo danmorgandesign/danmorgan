@@ -1,0 +1,49 @@
+---
+// "Section / Projects" (Figma 313:456): "Portfolio" title and the Project Grid
+// of Semantic Cards. Card titles sit one level below the section title:
+// Home h2 → h3 cards; Portfolio page h1 → h2 cards.
+import ProjectCard from './ProjectCard.astro';
+import { projects } from '../data/projects';
+
+interface Props { headingLevel: 1 | 2 }
+const { headingLevel } = Astro.props;
+const Heading = `h${headingLevel}` as 'h1' | 'h2';
+const cardHeadingLevel = (headingLevel + 1) as 2 | 3;
+---
+<section class="projects page-gutter" aria-labelledby="projects-title">
+  <Heading id="projects-title" class="headline-l">Portfolio</Heading>
+  <ul class="project-grid" role="list">
+    {projects.map((project) => (
+      <li><ProjectCard project={project} headingLevel={cardHeadingLevel} /></li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .projects {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-stack-lg);
+    text-align: center;
+  }
+
+  .project-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-stack-lg);
+    inline-size: 100%;
+    padding: 0;
+    list-style: none;
+    text-align: start;
+  }
+
+  @media (min-width: 768px) {
+    .project-grid {
+      flex-direction: row;
+      gap: var(--space-grid-gutter);
+    }
+
+    .project-grid > li { flex: 1 1 0; }
+  }
+</style>

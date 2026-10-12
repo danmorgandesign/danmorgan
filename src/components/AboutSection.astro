@@ -1,0 +1,60 @@
+---
+// "Section / About" (Figma 313:454): title, Mark-Avatar and bio. Shared by
+// Home (title is the page h1) and Portfolio (title is an h2 after the grid).
+import Avatar from './Avatar.astro';
+
+interface Props { headingLevel: 1 | 2 }
+const { headingLevel } = Astro.props;
+const Heading = `h${headingLevel}` as 'h1' | 'h2';
+---
+<section class="about page-gutter" aria-labelledby="about-title">
+  <Heading id="about-title" class="headline-l">Hello, I’m Dan – UX Product Designer</Heading>
+  <div class="about-row">
+    <div class="avatar-cell"><Avatar /></div>
+    <div class="bio body">
+      <p>I’ve spent the last 16 years teaching in primary schools, fascinated by how people learn, navigate, and solve problems. I love diving into the ‘why’ behind user behaviour and turning that understanding into products that are simple, intuitive, and actually work.</p>
+      <p>For me, design is all about empathy and common sense; I’m a firm believer in data-driven iteration and making sure every pixel serves a real human purpose. I’m always looking for ways to bridge the gap between technical systems and the people who use them to create products that genuinely make life a bit easier.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-stack-lg);
+    text-align: center;
+  }
+
+  .about-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-stack-lg);
+    inline-size: 100%;
+    text-align: start;
+  }
+
+  .avatar-cell {
+    display: flex;
+    justify-content: center;
+    inline-size: 100%;
+    min-inline-size: var(--size-avatar-sm);
+    max-inline-size: var(--size-avatar-cell-max);
+  }
+
+  .bio { max-inline-size: var(--size-measure-body); }
+  .bio p + p { margin-block-start: var(--space-stack-lg); }
+
+  @media (min-width: 768px) {
+    .about-row {
+      flex-direction: row;
+      justify-content: center;
+      gap: var(--space-grid-gutter);
+    }
+
+    .avatar-cell,
+    .bio { flex: 1 1 0; }
+  }
+</style>

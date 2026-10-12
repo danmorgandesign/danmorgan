@@ -1,0 +1,11 @@
+---
+// Icon / Close (Figma 381:105). Inherits colour from currentColor.
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'svg'>;
+const { class: className, ...attrs } = Astro.props;
+---
+<svg class={className} {...attrs} width="24" height="23" viewBox="0 0 24 23" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <rect x="0.686279" y="19.799" width="28" height="4" transform="rotate(-45 0.686279 19.799)" fill="currentColor"/>
+  <rect x="3.51465" width="28" height="4" transform="rotate(45 3.51465 0)" fill="currentColor"/>
+</svg>

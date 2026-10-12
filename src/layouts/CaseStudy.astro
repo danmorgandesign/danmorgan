@@ -1,0 +1,18 @@
+---
+// Case study page: Base + the page-level Lightbox and Back to Top. Case studies
+// sit under Portfolio, so the nav marks Portfolio as current (as in Figma).
+import Base from './Base.astro';
+import Lightbox from '../components/case-study/Lightbox.astro';
+import BackToTop from '../components/case-study/BackToTop.astro';
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+---
+<Base title={title} description={description} current="portfolio">
+  <slot />
+  <BackToTop />
+  <Lightbox />
+</Base>

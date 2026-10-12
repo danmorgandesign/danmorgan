@@ -1,0 +1,56 @@
+---
+// Case-study section (Figma "Section / 0N …"): Section Header (h2, text-muted,
+// 320–560) beside a Content column (Body/Large, 480–706) that wraps underneath
+// when there's no room. Feature Rows go in the "features" slot below the row.
+interface Props {
+  id: string;
+  title: string;
+}
+const { id, title } = Astro.props;
+const hasFeatures = Astro.slots.has('features');
+---
+<section class="case-section page-gutter" aria-labelledby={id}>
+  <div class="row">
+    <h2 id={id} class="section-title headline-l">{title}</h2>
+    <div class="content body-lg">
+      <slot />
+    </div>
+  </div>
+  {hasFeatures && <slot name="features" />}
+</section>
+
+<style>
+  .case-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-section-lg);
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: var(--space-grid-gutter);
+  }
+
+  .section-title {
+    flex: 1 1 0;
+    min-inline-size: var(--size-column-min-mobile);
+    max-inline-size: var(--size-column-max);
+    color: var(--text-muted);
+  }
+
+  .content {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    gap: var(--space-stack-md);
+    min-inline-size: var(--size-column-min-mobile);
+    max-inline-size: var(--size-content-column-max);
+  }
+
+  @media (min-width: 768px) {
+    .section-title { min-inline-size: var(--size-column-min); }
+    .content { min-inline-size: var(--size-content-column-min); }
+  }
+</style>

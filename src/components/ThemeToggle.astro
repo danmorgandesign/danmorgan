@@ -1,0 +1,47 @@
+---
+// Theme Toggle (Figma 680:397). Moon shows in Light, sun in Dark. Clicking
+// stores the choice in localStorage; Base.astro applies it before first paint.
+import IconButton from './IconButton.astro';
+import IconMoon from './icons/IconMoon.astro';
+import IconSun from './icons/IconSun.astro';
+
+interface Props { size?: 'sm' | 'lg' }
+const { size = 'sm' } = Astro.props;
+---
+<IconButton size={size} aria-label="Dark theme" aria-pressed="false" data-theme-toggle>
+  <IconMoon class="icon-moon" />
+  <IconSun class="icon-sun" />
+</IconButton>
+
+<style>
+  .icon-sun { display: none; }
+
+  :global(:root[data-theme='dark']) .icon-sun { display: block; }
+  :global(:root[data-theme='dark']) .icon-moon { display: none; }
+
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) .icon-sun { display: block; }
+    :global(:root:not([data-theme='light'])) .icon-moon { display: none; }
+  }
+</style>
+
+<script>
+  const root = document.documentElement;
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+  const toggles = document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]');
+
+  const isDark = () => (root.dataset.theme ? root.dataset.theme === 'dark' : prefersDark.matches);
+  const sync = () => toggles.forEach((t) => t.setAttribute('aria-pressed', String(isDark())));
+
+  toggles.forEach((toggle) =>
+    toggle.addEventListener('click', () => {
+      const next = isDark() ? 'light' : 'dark';
+      root.dataset.theme = next;
+      try { localStorage.setItem('theme', next); } catch {}
+      sync();
+    }),
+  );
+
+  prefersDark.addEventListener('change', sync);
+  sync();
+</script>

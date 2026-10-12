@@ -1,0 +1,48 @@
+---
+// Primary Button (Figma 308:48): lime action button that hugs its label.
+// Renders <a> when given href, otherwise <button>. Extra attributes pass through.
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'a'> & HTMLAttributes<'button'>;
+const { href, class: className, type, ...attrs } = Astro.props;
+const Tag = href ? 'a' : 'button';
+---
+<Tag
+  class:list={['primary-button', 'label', className]}
+  href={href}
+  type={href ? undefined : (type ?? 'button')}
+  {...attrs}
+><slot /></Tag>
+
+<style>
+  .primary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-control-y) var(--space-control-x);
+    background: var(--interactive-primary-bg);
+    border: var(--border-width-default) solid var(--interactive-primary-border);
+    color: var(--interactive-primary-text);
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  @media (hover: hover) {
+    .primary-button:not(:disabled):hover {
+      box-shadow: var(--shadow-offset) var(--shadow-offset) 0 0 var(--brand-accent);
+    }
+  }
+
+  .primary-button:active:not(:disabled) {
+    background: var(--interactive-primary-bg-pressed);
+    border-color: var(--interactive-primary-border-pressed);
+  }
+
+  .primary-button:disabled {
+    background: var(--interactive-disabled-bg);
+    border-color: var(--interactive-disabled-border);
+    color: var(--interactive-disabled-text);
+    cursor: not-allowed;
+  }
+</style>

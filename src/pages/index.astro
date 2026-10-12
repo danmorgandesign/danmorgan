@@ -1,0 +1,15 @@
+---
+// Home (Figma Home-Light 264:99 / Tablet 644:481 / Mobile 370:51).
+// Home is also the About page: the nav marks "About" as current.
+import Base from '../layouts/Base.astro';
+import AboutSection from '../components/AboutSection.astro';
+import ProjectsSection from '../components/ProjectsSection.astro';
+---
+<Base
+  title="Dan Morgan – UX Product Designer"
+  description="Portfolio of Dan Morgan, a UX product designer and former primary school teacher."
+  current="about"
+>
+  <AboutSection headingLevel={1} />
+  <ProjectsSection headingLevel={2} />
+</Base>

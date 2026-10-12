@@ -1,0 +1,157 @@
+---
+// Image Enlarge Overlay (Figma 809:1511): one lightbox per page, built on
+// <dialog> (modal, focus trapped, Esc closes). See the "Lightbox build spec"
+// annotation: Tablet/Desktop only, focus returns to the opening image.
+import IconButton from '../IconButton.astro';
+import IconClose from '../icons/IconClose.astro';
+---
+<dialog class="lightbox" data-lightbox>
+  <div class="media" data-lightbox-media>
+    <img class="image" alt="" data-lightbox-image />
+  </div>
+  <IconButton size="sm" class="close" aria-label="Close" data-lightbox-close>
+    <IconClose />
+  </IconButton>
+</dialog>
+
+<style>
+  .lightbox {
+    inline-size: 100%;
+    block-size: 100%;
+    max-inline-size: none;
+    max-block-size: none;
+    margin: 0;
+    padding: var(--space-inset-md);
+    border: 0;
+    background: transparent;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--space-section-sm);
+    opacity: 0;
+    transition:
+      opacity var(--motion-fade) ease-out,
+      display var(--motion-fade) allow-discrete,
+      overlay var(--motion-fade) allow-discrete;
+  }
+
+  .lightbox[open] {
+    display: flex;
+    opacity: 1;
+  }
+
+  @starting-style {
+    .lightbox[open] { opacity: 0; }
+  }
+
+  .lightbox::backdrop { background: var(--overlay-lightbox); }
+
+  .media {
+    flex: 1 1 auto;
+    min-block-size: 0;
+    inline-size: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .image[hidden] { display: none; }
+
+  .image {
+    max-inline-size: 100%;
+    max-block-size: 100%;
+    object-fit: contain;
+  }
+
+  .image[data-ratio='5:4'] { max-inline-size: min(100%, var(--size-lightbox-image-max-5x4)); }
+  .image[data-ratio='3:2'] { max-inline-size: min(100%, var(--size-lightbox-image-max-3x2)); }
+
+  /* Tablet: the image is full width. */
+  @media (min-width: 768px) and (max-width: 1279px) {
+    .image[data-ratio] { max-inline-size: 100%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lightbox { transition: none; }
+  }
+
+  /* Wrapper the script puts around each zoomable image (Tablet and Desktop). */
+  :global(.zoom-button) {
+    display: block;
+    inline-size: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: zoom-in;
+  }
+  :global(.zoom-button > img) { inline-size: 100%; }
+</style>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('[data-lightbox]');
+  const image = dialog?.querySelector<HTMLImageElement>('[data-lightbox-image]');
+  const closeButton = dialog?.querySelector<HTMLButtonElement>('[data-lightbox-close]');
+  const media = dialog?.querySelector<HTMLElement>('[data-lightbox-media]');
+  // Single images, plus composite groups (several images that act as one).
+  const zoomables = document.querySelectorAll<HTMLElement>('img[data-zoomable], [data-zoomable-group]');
+  const lightboxRange = window.matchMedia('(min-width: 768px)');
+  const tabletRange = window.matchMedia('(min-width: 768px) and (max-width: 1279px)');
+  let opener: HTMLElement | null = null;
+
+  const wrap = (el: HTMLElement) => {
+    if (el.parentElement?.classList.contains('zoom-button')) return;
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'zoom-button';
+    el.replaceWith(button);
+    button.append(el);
+    button.addEventListener('click', () => open(el, button));
+  };
+
+  const unwrap = (el: HTMLElement) => {
+    const button = el.parentElement;
+    if (button?.classList.contains('zoom-button')) button.replaceWith(el);
+  };
+
+  const sync = () => zoomables.forEach((img) => (lightboxRange.matches ? wrap(img) : unwrap(img)));
+
+  function open(el: HTMLElement, button: HTMLElement) {
+    if (!dialog || !image || !media) return;
+    media.querySelector('.in-lightbox')?.remove();
+    if (el instanceof HTMLImageElement) {
+      const zoom = tabletRange.matches ? el.dataset.zoom : undefined;
+      image.hidden = false;
+      image.src = zoom || el.dataset.full || el.currentSrc;
+      image.alt = el.alt;
+      image.dataset.ratio = el.dataset.ratio ?? '';
+      dialog.setAttribute('aria-label', el.alt);
+    } else {
+      // Composite: show a copy with each image upgraded to its full source.
+      const copy = el.cloneNode(true) as HTMLElement;
+      copy.classList.add('in-lightbox');
+      copy.removeAttribute('data-zoomable-group');
+      copy.querySelectorAll<HTMLImageElement>('img').forEach((img) => {
+        if (img.dataset.full) { img.removeAttribute('srcset'); img.src = img.dataset.full; }
+      });
+      image.hidden = true;
+      media.append(copy);
+      dialog.setAttribute('aria-label', el.getAttribute('aria-label') ?? '');
+    }
+    opener = button;
+    document.documentElement.classList.add('scroll-locked');
+    dialog.showModal();
+    closeButton?.focus();
+  }
+
+  dialog?.addEventListener('close', () => {
+    document.documentElement.classList.remove('scroll-locked');
+    opener?.focus();
+  });
+  closeButton?.addEventListener('click', () => dialog?.close());
+  // Backdrop click: anything in the dialog except the image itself.
+  dialog?.addEventListener('click', (event) => {
+    if (event.target !== image && !closeButton?.contains(event.target as Node)) dialog.close();
+  });
+
+  lightboxRange.addEventListener('change', sync);
+  sync();
+</script>

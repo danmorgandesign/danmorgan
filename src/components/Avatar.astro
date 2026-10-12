@@ -1,0 +1,61 @@
+---
+// Mark-Avatar, Size=Small (Figma 874:551): circular profile photo inside
+// magenta corner brackets on a surface-card square.
+import { Image } from 'astro:assets';
+import photo from '../assets/images/profile-photo.png';
+---
+<div class="avatar">
+  <span class="bracket top-left"></span>
+  <span class="bracket top-right"></span>
+  <span class="bracket bottom-left"></span>
+  <span class="bracket bottom-right"></span>
+  <Image class="photo" src={photo} alt="Dan Morgan" width={160} densities={[1, 2]} />
+</div>
+
+<style>
+  .avatar {
+    position: relative;
+    display: grid;
+    place-items: center;
+    inline-size: var(--size-avatar-sm);
+    block-size: var(--size-avatar-sm);
+    background: var(--surface-card);
+    flex-shrink: 0;
+  }
+
+  .photo {
+    inline-size: var(--size-avatar-photo-sm);
+    block-size: var(--size-avatar-photo-sm);
+    border-radius: 50%;
+    outline: var(--border-width-hairline) solid var(--border-subtle);
+    outline-offset: calc(-1 * var(--border-width-hairline));
+    object-fit: cover;
+  }
+
+  /* Each bracket is an L: a horizontal and a vertical arm. */
+  .bracket {
+    position: absolute;
+    inline-size: var(--size-bracket-length-sm);
+    block-size: var(--size-bracket-length-sm);
+  }
+  .bracket::before,
+  .bracket::after {
+    content: '';
+    position: absolute;
+    background: var(--brand-accent);
+  }
+  .bracket::before { inline-size: 100%; block-size: var(--size-bracket-weight-sm); }
+  .bracket::after { inline-size: var(--size-bracket-weight-sm); block-size: 100%; }
+
+  .top-left { top: 0; left: 0; }
+  .top-left::before, .top-left::after { top: 0; left: 0; }
+
+  .top-right { top: 0; right: 0; }
+  .top-right::before, .top-right::after { top: 0; right: 0; }
+
+  .bottom-left { bottom: 0; left: 0; }
+  .bottom-left::before, .bottom-left::after { bottom: 0; left: 0; }
+
+  .bottom-right { bottom: 0; right: 0; }
+  .bottom-right::before, .bottom-right::after { bottom: 0; right: 0; }
+</style>

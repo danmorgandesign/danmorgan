@@ -1,0 +1,78 @@
+---
+// Case Study Hero (Figma 778:437): tags, project title (the page's only h1),
+// one-line summary, date and the Project Details row above a top rule.
+interface Detail { label: string; value: string }
+interface Props {
+  tags: string[];
+  title: string;
+  summary: string;
+  date: string;
+  details: Detail[];
+}
+const { tags, title, summary, date, details } = Astro.props;
+---
+<div class="hero-intro">
+  <ul class="tags" role="list">
+    {tags.map((tag) => <li class="tag label">{tag}</li>)}
+  </ul>
+  <h1 id="hero-title" class="headline-xl">{title}</h1>
+  <p class="summary body-lg">{summary}</p>
+  <p class="date caption">{date}</p>
+  <dl class="facts">
+    {details.map((detail) => (
+      <div class="detail">
+        <dt class="label">{detail.label}</dt>
+        <dd class="body">{detail.value}</dd>
+      </div>
+    ))}
+  </dl>
+</div>
+
+<style>
+  .hero-intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-stack-md);
+  }
+
+  /* Tag (Figma 575:481): non-interactive label chip. */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-stack-sm);
+    padding: 0;
+    list-style: none;
+  }
+  .tag {
+    padding: var(--space-inset-xs) var(--space-inset-sm);
+    background: var(--brand-primary);
+    color: var(--text-on-brand);
+  }
+
+  h1 { overflow-wrap: anywhere; }
+
+  .summary { max-inline-size: var(--size-content-column-max); }
+  .date { color: var(--text-muted); }
+
+  /* Project Details (Figma 576:488) above a top rule. */
+  .facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-grid-gutter);
+    padding-block-start: var(--space-inset-md);
+    border-block-start: var(--border-width-default) solid var(--border-strong);
+  }
+  .detail {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    gap: var(--space-stack-sm);
+    min-inline-size: var(--size-detail-min-mobile);
+  }
+  dt { color: var(--text-muted); }
+  dd { margin: 0; }
+
+  @media (min-width: 768px) {
+    .detail { min-inline-size: var(--size-detail-min); }
+  }
+</style>

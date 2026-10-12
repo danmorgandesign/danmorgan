@@ -1,0 +1,36 @@
+---
+// A case-study image that opens the lightbox on Tablet and Desktop.
+// Server-renders a plain <img>; Lightbox.astro's script wraps it in a <button>
+// from 768px up (Mobile has no lightbox, so images there stay plain images).
+// The full 1920 source (or a Tablet zoom crop) loads only when the lightbox opens.
+import { Image, getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  /** Source aspect: sets the lightbox's maximum (natural) display width. */
+  ratio: '5:4' | '3:2';
+  sizes: string;
+  widths?: number[];
+  /** Pre-cropped zoom asset shown in the lightbox on Tablet (phone mockups). */
+  zoom?: ImageMetadata;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+}
+const { src, alt, ratio, sizes, widths = [480, 800, 1200], zoom, class: className, loading = 'lazy' } = Astro.props;
+const full = await getImage({ src, width: Math.min(src.width, 1920), format: 'webp' });
+const zoomFull = zoom ? await getImage({ src: zoom, format: 'webp' }) : undefined;
+---
+<Image
+  class={className}
+  src={src}
+  alt={alt}
+  widths={widths.filter((w) => w <= src.width)}
+  sizes={sizes}
+  loading={loading}
+  data-zoomable
+  data-full={full.src}
+  data-zoom={zoomFull?.src}
+  data-ratio={ratio}
+/>

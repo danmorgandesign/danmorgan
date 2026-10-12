@@ -1,0 +1,10 @@
+---
+// Icon / Arrow Left (Carousel Button Previous), exported from Figma. Inherits colour from currentColor.
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'svg'>;
+const { class: className, ...attrs } = Astro.props;
+---
+<svg class={className} {...attrs} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <rect x="2" y="14" width="4" height="22" transform="rotate(-90 2 14)" fill="currentColor"/><rect y="12" width="4" height="14" transform="rotate(-45 0 12)" fill="currentColor"/><rect x="2.82837" y="14.8281" width="4" height="14" transform="rotate(-135 2.82837 14.8281)" fill="currentColor"/>
+</svg>

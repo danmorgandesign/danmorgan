@@ -1,0 +1,170 @@
+---
+// Case Study / Easy Invoice (Figma 686:573 / Tablet 716:644 / Mobile 716:822).
+// Copy and alt text come from the Figma frames and their Dev Mode annotations.
+import CaseStudy from '../layouts/CaseStudy.astro';
+import CaseStudyHero from '../components/case-study/CaseStudyHero.astro';
+import HeroComposite from '../components/case-study/HeroComposite.astro';
+import Divider from '../components/case-study/Divider.astro';
+import CaseSection from '../components/case-study/CaseSection.astro';
+import FeatureRow from '../components/case-study/FeatureRow.astro';
+import FeatureMedia from '../components/case-study/FeatureMedia.astro';
+import ZoomableImage from '../components/case-study/ZoomableImage.astro';
+
+import phoneWelcome from '../assets/images/easy-invoice/hero-phone-welcome.png';
+import phoneSignUpComplete from '../assets/images/easy-invoice/hero-phone-sign-up-complete.png';
+import phoneDashboard from '../assets/images/easy-invoice/hero-phone-dashboard.png';
+import paymentRequestFlow from '../assets/images/easy-invoice/feature-payment-request-flow.png';
+import automaticReminders from '../assets/images/easy-invoice/feature-automatic-reminders.png';
+import paymentStatus from '../assets/images/easy-invoice/feature-payment-status.png';
+import clearConfirmation from '../assets/images/card-easy-invoice.png';
+import zoomPaymentRequestFlow from '../assets/images/easy-invoice/zoom-payment-request-flow.png';
+import zoomAutomaticReminders from '../assets/images/easy-invoice/zoom-automatic-reminders.png';
+import zoomPaymentStatus from '../assets/images/easy-invoice/zoom-payment-status.png';
+import zoomClearConfirmation from '../assets/images/easy-invoice/zoom-clear-confirmation.png';
+
+const mediaSizes = '(min-width: 1280px) 55vw, 90vw';
+---
+<CaseStudy
+  title="Easy Invoice – Dan Morgan"
+  description="An invoicing app for freelancers and sole traders to manage clients and payments simply."
+>
+  <section class="hero page-gutter" aria-labelledby="hero-title">
+    <CaseStudyHero
+      tags={['Product Design', 'UX Design', 'Mobile App']}
+      title="Easy Invoice"
+      summary="An invoicing app for freelancers and sole traders to manage clients and payments simply."
+      date="March 2026"
+      details={[
+        { label: 'Role', value: 'Product Designer' },
+        { label: 'Context', value: 'Personal Project' },
+        { label: 'Focus', value: 'Simplicity & Automation' },
+        { label: 'Tools', value: 'Figma & Claude Code' },
+      ]}
+    />
+    <HeroComposite
+      images={[phoneWelcome, phoneSignUpComplete, phoneDashboard]}
+      alt="Three Easy Invoice phone screens: the welcome screen, the sign-up confirmation, and the dashboard of outstanding and paid payments."
+    />
+  </section>
+
+  <Divider />
+
+  <CaseSection id="problem" title="01 — The Problem">
+    <p>Freelancers and sole traders are good at their jobs, not at chasing money. A photographer, an electrician or a gardener finishes the work, then has to remember to invoice, check whether the client has opened it, and decide when it's polite to follow up. Most fall back on spreadsheets, a carbon-copy invoice book, or accounting software built for much bigger businesses.</p>
+    <p>Two problems kept coming up. The first was "chase" fatigue: people felt like nags following up on unpaid invoices, so they put it off, which hurt their cash flow and made a good customer relationship feel awkward. The second was the admin gap: because invoicing tools felt complex and desk-bound, billing waited until the end of the month, and by then billable hours and materials had been forgotten. For people with busy days on the move, or with access needs like ADHD, arthritis or poor eyesight, asking for payment in the moment was simply too much friction.</p>
+  </CaseSection>
+
+  <Divider />
+
+  <CaseSection id="solution" title="02 — The Solution">
+    <p>If sending a payment request took less than a minute and the app did the chasing, people would bill at the end of each job instead of the end of the month. Easy Invoice is mobile first, because the people it's for are rarely at a desk. The aim was to cut the steps from opening the app to a request being sent, show every payment's status in real time, and give back two to three hours of admin a week.</p>
+
+    <Fragment slot="features">
+      <FeatureRow title="Payment Request Flow">
+        <p>Ask for payment before you leave the driveway.</p>
+        <p>Three inputs, one tap to confirm:</p>
+        <ul class="bullets">
+          <li>Payment amount</li>
+          <li>Customer name</li>
+          <li>Reference number</li>
+        </ul>
+        <p>A confirmation screen shows the amount, customer and reference before anything is sent, with a clear Cancel option. The app logs the time each request was sent.</p>
+        <FeatureMedia slot="media">
+          <ZoomableImage src={paymentRequestFlow} zoom={zoomPaymentRequestFlow} ratio="3:2" sizes={mediaSizes} alt="Two Easy Invoice screens: confirming a £200 payment request to Joe Bloggs, then the Request Sent confirmation." />
+        </FeatureMedia>
+      </FeatureRow>
+
+      <FeatureRow title="Automatic Reminders">
+        <p>The app does the chasing, so you don't have to.</p>
+        <p>If a request stays unpaid, Easy Invoice sends polite reminders on a fixed schedule:</p>
+        <ul class="bullets">
+          <li>Day 2: first reminder</li>
+          <li>Day 5: second reminder</li>
+          <li>Day 7: final reminder</li>
+        </ul>
+        <p>Reminders stop as soon as the customer pays, and the user gets a notification that the money has arrived.</p>
+        <FeatureMedia slot="media">
+          <ZoomableImage src={automaticReminders} zoom={zoomAutomaticReminders} ratio="3:2" sizes={mediaSizes} alt="Easy Invoice Account Settings screen with reminders set for 2, 5 and 7 days after a request, and a notification checkbox for each." />
+        </FeatureMedia>
+      </FeatureRow>
+
+      <FeatureRow title="Payment Status at a Glance">
+        <p>Know who has paid without checking the bank.</p>
+        <p class="blank-before">Every request is in one of two states:</p>
+        <ul class="bullets">
+          <li>Paid, in green</li>
+          <li>Unpaid, in red</li>
+        </ul>
+        <p class="blank-before">The dashboard splits requests into Payments Outstanding and Payments Paid.</p>
+        <FeatureMedia slot="media">
+          <ZoomableImage src={paymentStatus} zoom={zoomPaymentStatus} ratio="3:2" sizes={mediaSizes} alt="Easy Invoice Outstanding Payments list showing each customer's amount and due date, with options to mark as paid or send a reminder." />
+        </FeatureMedia>
+      </FeatureRow>
+
+      <FeatureRow title="Clear, Accessible Confirmation">
+        <p>Designed for tired hands, bright sunlight and low confidence with tech.</p>
+        <ul class="bullets">
+          <li>A welcome screen that promises set-up in under two minutes, with four plain-language benefits</li>
+          <li>Large touch targets and high-contrast text for users with RSI, arthritis, reading glasses or, like me, big hands</li>
+          <li>Labels on every action, with no icon-only buttons</li>
+          <li>A big tick after every confirmed action, so users know it worked</li>
+        </ul>
+        <FeatureMedia slot="media">
+          <ZoomableImage src={clearConfirmation} zoom={zoomClearConfirmation} ratio="3:2" sizes={mediaSizes} alt="Three Easy Invoice screens in sequence: the welcome screen, confirming a payment request, and the Request Sent confirmation." />
+        </FeatureMedia>
+      </FeatureRow>
+    </Fragment>
+  </CaseSection>
+
+  <Divider />
+
+  <CaseSection id="journey" title="03 — The Journey">
+    <div>
+      <p>I started by mapping who invoices and why it hurts. I used AI to speed up early desk research, then planned interviews with freelancers and self-employed people aged 18 to 65, including people with disabilities, about how they balance the job with the admin.</p>
+      <p>That shaped three personas:</p>
+      <ul class="bullets">
+        <li>Alex, 28, freelance designer with ADHD: "It must be simple or I just won't use it." Forgets invoices and keeps checking whether he's been paid.</li>
+        <li>Elena, 48, electrician: "I just want to be paid for the job I do." Forgets to chase, feels impolite doing it, and doesn't want full accounting software.</li>
+        <li>Arthur, 65, gardener: "I enjoy meeting and chatting to people in my town. I don't want to lose that." Not tech savvy, trusts cash, and wants to keep the handshake feel as clients move to digital payments.</li>
+      </ul>
+      <p>The pain points they shared were clear:</p>
+      <ul class="bullets">
+        <li>The "black hole" of sending an invoice and not knowing if the client opened it</li>
+        <li>Feeling like a nag when a payment is three days overdue</li>
+        <li>Forgetting which expenses were billable to which client</li>
+      </ul>
+    </div>
+    <p>I then tested the prototype with three people: a freelance photographer, a self-employed electrician and a designer. All three liked the early designs but were adamant the interface had to be clearer, and that payment requests should show in just two states, Paid in green and Unpaid in red. One of the older testers made the point that when something happens it needs to be obvious, which is where the big confirmation ticks came from.</p>
+  </CaseSection>
+
+  <Divider />
+
+  <CaseSection id="outcome" title="04 — Outcome & Reflection">
+    <p>Easy Invoice went from a set of AI-assisted research notes to a tested mobile prototype. A user can send a payment request in three inputs and a tap, see at a glance who has paid, and let the app send the reminders.</p>
+    <p>What changed after testing:</p>
+    <ul class="bullets">
+      <li>Payment status was cut down to two states, Paid in green and Unpaid in red</li>
+      <li>Large ticks were added after every confirmation, so users know an action worked</li>
+      <li>The interface was simplified and made higher contrast after testers asked for more clarity</li>
+    </ul>
+    <p>What's next:</p>
+    <ul class="bullets">
+      <li>A system to manage clients within the app</li>
+      <li>Simplifying the information architecture, particularly the menu</li>
+      <li>A "pre-work agreement", so clients can agree costs before work starts</li>
+    </ul>
+    <p>What I'd take into the next project:</p>
+    <ul class="bullets">
+      <li>Validate AI-generated research with real interviews early, before it shapes the personas</li>
+      <li>Test with older and less confident users from the first round, because they surfaced the clearest improvements</li>
+    </ul>
+  </CaseSection>
+</CaseStudy>
+
+<style>
+  .hero {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-section-sm);
+  }
+</style>

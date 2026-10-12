@@ -1,0 +1,18 @@
+/* Self-hosted, Latin subset only (from Fontsource). OFL licences in public/fonts/. */
+/* Variable (wght + opsz). The optical-size axis matters: Figma applies it
+   automatically, and without it 14px text sets about 4% narrower than the design. */
+@font-face {
+  font-family: "Google Sans Flex";
+  font-style: normal;
+  font-weight: 1 1000;
+  font-display: swap;
+  src: url("/fonts/google-sans-flex-latin-opsz.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/montserrat-latin-700-normal.woff2") format("woff2");
+}

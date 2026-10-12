@@ -1,0 +1,30 @@
+---
+// Copy Email Link (Figma 871:2359): inline text-link button that copies the
+// address (assembled at runtime by copy-email.js, never in the source) and
+// briefly shows "Copied!". Padded to the 48px touch minimum, not enlarged.
+---
+<button type="button" class="copy-email-link body" aria-label="Copy email address" data-copy-email>
+  <span aria-live="polite" data-copy-email-label>Copy email address</span>
+</button>
+
+<style>
+  .copy-email-link {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: var(--size-touch-min);
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--text-link);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  @media (hover: hover) {
+    .copy-email-link:hover { color: var(--text-primary); }
+  }
+</style>
+
+<script>
+  import '../scripts/copy-email.js';
+</script>

@@ -1,0 +1,100 @@
+/*
+ * Global base styles. Semantic tokens only (see tokens.css).
+ * Component styles live in each component's <style> block, not here.
+ */
+
+/* ---- Reset ---- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+img, picture, svg, video { display: block; max-width: 100%; height: auto; }
+input, button, textarea, select { font: inherit; color: inherit; }
+p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
+
+/* ---- Base ---- */
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--surface-card);
+  color: var(--text-primary);
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-body);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--text-link); }
+
+:focus-visible {
+  outline: var(--border-width-focus) solid var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* ---- Text styles ----
+ * One class per Figma text style. A text style is a SIZE, not a heading level:
+ * pick the HTML tag from the page outline (Text Hierarchy annotation), then
+ * apply the class that matches the Figma layer's style.
+ */
+.headline-2xl,
+.headline-xl,
+.headline-l,
+.headline-m,
+.headline-s {
+  font-family: var(--font-family-headline);
+  font-weight: var(--font-weight-headline);
+  line-height: var(--line-height-headline);
+  letter-spacing: 0;
+}
+.headline-2xl { font-size: var(--font-size-headline-2xl); line-height: var(--line-height-headline-display); letter-spacing: var(--letter-spacing-headline-display); }
+.headline-xl  { font-size: var(--font-size-headline-xl);  line-height: var(--line-height-headline-display); letter-spacing: var(--letter-spacing-headline-display); }
+.headline-l   { font-size: var(--font-size-headline-l);   letter-spacing: var(--letter-spacing-headline-display); }
+.headline-m   { font-size: var(--font-size-headline-m); }
+.headline-s   { font-size: var(--font-size-headline-s); }
+
+.body-lg, .body, .body-sm, .label, .caption {
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-body);
+  line-height: var(--line-height-body);
+}
+.body-lg { font-size: var(--font-size-body-lg); }
+.body    { font-size: var(--font-size-body); }
+.body-sm { font-size: var(--font-size-body-sm); }
+.label   { font-size: var(--font-size-label); font-weight: var(--font-weight-label); }
+.caption { font-size: var(--font-size-caption); }
+
+/* ---- Lists ----
+ * Case-study bullet lists (Figma: built-in unordered bullets, indentation 1,
+ * in a Body/Large block). The indent is one body line-height of the text size.
+ */
+.bullets {
+  list-style: disc;
+  padding-inline-start: calc(var(--line-height-body) * 1em);
+}
+
+/* While the lightbox is open */
+.scroll-locked { overflow: hidden; }
+
+/* ---- Layout ----
+ * Page frames are a vertical stack (Header, sections, Footer) spaced by
+ * space-section-lg. Content sits inside the page margin and is capped at
+ * size-content-max, centred, on screens wider than the Desktop frame.
+ */
+.page-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-section-lg);
+  padding-block: var(--space-section-lg);
+}
+
+.page-gutter {
+  padding-inline: max(var(--space-page-margin), (100% - var(--size-content-max)) / 2);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

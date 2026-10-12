@@ -1,0 +1,41 @@
+---
+// Neutral Button (Figma 308:83), also the base of Copy Email Button (856:3266).
+// Renders <a> when given href, otherwise <button>. Extra attributes pass through.
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'a'> & HTMLAttributes<'button'>;
+const { href, class: className, ...attrs } = Astro.props;
+const Tag = href ? 'a' : 'button';
+---
+<Tag
+  class:list={['neutral-button', 'label', className]}
+  href={href}
+  type={href ? undefined : 'button'}
+  {...attrs}
+><slot /></Tag>
+
+<style>
+  .neutral-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-control-y) var(--space-control-x);
+    background: var(--interactive-neutral-bg);
+    border: var(--border-width-default) solid var(--interactive-neutral-border);
+    color: var(--interactive-neutral-text);
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  @media (hover: hover) {
+    .neutral-button:hover {
+      box-shadow: var(--shadow-offset) var(--shadow-offset) 0 0 var(--brand-accent);
+    }
+  }
+
+  .neutral-button:active {
+    background: var(--interactive-neutral-bg-pressed);
+    border-color: var(--interactive-neutral-border-pressed);
+  }
+</style>

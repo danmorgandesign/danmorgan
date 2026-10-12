@@ -1,0 +1,525 @@
+/*
+ * Design tokens — generated from Figma, do not hand-edit values.
+ * Source: "Dan Morgan Design Website" (Hrq0aL2IaT6DpSCmuTW7uY), collections
+ * Primitives · Semantic (Light | Dark) · Breakpoint (Mobile | Tablet | Desktop).
+ * Last synced: 2026-10-12.
+ *
+ * RULE: components and pages use SEMANTIC tokens only (everything below the
+ * "Semantic" headings). Primitives exist only to be aliased by this file.
+ *
+ * Breakpoints (CSS can't use vars in media queries, so these are literal):
+ *   Mobile 0–767px (default) · Tablet 768–1279px · Desktop 1280px+
+ *   Content max width 1728px.
+ *
+ * The line-height and letter-spacing text-style tokens exist in Figma with no
+ * scopes: Figma reads a bound value as px, so they are for code only.
+ *
+ * Not exported (Figma-only): annotation-*, font-family-annotation,
+ * font-size-annotation-*, radius-swatch, font-size-brand-mark (logo ships as SVG),
+ * theme-is-dark/light (CSS handles theme visibility), the Prototype collection,
+ * component-canvas and frame sizes (size-canvas-*, size-frame-*, size-content-tablet/
+ * -mobile, size-detail-default, size-media-default, size-header-height-*), Figma
+ * focus-ring rectangles (size-focus-ring-*: code uses outline), prototype carousel
+ * geometry (size-carousel-strip, size-media-height-*), lightbox component frames
+ * (size-lightbox-frame*, size-lightbox-image-tablet) and icon internals
+ * (size-icon-stroke/-shaft/-arm/-bar/-triangle-width/-close-bar/-sun-core/-ray*:
+ * icons ship as SVG).
+ */
+
+/* ================================================================
+   Primitives
+   ================================================================ */
+:root {
+  /* Colour */
+  --neutral-white: #ffffff;
+  --neutral-black: #000000;
+
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+
+  --lime-50: #feffeb;
+  --lime-100: #fcffcc;
+  --lime-200: #f8ff99;
+  --lime-300: #f6ff73;
+  --lime-400: #f1ff33;
+  --lime-500: #eeff00;
+  --lime-600: #d1e000;
+  --lime-700: #b2bf00;
+  --lime-800: #949e00;
+  --lime-900: #778000;
+
+  --cyan-50: #f1fdfd;
+  --cyan-100: #dcfafb;
+  --cyan-200: #b9f5f6;
+  --cyan-300: #9ef2f3;
+  --cyan-400: #72eced;
+  --cyan-500: #4fe7e9;
+  --cyan-600: #46cbcd;
+  --cyan-700: #3badaf;
+  --cyan-800: #318f90;
+  --cyan-900: #287475;
+
+  --magenta-50: #ffebf8;
+  --magenta-100: #ffccee;
+  --magenta-200: #ff99dd;
+  --magenta-300: #ff73d0;
+  --magenta-400: #ff33bb;
+  --magenta-500: #ff00aa;
+  --magenta-600: #e00096;
+  --magenta-700: #bf0080;
+  --magenta-800: #9e0069;
+  --magenta-900: #800055;
+
+  --green-50: #ebfdf4;
+  --green-100: #ccfae4;
+  --green-200: #99f5c8;
+  --green-300: #73f1b4;
+  --green-400: #33eb91;
+  --green-500: #00e676;
+  --green-600: #00ca68;
+  --green-700: #00ad59;
+  --green-800: #008f49;
+  --green-900: #00733b;
+
+  --amber-50: #fff8eb;
+  --amber-100: #ffeecc;
+  --amber-200: #ffdd99;
+  --amber-300: #ffd173;
+  --amber-400: #ffbc33;
+  --amber-500: #ffab00;
+  --amber-600: #e09700;
+  --amber-700: #bf8000;
+  --amber-800: #9e6a00;
+  --amber-900: #805600;
+
+  --red-50: #ffefee;
+  --red-100: #ffd8d6;
+  --red-200: #ffb1ac;
+  --red-300: #ff938d;
+  --red-400: #ff6259;
+  --red-500: #ff3b30;
+  --red-600: #e0342a;
+  --red-700: #bf2c24;
+  --red-800: #9e251e;
+  --red-900: #801d18;
+
+  /* Space */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-11: 44px;
+  --space-12: 48px;
+  --space-15: 60px;
+  --space-16: 64px;
+  --space-24: 96px;
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* Size (100px and up) */
+  --size-120: 120px;
+  --size-160: 160px;
+  --size-200: 200px;
+  --size-240: 240px;
+  --size-320: 320px;
+  --size-400: 400px;
+  --size-480: 480px;
+  --size-560: 560px;
+  --size-612: 612px;
+  --size-656: 656px;
+  --size-700: 700px;
+  --size-706: 706px;
+  --size-1000: 1000px;
+  --size-1157: 1157px;
+  --size-1246: 1246px;
+  --size-1389: 1389px;
+  --size-1728: 1728px;
+
+  /* Stroke */
+  --stroke-1: 1px;
+  --stroke-2: 2px;
+  --stroke-2-5: 2.5px;
+  --stroke-4: 4px;
+
+  /* Typography */
+  --font-headline: "Montserrat", system-ui, sans-serif;
+  --font-body: "Google Sans Flex", system-ui, sans-serif;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.5rem;     /* 24px */
+  --font-size-2xl: 1.875rem;  /* 30px */
+  --font-size-3xl: 2.25rem;   /* 36px */
+  --font-size-4xl: 3rem;      /* 48px */
+  --font-size-5xl: 3.75rem;   /* 60px */
+  --font-size-6xl: 4.5rem;    /* 72px */
+
+  --line-height-xs: 1.5;
+  --line-height-sm: 1.5;
+  --line-height-base: 1.5;
+  --line-height-lg: 1.5;
+  --line-height-xl: 1.2;
+  --line-height-2xl: 1.2;
+  --line-height-3xl: 1.2;
+  --line-height-4xl: 1.1;
+  --line-height-5xl: 1.1;
+  --line-height-6xl: 1.1;
+
+  --letter-spacing-3xl: -0.02em;
+  --letter-spacing-4xl: -0.02em;
+  --letter-spacing-5xl: -0.02em;
+  --letter-spacing-6xl: -0.02em;
+
+  /* Duration */
+  --duration-300: 300ms;
+  --duration-500: 500ms;
+  --duration-1000: 1000ms;
+  --duration-4000: 4000ms;
+}
+
+/* ================================================================
+   Breakpoint tier — Mobile (default) → Tablet → Desktop
+   ================================================================ */
+:root {
+  --page-margin: var(--space-6);
+  --grid-gutter: var(--space-4);
+  --section-sm: var(--space-6);
+  --section-md: var(--space-8);
+  --section-lg: var(--space-12);
+
+  --font-size-headline-2xl: var(--font-size-4xl);
+  --font-size-headline-xl: var(--font-size-3xl);
+  --font-size-headline-l: var(--font-size-2xl);
+  --font-size-headline-m: var(--font-size-xl);
+  --font-size-headline-s: var(--font-size-lg);
+  --font-size-body-lg: var(--font-size-lg);
+  --font-size-body: var(--font-size-base);
+  --font-size-body-sm: var(--font-size-sm);
+  --font-size-label: var(--font-size-sm);
+  --font-size-caption: var(--font-size-xs);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --page-margin: var(--space-12);
+    --grid-gutter: var(--space-6);
+    --section-sm: var(--space-8);
+    --section-md: var(--space-12);
+    --section-lg: var(--space-16);
+
+    --font-size-headline-2xl: var(--font-size-5xl);
+    --font-size-headline-xl: var(--font-size-4xl);
+    --font-size-headline-l: var(--font-size-3xl);
+    --font-size-headline-m: var(--font-size-2xl);
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --page-margin: var(--space-24);
+    --grid-gutter: var(--space-6);
+    --section-sm: var(--space-12);
+    --section-md: var(--space-16);
+    --section-lg: var(--space-24);
+
+    --font-size-headline-2xl: var(--font-size-6xl);
+    --font-size-headline-xl: var(--font-size-5xl);
+    --font-size-headline-l: var(--font-size-3xl);
+    --font-size-headline-m: var(--font-size-2xl);
+  }
+}
+
+/* ================================================================
+   Semantic — mode-invariant
+   ================================================================ */
+:root {
+  /* Space: inset (padding) */
+  --space-inset-xs: var(--space-1);
+  --space-inset-sm: var(--space-2);
+  --space-inset-md: var(--space-4);
+  --space-inset-lg: var(--space-6);
+  --space-inset-xl: var(--space-8);
+  --space-inset-2xl: var(--space-12);
+
+  /* Space: stack (vertical gaps) */
+  --space-stack-xs: var(--space-1);
+  --space-stack-sm: var(--space-2);
+  --space-stack-md: var(--space-4);
+  --space-stack-lg: var(--space-6);
+  --space-stack-xl: var(--space-8);
+  --space-stack-2xl: var(--space-12);
+  --space-stack-3xl: var(--space-16);
+  --space-stack-4xl: var(--space-24);
+
+  /* Space: inline, controls, layout */
+  --space-inline-lg: var(--space-6);
+  --space-control-y: var(--space-inset-sm);
+  --space-control-x: var(--space-inset-md);
+  --space-section-sm: var(--section-sm);
+  --space-section-md: var(--section-md);
+  --space-section-lg: var(--section-lg);
+  --space-page-margin: var(--page-margin);
+  --space-grid-gutter: var(--grid-gutter);
+  --space-media-inset: var(--grid-gutter);
+
+  /* Radius */
+  --radius-card: var(--radius-lg);
+
+  /* Border widths */
+  --border-width-default: var(--stroke-4);
+  --border-width-focus: var(--stroke-2);
+  --border-width-hairline: var(--stroke-1);
+  --border-width-icon: var(--stroke-2-5);
+
+  /* Sizes */
+  --size-touch-min: var(--space-12);
+  --size-control-lg: var(--space-15);
+  --size-menu-button-width: var(--size-120);
+  --size-indicator-dot: var(--space-4);
+  --size-indicator-hit-width: var(--space-11);
+  --size-bracket-length-lg: var(--space-16);
+  --size-bracket-weight-lg: var(--space-4);
+  --size-bracket-length-sm: var(--space-12);
+  --size-bracket-weight-sm: var(--space-2);
+  --size-content-max: var(--size-1728);
+  --size-measure-body: var(--size-612);
+  --size-avatar-sm: var(--size-200);
+  --size-avatar-photo-sm: var(--size-160);
+  --size-avatar-cell-max: var(--size-400);
+  --size-icon: var(--space-6);
+
+  /* Case-study layout */
+  --size-column-min: var(--size-320);
+  --size-column-min-mobile: var(--size-200);
+  --size-column-max: var(--size-560);
+  --size-content-column-min: var(--size-480);
+  --size-content-column-max: var(--size-706);
+  --size-detail-min: var(--size-240);
+  --size-detail-min-mobile: var(--size-200);
+  --size-media-slot-min: var(--size-700);
+  --size-media-max: var(--size-1000);
+  --size-hero-composite-max: var(--size-1246);
+  --size-lightbox-image-max-5x4: var(--size-1157);
+  --size-lightbox-image-max-3x2: var(--size-1389);
+
+  /* Contact */
+  --size-form-width: var(--size-706);
+  --size-textarea-height: var(--size-160);
+  --size-contact-intro-max: var(--size-656);
+
+  /* Motion */
+  --motion-fade: var(--duration-300);
+  --motion-slide-manual: var(--duration-500);
+  --motion-slide-auto: var(--duration-1000);
+  --motion-autoplay-interval: var(--duration-4000);
+
+  /* Effects */
+  --shadow-offset: var(--space-2);
+  --focus-ring-offset: var(--space-1);
+
+  /* Typography: families */
+  --font-family-headline: var(--font-headline);
+  --font-family-body: var(--font-body);
+
+  /* Typography: text styles (mirror the Figma text styles) */
+  --font-weight-headline: var(--font-weight-bold);
+  --font-weight-body: var(--font-weight-regular);
+  --font-weight-label: var(--font-weight-medium);
+  --line-height-headline-display: var(--line-height-6xl);  /* Headline/2XL, /XL — 110% */
+  --line-height-headline: var(--line-height-3xl);          /* Headline/L, /M, /S — 120% */
+  --line-height-body: var(--line-height-base);             /* Body/*, Label, Caption — 150% */
+  --letter-spacing-headline-display: var(--letter-spacing-6xl); /* Headline/2XL, /XL, /L — -2% */
+}
+
+/* ================================================================
+   Semantic — Light (default)
+   ================================================================ */
+:root {
+  color-scheme: light;
+
+  --surface-base: var(--slate-50);
+  --surface-card: var(--neutral-white);
+  --surface-disabled: var(--slate-100);
+  --overlay-background: color-mix(in srgb, var(--slate-800) 25%, transparent);
+  --overlay-lightbox: color-mix(in srgb, var(--slate-800) 95%, transparent);
+
+  --text-primary: var(--slate-900);
+  --text-muted: var(--slate-500);
+  --text-link: var(--magenta-900);
+  --text-error: var(--red-700);
+  --text-on-brand: var(--slate-900);
+  --text-on-status: var(--neutral-black);
+
+  --border-subtle: var(--slate-200);
+  --border-strong: var(--slate-900);
+
+  --brand-primary: var(--lime-500);
+  --brand-mark-bg: var(--lime-500);
+  --brand-accent: var(--magenta-400);
+  --focus-ring: var(--slate-900);
+  --indicator-active: var(--magenta-500);
+
+  --status-success: var(--green-500);
+  --status-warning: var(--amber-500);
+  --status-error: var(--red-500);
+  --status-info: var(--cyan-500);
+
+  --interactive-primary-bg: var(--lime-500);
+  --interactive-primary-bg-pressed: var(--lime-700);
+  --interactive-primary-border: var(--slate-900);
+  --interactive-primary-border-pressed: var(--slate-900);
+  --interactive-primary-text: var(--neutral-black);
+
+  --interactive-secondary-bg: var(--cyan-500);
+  --interactive-secondary-bg-pressed: var(--cyan-700);
+  --interactive-secondary-border: var(--slate-900);
+  --interactive-secondary-border-pressed: var(--slate-900);
+  --interactive-secondary-text: var(--neutral-black);
+  --interactive-secondary-disabled-bg: var(--cyan-100);
+
+  --interactive-current-bg: var(--magenta-400);
+  --interactive-current-border: var(--slate-900);
+  --interactive-current-text: var(--neutral-black);
+
+  --interactive-neutral-bg: var(--slate-100);
+  --interactive-neutral-bg-pressed: var(--slate-300);
+  --interactive-neutral-border: var(--slate-900);
+  --interactive-neutral-border-pressed: var(--slate-900);
+  --interactive-neutral-text: var(--neutral-black);
+  --interactive-neutral-disabled-bg: var(--slate-50);
+
+  --interactive-disabled-bg: var(--lime-100);
+  --interactive-disabled-border: var(--slate-200);
+  --interactive-disabled-text: var(--slate-400);
+}
+
+/* ================================================================
+   Semantic — Dark
+   Applies when the OS prefers dark (unless the Theme Toggle forced light),
+   or when the Theme Toggle sets <html data-theme="dark">.
+   Keep both blocks identical.
+   ================================================================ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --surface-base: var(--slate-900);
+    --surface-card: var(--slate-800);
+    --surface-disabled: var(--slate-800);
+
+    --text-primary: var(--slate-50);
+    --text-muted: var(--slate-400);
+    --text-link: var(--magenta-300);
+    --text-error: var(--red-300);
+
+    --border-subtle: var(--slate-800);
+    --border-strong: var(--slate-50);
+
+    --brand-mark-bg: var(--slate-800);
+    --focus-ring: var(--neutral-white);
+
+    --status-success: var(--green-300);
+    --status-warning: var(--amber-300);
+    --status-error: var(--red-300);
+    --status-info: var(--cyan-300);
+
+    --interactive-primary-bg: var(--slate-900);
+    --interactive-primary-bg-pressed: var(--slate-900);
+    --interactive-primary-border: var(--lime-500);
+    --interactive-primary-border-pressed: var(--lime-700);
+    --interactive-primary-text: var(--neutral-white);
+
+    --interactive-secondary-bg: var(--slate-900);
+    --interactive-secondary-bg-pressed: var(--slate-900);
+    --interactive-secondary-border: var(--cyan-500);
+    --interactive-secondary-border-pressed: var(--cyan-700);
+    --interactive-secondary-text: var(--neutral-white);
+    --interactive-secondary-disabled-bg: var(--slate-800);
+
+    --interactive-current-bg: var(--slate-900);
+    --interactive-current-border: var(--magenta-400);
+    --interactive-current-text: var(--neutral-white);
+
+    --interactive-neutral-bg: var(--slate-900);
+    --interactive-neutral-bg-pressed: var(--slate-900);
+    --interactive-neutral-border: var(--slate-100);
+    --interactive-neutral-border-pressed: var(--slate-300);
+    --interactive-neutral-text: var(--neutral-white);
+    --interactive-neutral-disabled-bg: var(--slate-800);
+
+    --interactive-disabled-bg: var(--slate-800);
+    --interactive-disabled-border: var(--slate-500);
+    --interactive-disabled-text: var(--slate-500);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --surface-base: var(--slate-900);
+  --surface-card: var(--slate-800);
+  --surface-disabled: var(--slate-800);
+
+  --text-primary: var(--slate-50);
+  --text-muted: var(--slate-400);
+  --text-link: var(--magenta-300);
+  --text-error: var(--red-300);
+
+  --border-subtle: var(--slate-800);
+  --border-strong: var(--slate-50);
+
+  --brand-mark-bg: var(--slate-800);
+  --focus-ring: var(--neutral-white);
+
+  --status-success: var(--green-300);
+  --status-warning: var(--amber-300);
+  --status-error: var(--red-300);
+  --status-info: var(--cyan-300);
+
+  --interactive-primary-bg: var(--slate-900);
+  --interactive-primary-bg-pressed: var(--slate-900);
+  --interactive-primary-border: var(--lime-500);
+  --interactive-primary-border-pressed: var(--lime-700);
+  --interactive-primary-text: var(--neutral-white);
+
+  --interactive-secondary-bg: var(--slate-900);
+  --interactive-secondary-bg-pressed: var(--slate-900);
+  --interactive-secondary-border: var(--cyan-500);
+  --interactive-secondary-border-pressed: var(--cyan-700);
+  --interactive-secondary-text: var(--neutral-white);
+  --interactive-secondary-disabled-bg: var(--slate-800);
+
+  --interactive-current-bg: var(--slate-900);
+  --interactive-current-border: var(--magenta-400);
+  --interactive-current-text: var(--neutral-white);
+
+  --interactive-neutral-bg: var(--slate-900);
+  --interactive-neutral-bg-pressed: var(--slate-900);
+  --interactive-neutral-border: var(--slate-100);
+  --interactive-neutral-border-pressed: var(--slate-300);
+  --interactive-neutral-text: var(--neutral-white);
+  --interactive-neutral-disabled-bg: var(--slate-800);
+
+  --interactive-disabled-bg: var(--slate-800);
+  --interactive-disabled-border: var(--slate-500);
+  --interactive-disabled-text: var(--slate-500);
+}

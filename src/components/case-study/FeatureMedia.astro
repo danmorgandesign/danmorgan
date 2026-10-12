@@ -1,0 +1,26 @@
+---
+// Feature Row media panel: Feature Image (Figma 772:383) for one screenshot,
+// or the Feature Images carousel. surface-card panel with media-inset sides.
+interface Props { carousel?: boolean }
+const { carousel = false } = Astro.props;
+---
+<div class:list={['media', { carousel }]}>
+  <slot />
+</div>
+
+<style>
+  .media {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-inline: var(--space-media-inset);
+    background: var(--surface-card);
+  }
+  .carousel { padding-block-end: var(--space-inset-lg); }
+
+  .media > :global(img),
+  .media > :global(.zoom-button) {
+    inline-size: 100%;
+    max-inline-size: var(--size-media-max);
+  }
+</style>

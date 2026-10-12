@@ -1,0 +1,10 @@
+---
+// Icon / Pause (Carousel Button), exported from Figma. Inherits colour from currentColor.
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'svg'>;
+const { class: className, ...attrs } = Astro.props;
+---
+<svg class={className} {...attrs} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <rect x="6" y="2" width="4" height="20" fill="currentColor"/><rect x="14" y="2" width="4" height="20" fill="currentColor"/>
+</svg>
