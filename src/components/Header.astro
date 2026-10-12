@@ -1,0 +1,187 @@
+---
+// Site header. Desktop (1280+): Desktop Header (Figma 406:231), WordMark + nav.
+// Mobile/Tablet: Header + Menu (794:2049), Mark-Initials + Theme Toggle +
+// Hamburger, opening the Mobile Menu (396:220) over a backdrop.
+// `current` marks the active page (Menu Button State=Current).
+import Wordmark from './brand/Wordmark.astro';
+import MarkInitials from './brand/MarkInitials.astro';
+import MenuButton from './MenuButton.astro';
+import IconButton from './IconButton.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import IconHamburger from './icons/IconHamburger.astro';
+import IconClose from './icons/IconClose.astro';
+
+export type NavKey = 'about' | 'portfolio' | 'contact';
+
+interface Props { current?: NavKey }
+const { current } = Astro.props;
+
+const links: { key: NavKey; label: string; href: string }[] = [
+  { key: 'about', label: 'About', href: '/' },
+  { key: 'portfolio', label: 'Portfolio', href: '/portfolio.html' },
+  { key: 'contact', label: 'Contact', href: '/contact.html' },
+];
+---
+<header class="site-header" data-site-header>
+  <div class="bar">
+    <a class="brand" href="/" aria-label="Dan Morgan, home">
+      <Wordmark class="brand-wordmark" />
+      <MarkInitials class="brand-mark" />
+    </a>
+
+    <nav class="desktop-nav" aria-label="Main">
+      <ul role="list">
+        {links.map((link) => (
+          <li><MenuButton href={link.href} current={current === link.key}>{link.label}</MenuButton></li>
+        ))}
+      </ul>
+      <ThemeToggle size="lg" />
+    </nav>
+
+    <div class="compact-actions">
+      <ThemeToggle size="sm" />
+      <IconButton
+        size="sm"
+        class="menu-toggle"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Menu"
+        data-menu-toggle
+      >
+        <IconHamburger class="icon-open" />
+        <IconClose class="icon-close" />
+      </IconButton>
+    </div>
+  </div>
+
+  <nav id="mobile-menu" class="mobile-menu" aria-label="Main" hidden data-menu>
+    <ul role="list">
+      {links.map((link) => (
+        <li><MenuButton href={link.href} current={current === link.key} fill>{link.label}</MenuButton></li>
+      ))}
+    </ul>
+  </nav>
+  <div class="menu-backdrop" hidden data-menu-backdrop></div>
+</header>
+
+<style>
+  .site-header {
+    position: relative;
+    z-index: 10;
+  }
+
+  .bar {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-section-sm) var(--space-page-margin) var(--space-inset-lg);
+    background: var(--surface-card);
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .brand { display: block; }
+  .brand-wordmark { display: none; }
+
+  .desktop-nav { display: none; }
+
+  .compact-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-stack-md);
+  }
+
+  /* Hamburger ↔ ✕ (Hamburger Button State=Open) */
+  .icon-close { display: none; }
+  [aria-expanded='true'] .icon-open { display: none; }
+  [aria-expanded='true'] .icon-close { display: block; }
+
+  /* Mobile Menu: overlays the page below the header bar. */
+  .mobile-menu {
+    position: absolute;
+    inset-inline: 0;
+    top: 100%;
+    z-index: 1;
+    padding: calc(var(--space-section-lg) - var(--space-inset-lg)) var(--space-page-margin) var(--space-inset-lg);
+    background: var(--surface-card);
+    border-block-end: var(--border-width-default) solid var(--border-strong);
+  }
+
+  .mobile-menu ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-section-lg);
+  }
+
+  .mobile-menu[hidden],
+  .menu-backdrop[hidden] { display: none; }
+
+  .menu-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: var(--overlay-background);
+  }
+
+  @media (min-width: 1280px) {
+    .bar {
+      flex-wrap: wrap;
+      align-items: flex-start;
+      row-gap: var(--space-stack-lg);
+    }
+
+    .brand-wordmark { display: block; }
+    .brand-mark { display: none; }
+
+    .desktop-nav {
+      display: flex;
+      align-items: center;
+      gap: var(--space-inline-lg);
+    }
+
+    .desktop-nav ul {
+      display: flex;
+      gap: var(--space-inline-lg);
+    }
+
+    .compact-actions,
+    .mobile-menu,
+    .menu-backdrop { display: none; }
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-site-header]');
+  const toggle = header?.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu = header?.querySelector<HTMLElement>('[data-menu]');
+  const backdrop = header?.querySelector<HTMLElement>('[data-menu-backdrop]');
+
+  if (header && toggle && menu && backdrop) {
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      menu.hidden = !open;
+      backdrop.hidden = !open;
+    };
+    const isOpen = () => toggle.getAttribute('aria-expanded') === 'true';
+
+    toggle.addEventListener('click', () => setOpen(!isOpen()));
+    backdrop.addEventListener('click', () => setOpen(false));
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && isOpen()) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+
+    // The menu only exists below Desktop; close it if the viewport grows past it.
+    window.matchMedia('(min-width: 1280px)').addEventListener('change', (event) => {
+      if (event.matches) setOpen(false);
+    });
+  }
+</script>

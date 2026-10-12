@@ -1,0 +1,19 @@
+---
+// "DM" Mark-Initials logo at header size (60), exported from Figma (Mobile Header
+// instance, text outlined). Colours are swapped for semantic tokens so it follows Light/Dark.
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'svg'>;
+const { class: className, ...attrs } = Astro.props;
+---
+<svg class={className} {...attrs} width="62" height="62" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <g filter="url(#mark-shadow)">
+    <rect width="60" height="60" style="fill: var(--brand-mark-bg)"/>
+    <path d="M7.6717 39.4V21.48H16.5037C18.5005 21.48 20.2584 21.8469 21.7773 22.5808C23.2962 23.2976 24.4824 24.3216 25.3357 25.6528C26.189 26.984 26.6157 28.5797 26.6157 30.44C26.6157 32.2832 26.189 33.8789 25.3357 35.2272C24.4824 36.5584 23.2962 37.5909 21.7773 38.3248C20.2584 39.0416 18.5005 39.4 16.5037 39.4H7.6717ZM13.7133 34.6896H16.2477C17.101 34.6896 17.8434 34.5275 18.4749 34.2032C19.1234 33.8789 19.6269 33.4011 19.9853 32.7696C20.3437 32.1211 20.5229 31.3445 20.5229 30.44C20.5229 29.5184 20.3437 28.7419 19.9853 28.1104C19.6269 27.4789 19.1234 27.0011 18.4749 26.6768C17.8434 26.3525 17.101 26.1904 16.2477 26.1904H13.7133V34.6896ZM28.8217 39.4V21.48H33.7881L40.9561 33.1792H38.3449L45.3081 21.48H50.2745L50.3257 39.4H44.8217L44.7705 29.7744H45.6409L40.8793 37.7872H38.2169L33.2505 29.7744H34.3257V39.4H28.8217Z" style="fill: var(--text-primary)"/>
+  </g>
+  <defs>
+    <filter id="mark-shadow" x="0" y="0" width="61.6" height="61.6" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="1.6" dy="1.6" stdDeviation="0" style="flood-color: var(--brand-accent)"/>
+    </filter>
+  </defs>
+</svg>

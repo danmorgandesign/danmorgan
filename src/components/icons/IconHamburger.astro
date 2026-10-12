@@ -1,0 +1,12 @@
+---
+// Icon / Hamburger (Figma 381:87). Inherits colour from currentColor.
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'svg'>;
+const { class: className, ...attrs } = Astro.props;
+---
+<svg class={className} {...attrs} width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <rect width="24" height="4" fill="currentColor"/>
+  <rect y="8" width="24" height="4" fill="currentColor"/>
+  <rect y="16" width="24" height="4" fill="currentColor"/>
+</svg>

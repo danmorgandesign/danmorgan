@@ -1,0 +1,46 @@
+---
+// Menu Button (Figma 299:25). Fixed 120×60 in the Desktop Header; `fill`
+// stretches it to the container width (Mobile Menu). `current` = State=Current.
+interface Props {
+  href: string;
+  current?: boolean;
+  fill?: boolean;
+}
+const { href, current = false, fill = false } = Astro.props;
+---
+<a class:list={['menu-button', 'headline-s', { fill }]} href={href} aria-current={current ? 'page' : undefined}><slot /></a>
+
+<style>
+  .menu-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: var(--size-menu-button-width);
+    block-size: var(--size-control-lg);
+    padding: var(--space-control-y) var(--space-control-x);
+    background: var(--interactive-secondary-bg);
+    border: var(--border-width-default) solid var(--interactive-secondary-border);
+    color: var(--interactive-secondary-text);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .fill { inline-size: 100%; }
+
+  @media (hover: hover) {
+    .menu-button:hover {
+      box-shadow: var(--shadow-offset) var(--shadow-offset) 0 0 var(--brand-accent);
+    }
+  }
+
+  .menu-button:active {
+    background: var(--interactive-secondary-bg-pressed);
+    border-color: var(--interactive-secondary-border-pressed);
+  }
+
+  .menu-button[aria-current='page'] {
+    background: var(--interactive-current-bg);
+    border-color: var(--interactive-current-border);
+    color: var(--interactive-current-text);
+  }
+</style>

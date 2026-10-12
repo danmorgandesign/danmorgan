@@ -1,0 +1,39 @@
+---
+// Square icon-only control on the secondary tokens: Hamburger Button (381:122)
+// and the Theme Toggle button (680:397). size="sm" is 48 (touch minimum),
+// size="lg" is 60 (matches Menu Button height). Extra attributes pass through.
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'button'> {
+  size?: 'sm' | 'lg';
+}
+const { size = 'sm', class: className, ...attrs } = Astro.props;
+---
+<button type="button" class:list={['icon-button', size, className]} {...attrs}><slot /></button>
+
+<style>
+  .icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-inset-sm);
+    background: var(--interactive-secondary-bg);
+    border: var(--border-width-default) solid var(--interactive-secondary-border);
+    color: var(--interactive-secondary-text);
+    cursor: pointer;
+  }
+
+  .sm { inline-size: var(--size-touch-min); block-size: var(--size-touch-min); }
+  .lg { inline-size: var(--size-control-lg); block-size: var(--size-control-lg); }
+
+  @media (hover: hover) {
+    .icon-button:hover {
+      box-shadow: var(--shadow-offset) var(--shadow-offset) 0 0 var(--brand-accent);
+    }
+  }
+
+  .icon-button:active {
+    background: var(--interactive-secondary-bg-pressed);
+    border-color: var(--interactive-secondary-border-pressed);
+  }
+</style>

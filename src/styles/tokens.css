@@ -112,8 +112,10 @@
   --space-8: 32px;
   --space-11: 44px;
   --space-12: 48px;
+  --space-15: 60px;
   --space-16: 64px;
   --space-24: 96px;
+  --space-30: 120px;
 
   /* Radius */
   --radius-sm: 4px;
@@ -262,6 +264,8 @@
 
   /* Sizes */
   --size-touch-min: var(--space-12);
+  --size-control-lg: var(--space-15);
+  --size-menu-button-width: var(--space-30);
   --size-indicator-dot: var(--space-4);
   --size-indicator-hit-width: var(--space-11);
   --size-bracket-length-lg: var(--space-16);
