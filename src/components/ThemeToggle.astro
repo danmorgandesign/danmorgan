@@ -1,6 +1,8 @@
 ---
-// Theme Toggle (Figma 680:397). Moon shows in Light, sun in Dark. Clicking
-// stores the choice in localStorage; Base.astro applies it before first paint.
+// Theme Toggle (Figma 680:397). Moon shows in Light, sun in Dark. The device
+// theme is the default. Clicking saves an override in localStorage (Base.astro
+// applies it before first paint); the override is cleared when it matches the
+// device again or when the device theme changes.
 import IconButton from './IconButton.astro';
 import IconMoon from './icons/IconMoon.astro';
 import IconSun from './icons/IconSun.astro';
@@ -36,12 +38,23 @@ const { size = 'sm' } = Astro.props;
   toggles.forEach((toggle) =>
     toggle.addEventListener('click', () => {
       const next = isDark() ? 'light' : 'dark';
-      root.dataset.theme = next;
-      try { localStorage.setItem('theme', next); } catch {}
+      if ((next === 'dark') === prefersDark.matches) clearOverride();
+      else {
+        root.dataset.theme = next;
+        try { localStorage.setItem('theme', next); } catch {}
+      }
       sync();
     }),
   );
 
-  prefersDark.addEventListener('change', sync);
+  function clearOverride() {
+    delete root.dataset.theme;
+    try { localStorage.removeItem('theme'); } catch {}
+  }
+
+  prefersDark.addEventListener('change', () => {
+    clearOverride();
+    sync();
+  });
   sync();
 </script>
