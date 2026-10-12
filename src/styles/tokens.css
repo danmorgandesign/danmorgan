@@ -16,7 +16,14 @@
  *
  * Not exported (Figma-only): annotation-*, font-family-annotation,
  * font-size-annotation-*, radius-swatch, font-size-brand-mark (logo ships as SVG),
- * theme-is-dark/light (CSS handles theme visibility), and the Prototype collection.
+ * theme-is-dark/light (CSS handles theme visibility), the Prototype collection,
+ * component-canvas and frame sizes (size-canvas-*, size-frame-*, size-content-tablet/
+ * -mobile, size-detail-default, size-media-default, size-header-height-*), Figma
+ * focus-ring rectangles (size-focus-ring-*: code uses outline), prototype carousel
+ * geometry (size-carousel-strip, size-media-height-*), lightbox component frames
+ * (size-lightbox-frame*, size-lightbox-image-tablet) and icon internals
+ * (size-icon-stroke/-shaft/-arm/-bar/-triangle-width/-close-bar/-sun-core/-ray*:
+ * icons ship as SVG).
  */
 
 /* ================================================================
@@ -115,18 +122,29 @@
   --space-15: 60px;
   --space-16: 64px;
   --space-24: 96px;
-  --space-30: 120px;
-  --space-40: 160px;
-  --space-50: 200px;
 
   /* Radius */
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
 
-  /* Size */
+  /* Size (100px and up) */
+  --size-120: 120px;
+  --size-160: 160px;
+  --size-200: 200px;
+  --size-240: 240px;
+  --size-320: 320px;
   --size-400: 400px;
+  --size-480: 480px;
+  --size-560: 560px;
   --size-612: 612px;
+  --size-656: 656px;
+  --size-700: 700px;
+  --size-706: 706px;
+  --size-1000: 1000px;
+  --size-1157: 1157px;
+  --size-1246: 1246px;
+  --size-1389: 1389px;
   --size-1728: 1728px;
 
   /* Stroke */
@@ -269,7 +287,7 @@
   /* Sizes */
   --size-touch-min: var(--space-12);
   --size-control-lg: var(--space-15);
-  --size-menu-button-width: var(--space-30);
+  --size-menu-button-width: var(--size-120);
   --size-indicator-dot: var(--space-4);
   --size-indicator-hit-width: var(--space-11);
   --size-bracket-length-lg: var(--space-16);
@@ -278,9 +296,28 @@
   --size-bracket-weight-sm: var(--space-2);
   --size-content-max: var(--size-1728);
   --size-measure-body: var(--size-612);
-  --size-avatar-sm: var(--space-50);
-  --size-avatar-photo-sm: var(--space-40);
+  --size-avatar-sm: var(--size-200);
+  --size-avatar-photo-sm: var(--size-160);
   --size-avatar-cell-max: var(--size-400);
+  --size-icon: var(--space-6);
+
+  /* Case-study layout */
+  --size-column-min: var(--size-320);
+  --size-column-min-mobile: var(--size-200);
+  --size-column-max: var(--size-560);
+  --size-content-column-min: var(--size-480);
+  --size-content-column-max: var(--size-706);
+  --size-detail-min: var(--size-240);
+  --size-detail-min-mobile: var(--size-200);
+  --size-media-slot-min: var(--size-700);
+  --size-media-max: var(--size-1000);
+  --size-hero-composite-max: var(--size-1246);
+  --size-lightbox-image-max-5x4: var(--size-1157);
+  --size-lightbox-image-max-3x2: var(--size-1389);
+
+  /* Contact */
+  --size-form-width: var(--size-706);
+  --size-contact-intro-max: var(--size-656);
 
   /* Effects */
   --shadow-offset: var(--space-2);
