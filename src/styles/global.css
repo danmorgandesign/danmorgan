@@ -62,6 +62,18 @@ a { color: var(--text-link); }
 .label   { font-size: var(--font-size-label); font-weight: var(--font-weight-label); }
 .caption { font-size: var(--font-size-caption); }
 
+/* ---- Lists ----
+ * Case-study bullet lists (Figma: built-in unordered bullets, indentation 1,
+ * in a Body/Large block). The indent is one body line-height of the text size.
+ */
+.bullets {
+  list-style: disc;
+  padding-inline-start: calc(var(--line-height-body) * 1em);
+}
+
+/* While the lightbox is open */
+.scroll-locked { overflow: hidden; }
+
 /* ---- Layout ----
  * Page frames are a vertical stack (Header, sections, Footer) spaced by
  * space-section-lg. Content sits inside the page margin and is capped at

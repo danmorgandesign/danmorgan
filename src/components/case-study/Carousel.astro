@@ -1,0 +1,228 @@
+---
+// Feature Images (Figma 491:279): auto-advancing screenshot carousel used as
+// Feature Row media. 3 slides; a copy of slide 1 after the last makes the
+// forward loop seamless (Figma's Slide=4), then snaps back. WCAG 2.2.2: Pause
+// control, pauses on hover and focus, no autoplay under prefers-reduced-motion.
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import ZoomableImage from './ZoomableImage.astro';
+import IconButton from '../IconButton.astro';
+import IconPause from '../icons/IconPause.astro';
+import IconPlay from '../icons/IconPlay.astro';
+import IconArrowLeft from '../icons/IconArrowLeft.astro';
+import IconArrowRight from '../icons/IconArrowRight.astro';
+
+interface Slide { src: ImageMetadata; alt: string }
+interface Props {
+  label: string;
+  slides: Slide[];
+  ratio: '5:4' | '3:2';
+  sizes: string;
+}
+const { label, slides, ratio, sizes } = Astro.props;
+const first = slides[0];
+---
+<div class="carousel" role="region" aria-roledescription="carousel" aria-label={label} data-carousel>
+  <div class="viewport" class:list={[ratio === '5:4' ? 'ratio-5x4' : 'ratio-3x2']}>
+    <ul class="track" role="list" data-track>
+      {slides.map((slide, i) => (
+        <li class="slide" role="group" aria-roledescription="slide" aria-label={`${i + 1} of ${slides.length}`} data-slide>
+          <ZoomableImage src={slide.src} alt={slide.alt} ratio={ratio} sizes={sizes} />
+        </li>
+      ))}
+      <li class="slide" aria-hidden="true" data-loop-copy>
+        <Image src={first.src} alt="" widths={[480, 800, 1200]} sizes={sizes} loading="lazy" />
+      </li>
+    </ul>
+  </div>
+
+  <div class="controls">
+    <IconButton size="sm" aria-label="Pause slideshow" data-play-toggle>
+      <IconPause class="icon-pause" />
+      <IconPlay class="icon-play" />
+    </IconButton>
+    <div class="navigation">
+      <IconButton size="sm" aria-label="Previous slide" data-prev><IconArrowLeft /></IconButton>
+      <div class="dots">
+        {slides.map((_, i) => (
+          <button type="button" class="dot" aria-label={`Go to slide ${i + 1}`} aria-current={i === 0 ? 'true' : undefined} data-dot={i}>
+            <span class="dot-mark"></span>
+          </button>
+        ))}
+      </div>
+      <IconButton size="sm" aria-label="Next slide" data-next><IconArrowRight /></IconButton>
+    </div>
+  </div>
+
+  <p class="visually-hidden" aria-live="off" data-status></p>
+</div>
+
+<style>
+  .carousel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-inset-lg);
+    inline-size: 100%;
+  }
+
+  .viewport {
+    inline-size: 100%;
+    max-inline-size: var(--size-media-max);
+    overflow: hidden;
+  }
+  .ratio-5x4 { aspect-ratio: 5 / 4; }
+  .ratio-3x2 { aspect-ratio: 3 / 2; }
+
+  .track {
+    display: flex;
+    block-size: 100%;
+    padding: 0;
+    list-style: none;
+    transform: translateX(calc(var(--index, 0) * -100%));
+  }
+  .track.animating-manual { transition: transform var(--motion-slide-manual) ease-in-out; }
+  .track.animating-auto { transition: transform var(--motion-slide-auto) ease-in-out; }
+
+  .slide {
+    flex: 0 0 100%;
+    block-size: 100%;
+  }
+  .slide :global(img) {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: contain;
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-stack-sm);
+  }
+
+  /* Previous, the dots and Next sit in one group with no gap so they fit a 375 phone. */
+  .navigation,
+  .dots {
+    display: flex;
+    align-items: center;
+  }
+
+  .icon-play { display: none; }
+  [data-paused] .icon-pause { display: none; }
+  [data-paused] .icon-play { display: block; }
+
+  /* Carousel Dot (Figma 940:752): 16 dot in a 44×48 hit area. */
+  .dot {
+    display: grid;
+    place-items: center;
+    inline-size: var(--size-indicator-hit-width);
+    block-size: var(--size-touch-min);
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+  .dot-mark {
+    inline-size: var(--size-indicator-dot);
+    block-size: var(--size-indicator-dot);
+    background: var(--interactive-neutral-bg);
+    border: var(--border-width-default) solid var(--border-strong);
+  }
+  .dot[aria-current='true'] { cursor: default; }
+  .dot[aria-current='true'] .dot-mark { background: var(--indicator-active); }
+
+  @media (hover: hover) {
+    .dot:not([aria-current='true']):hover .dot-mark {
+      box-shadow: var(--shadow-offset) var(--shadow-offset) 0 0 var(--brand-accent);
+    }
+  }
+
+  /* The focus ring goes round the dot, not the hit area. */
+  .dot:focus-visible { outline: none; }
+  .dot:focus-visible .dot-mark {
+    outline: var(--border-width-focus) solid var(--focus-ring);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .track.animating-manual,
+    .track.animating-auto { transition: none; }
+  }
+</style>
+
+<script>
+  const ms = (el: Element, prop: string) => parseFloat(getComputedStyle(el).getPropertyValue(prop)) || 0;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
+    const track = root.querySelector<HTMLElement>('[data-track]')!;
+    const slides = [...root.querySelectorAll<HTMLElement>('[data-slide]')];
+    const dots = [...root.querySelectorAll<HTMLButtonElement>('[data-dot]')];
+    const toggle = root.querySelector<HTMLButtonElement>('[data-play-toggle]')!;
+    const status = root.querySelector<HTMLElement>('[data-status]')!;
+    const count = slides.length;
+    const interval = ms(root, '--motion-autoplay-interval');
+
+    let index = 0;
+    let userPaused = reduceMotion.matches; // start paused under reduced motion
+    let hoverOrFocus = false;
+    let timer: number | undefined;
+
+    const render = (announce: boolean) => {
+      slides.forEach((slide, i) => {
+        const active = i === index;
+        slide.inert = !active;
+        slide.setAttribute('aria-hidden', String(!active));
+      });
+      dots.forEach((dot, i) => (i === index ? dot.setAttribute('aria-current', 'true') : dot.removeAttribute('aria-current')));
+      status.setAttribute('aria-live', announce ? 'polite' : 'off');
+      status.textContent = `Slide ${index + 1} of ${count}`;
+    };
+
+    const moveTo = (target: number, mode: 'manual' | 'auto') => {
+      track.classList.remove('animating-manual', 'animating-auto');
+      track.classList.add(mode === 'auto' ? 'animating-auto' : 'animating-manual');
+      // Forward from the last slide: animate onto the loop copy, then snap to slide 1.
+      if (mode === 'auto' && target === 0 && index === count - 1) {
+        track.style.setProperty('--index', String(count));
+        track.addEventListener('transitionend', () => {
+          track.classList.remove('animating-auto');
+          track.style.setProperty('--index', '0');
+        }, { once: true });
+        if (reduceMotion.matches) track.style.setProperty('--index', '0');
+      } else {
+        track.style.setProperty('--index', String(target));
+      }
+      index = target;
+      render(mode === 'manual' || userPaused);
+    };
+
+    const playing = () => !userPaused && !hoverOrFocus;
+    const schedule = () => {
+      window.clearInterval(timer);
+      timer = playing() ? window.setInterval(() => moveTo((index + 1) % count, 'auto'), interval) : undefined;
+    };
+    const setUserPaused = (paused: boolean) => {
+      userPaused = paused;
+      root.toggleAttribute('data-paused', paused);
+      toggle.setAttribute('aria-label', paused ? 'Play slideshow' : 'Pause slideshow');
+      schedule();
+    };
+
+    toggle.addEventListener('click', () => setUserPaused(!userPaused));
+    root.querySelector('[data-prev]')!.addEventListener('click', () => { moveTo((index - 1 + count) % count, 'manual'); schedule(); });
+    root.querySelector('[data-next]')!.addEventListener('click', () => { moveTo((index + 1) % count, 'manual'); schedule(); });
+    dots.forEach((dot, i) => dot.addEventListener('click', () => { if (i !== index) { moveTo(i, 'manual'); schedule(); } }));
+
+    const pauseFor = (on: boolean) => { hoverOrFocus = on; schedule(); };
+    root.addEventListener('mouseenter', () => pauseFor(true));
+    root.addEventListener('mouseleave', () => pauseFor(root.contains(document.activeElement)));
+    root.addEventListener('focusin', () => pauseFor(true));
+    root.addEventListener('focusout', (e) => { if (!root.contains(e.relatedTarget as Node)) pauseFor(root.matches(':hover')); });
+    document.addEventListener('visibilitychange', () => pauseFor(document.hidden));
+
+    setUserPaused(userPaused);
+    render(false);
+  });
+</script>

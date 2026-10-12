@@ -188,6 +188,12 @@
   --letter-spacing-4xl: -0.02em;
   --letter-spacing-5xl: -0.02em;
   --letter-spacing-6xl: -0.02em;
+
+  /* Duration */
+  --duration-300: 300ms;
+  --duration-500: 500ms;
+  --duration-1000: 1000ms;
+  --duration-4000: 4000ms;
 }
 
 /* ================================================================
@@ -319,6 +325,12 @@
   --size-form-width: var(--size-706);
   --size-contact-intro-max: var(--size-656);
 
+  /* Motion */
+  --motion-fade: var(--duration-300);
+  --motion-slide-manual: var(--duration-500);
+  --motion-slide-auto: var(--duration-1000);
+  --motion-autoplay-interval: var(--duration-4000);
+
   /* Effects */
   --shadow-offset: var(--space-2);
   --focus-ring-offset: var(--space-1);
@@ -347,6 +359,7 @@
   --surface-card: var(--neutral-white);
   --surface-disabled: var(--slate-100);
   --overlay-background: color-mix(in srgb, var(--slate-800) 25%, transparent);
+  --overlay-lightbox: color-mix(in srgb, var(--slate-800) 95%, transparent);
 
   --text-primary: var(--slate-900);
   --text-muted: var(--slate-500);

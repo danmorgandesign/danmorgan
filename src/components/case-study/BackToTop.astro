@@ -1,0 +1,39 @@
+---
+// Back to Top (Figma 846:1789). Fixed bottom-right at the page margin; appears
+// after about two screens of scrolling; scrolls to the top and moves focus to the h1.
+import IconButton from '../IconButton.astro';
+import IconArrowUp from '../icons/IconArrowUp.astro';
+---
+<IconButton size="sm" class="back-to-top" aria-label="Back to top" hidden data-back-to-top>
+  <IconArrowUp />
+</IconButton>
+
+<style>
+  .back-to-top {
+    position: fixed;
+    inset-block-end: var(--space-page-margin);
+    inset-inline-end: var(--space-page-margin);
+    z-index: 5;
+  }
+  .back-to-top[hidden] { display: none; }
+</style>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>('[data-back-to-top]');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  if (button) {
+    const update = () => { button.hidden = window.scrollY < window.innerHeight * 2; };
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+
+    button.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+      const heading = document.querySelector<HTMLElement>('h1');
+      if (heading) {
+        heading.tabIndex = -1;
+        heading.focus({ preventScroll: true });
+      }
+    });
+  }
+</script>
