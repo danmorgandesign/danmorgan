@@ -8,7 +8,7 @@ Portfolio for **Dan Morgan** (UX/Product Designer). v2 is a **full front-end reb
 - **Plain CSS.** No Tailwind, no CSS framework, no utility classes beyond the few in `src/styles/global.css`. Component styles go in each `.astro` file's scoped `<style>`.
 - **Vanilla JS**, only where a component needs it (menu, lightbox, carousel, contact form, theme toggle, back to top). Use `<script>` in the component. No UI frameworks or islands unless asked.
 - **Fonts:** self-hosted Latin WOFF2 in `public/fonts/` (Google Sans Flex variable with wght + opsz for body, since the optical-size axis is needed to match Figma at 14px; Montserrat 700 static for headlines), `@font-face` in `src/styles/fonts.css`. Don't add weights the Figma text styles don't use. The "DM" logo uses Montserrat Black, but it ships as SVG, so that weight is never loaded.
-- **Contact form:** Web3Forms. The logic (honeypot, obfuscated copy-email button) is in `src/scripts/contact-form.js`, carried over from v1. It still toggles old Tailwind status classes (`text-green-600`/`text-red-600`) and needs rewiring to the new Contact component and the Form Status states. The access key is meant to be client-side; whether it's restricted to the domain in the Web3Forms dashboard is **unconfirmed**.
+- **Contact form:** Web3Forms via `src/scripts/contact-form.js`, which follows the Contact annotations: validate on submit and then on blur, focus the first invalid field, a Sending state, Sent/Error status banners, keep values on error and clear on success. Copy-email (footer button and Contact link) is `src/scripts/copy-email.js`; the address is assembled at runtime. The access key is meant to be client-side; whether it's restricted to the domain in the Web3Forms dashboard is **unconfirmed**.
 - **Redirects:** `/about.html` → `/` (Home is the About page now), via `redirects` in `astro.config.mjs`. It's a static meta-refresh page because GitHub Pages can't send real 301s.
 - **Hosting:** GitHub Pages via `.github/workflows/deploy.yml` (Node 24, `npm run build` → `dist/`). It runs on push to `main`. **Before merging `restyle` → `main`, switch Settings → Pages → Source to "GitHub Actions".** Custom domain via `public/CNAME`.
 
@@ -24,8 +24,13 @@ npm run preview  # serve dist/ on :3000
 public/            CNAME, favicon, fonts/ (served as-is)
 src/styles/        tokens.css (generated), fonts.css, global.css
 src/layouts/       Base.astro (head, CSS imports, theme init)
-src/components/    one .astro per Figma component
-src/pages/         one .astro per page → flat .html
+src/components/    one .astro per Figma component (buttons, header, footer, cards…)
+src/components/case-study/  CaseStudyHero, HeroImages, HeroComposite, Divider,
+                   CaseSection, FeatureRow, FeatureMedia, Carousel, ZoomableImage,
+                   Lightbox, BackToTop
+src/layouts/       Base.astro, CaseStudy.astro (adds Lightbox + Back to Top)
+src/data/          projects.ts (cards on Home and Portfolio)
+src/pages/         index, portfolio, library-lite, easy-invoice, bike-bus, contact → flat .html
 src/assets/images/ images processed by astro:assets (use <Image>/<Picture>)
 src/scripts/       shared client JS
 ```
@@ -33,7 +38,7 @@ src/scripts/       shared client JS
 ## Token rules (non-negotiable)
 
 - **Semantic tokens only** in components, pages and global.css: `var(--surface-card)`, `var(--space-inset-md)`, `var(--border-width-default)`, never `var(--slate-800)` or `var(--space-4)`.
-- **No hard-coded values:** no hex/rgb, no raw px/rem for spacing, sizes, radii, borders, font sizes or shadows. The only exceptions are `0`, `100%`, `auto`, breakpoint widths in media queries, and the standard `.visually-hidden` pattern.
+- **No hard-coded values:** no hex/rgb, no raw px/rem for spacing, sizes, radii, borders, font sizes or shadows. The only exceptions are `0`, `100%`, `auto`, breakpoint widths in media queries, the standard `.visually-hidden` pattern, and **Figma geometry ratios**: image `aspect-ratio`s and the hero-composite scale (`1470 / 1246`), which are unitless proportions of a source asset, not design values.
 - **If no semantic token fits, add it to Figma first** (Semantic collection, aliasing a primitive, with explicit scopes), then mirror it in `tokens.css`. Don't invent a value.
 - `tokens.css` is **generated from Figma**. Re-sync it from the variables, don't hand-tune it. Primitives → Breakpoint tier → Semantic (mode-invariant, Light, Dark).
 - **Lists:** case-study lists are real `<ul>` bullets in Body/Large text. Never hand-type "—" or "•".
@@ -95,12 +100,18 @@ File **`Hrq0aL2IaT6DpSCmuTW7uY`** ("Dan Morgan Design Website"). Pages: Prototyp
 
 ## Assets
 
-- Export hero frames and zoom crops **@2x** from Figma (export settings already exist) into `src/assets/images/`, and render them with `astro:assets` so they get resized and converted to modern formats. The PNGs carried over from v1 are old screenshots, so replace them as each page is built.
-- Export logos as **SVG** and inline them or put them in `src/assets/`.
+- Images live in `src/assets/images/` (per project folders) and render through `astro:assets` (resized, WebP). Get originals from `get_design_context` asset URLs (full-resolution image fills), not canvas exports. Reuse a file rather than shipping a duplicate (the card thumbnails double as feature images).
+- **Tablet zoom crops** (`zoom-*.png`) are centre crops of the 1920 source, full height, at the width in each zoom annotation (1170 / 1325 / 1575). Figma fakes them with fill crops. Regenerate them with sharp if a source changes.
+- Logos and icons are SVGs exported from Figma, recoloured with semantic tokens (`currentColor` or `style="fill: var(--…)"`). Child components must spread rest props onto their root element, because Astro 7 scopes styles with `data-astro-cid-*` attributes.
 
-## Open decisions
+## Verifying against Figma
+
+Compare block positions (section tops and heights at 1920 / 834 / 375) with the frame geometry from Figma, not screenshots alone. Single-line wrap differences are expected: Chrome and Figma set Google Sans Flex within ~1% of each other at 18px, so a line that only just fits can break differently.
+
+## Open items
 
 - Web3Forms key domain restriction is unconfirmed.
+- Copy kept exactly as in Figma but likely slips: Easy Invoice "Automatic Reminders" body repeats its title; Bike Bus summary "An Award Winning" (the card says "award-winning"), "…through numbers" with no full stop, "…searchable or public,".
 
 ## Git
 
