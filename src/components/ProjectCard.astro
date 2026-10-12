@@ -34,14 +34,15 @@ const Heading = `h${headingLevel}` as 'h2' | 'h3';
     padding: var(--space-inset-lg);
     background: var(--surface-card);
     border: var(--border-width-default) solid var(--border-strong);
-    box-shadow: var(--shadow-offset) var(--shadow-offset) 0 0 var(--brand-accent);
     color: var(--text-primary);
     text-decoration: none;
   }
 
-  /* Hover drops the shadow so the card looks pressed in. */
+  /* Hover adds the offset shadow, the same as the buttons. */
   @media (hover: hover) {
-    .card:hover { box-shadow: none; }
+    .card:hover {
+      box-shadow: var(--shadow-offset) var(--shadow-offset) 0 0 var(--brand-accent);
+    }
   }
 
   .top {

@@ -45,6 +45,10 @@ import IconClose from '../icons/IconClose.astro';
 
   .lightbox::backdrop { background: var(--overlay-lightbox); }
 
+  /* Zoom-out everywhere in the open overlay, the reverse of the zoom-in
+     thumbnails; any click except the close button shrinks the image back. */
+  .lightbox[open] { cursor: zoom-out; }
+
   .media {
     flex: 1 1 auto;
     min-block-size: 0;
@@ -147,9 +151,9 @@ import IconClose from '../icons/IconClose.astro';
     opener?.focus();
   });
   closeButton?.addEventListener('click', () => dialog?.close());
-  // Backdrop click: anything in the dialog except the image itself.
+  // Click anywhere in the dialog, the image included, closes it (zoom-out cursor).
   dialog?.addEventListener('click', (event) => {
-    if (event.target !== image && !closeButton?.contains(event.target as Node)) dialog.close();
+    if (!closeButton?.contains(event.target as Node)) dialog.close();
   });
 
   lightboxRange.addEventListener('change', sync);
