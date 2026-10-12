@@ -1,0 +1,82 @@
+---
+// Semantic Card (Figma 289:333). The whole card is the link. The heading level
+// is set per page: h3 on Home (under "Portfolio" h2), h2 on the Portfolio page.
+// The thumbnail is decorative (alt="") because the title names the project.
+import { Image } from 'astro:assets';
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+  headingLevel: 2 | 3;
+}
+const { project, headingLevel } = Astro.props;
+const Heading = `h${headingLevel}` as 'h2' | 'h3';
+---
+<a class="card" href={project.href}>
+  <div class="top">
+    <div class="image">
+      <Image class="thumbnail" src={project.thumbnail} alt="" widths={[400, 800]} sizes="(min-width: 768px) 30vw, 90vw" />
+    </div>
+    <div class="content">
+      <Heading class="headline-s">{project.title}</Heading>
+      <p class="body-sm">{project.summary}</p>
+    </div>
+  </div>
+  <span class="cta label">View {project.title}</span>
+</a>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    block-size: 100%;
+    padding: var(--space-inset-lg);
+    background: var(--surface-card);
+    border: var(--border-width-default) solid var(--border-strong);
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 0 0 var(--brand-accent);
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+
+  /* Hover drops the shadow so the card looks pressed in. */
+  @media (hover: hover) {
+    .card:hover { box-shadow: none; }
+  }
+
+  .top {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-section-sm);
+    padding-block-end: var(--space-stack-md);
+  }
+
+  /* Wide frame (Figma ratio lock); the 5:4 or 3:2 thumbnail fills its height, centred. */
+  .image {
+    display: flex;
+    justify-content: center;
+    aspect-ratio: 197 / 88.26;
+    overflow: hidden;
+  }
+
+  .thumbnail {
+    block-size: 100%;
+    inline-size: auto;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-stack-md);
+  }
+
+  /* Primary Button look; not a separate control, since the card is the link. */
+  .cta {
+    align-self: flex-start;
+    padding: var(--space-control-y) var(--space-control-x);
+    background: var(--interactive-primary-bg);
+    border: var(--border-width-default) solid var(--interactive-primary-border);
+    color: var(--interactive-primary-text);
+    white-space: nowrap;
+  }
+</style>

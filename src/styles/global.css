@@ -14,7 +14,7 @@ p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
 html { -webkit-text-size-adjust: 100%; }
 
 body {
-  background: var(--surface-base);
+  background: var(--surface-card);
   color: var(--text-primary);
   font-family: var(--font-family-body);
   font-weight: var(--font-weight-body);
@@ -62,12 +62,20 @@ a { color: var(--text-link); }
 .label   { font-size: var(--font-size-label); font-weight: var(--font-weight-label); }
 .caption { font-size: var(--font-size-caption); }
 
-/* ---- Layout ---- */
-.page-container {
-  width: 100%;
-  max-width: var(--size-content-max);
-  margin-inline: auto;
-  padding-inline: var(--space-page-margin);
+/* ---- Layout ----
+ * Page frames are a vertical stack (Header, sections, Footer) spaced by
+ * space-section-lg. Content sits inside the page margin and is capped at
+ * size-content-max, centred, on screens wider than the Desktop frame.
+ */
+.page-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-section-lg);
+  padding-block: var(--space-section-lg);
+}
+
+.page-gutter {
+  padding-inline: max(var(--space-page-margin), (100% - var(--size-content-max)) / 2);
 }
 
 .visually-hidden {

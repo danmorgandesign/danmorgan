@@ -21,7 +21,7 @@ const { title, description, current } = Astro.props;
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="preload" href="/fonts/google-sans-flex-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/google-sans-flex-latin-opsz.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/montserrat-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
     <script is:inline>
       // Apply a saved Theme Toggle choice before first paint (no flash).
@@ -33,7 +33,9 @@ const { title, description, current } = Astro.props;
   </head>
   <body>
     <Header current={current} />
-    <slot />
+    <main class="page-main">
+      <slot />
+    </main>
     <Footer />
   </body>
 </html>

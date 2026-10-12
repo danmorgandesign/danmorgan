@@ -76,7 +76,8 @@ const links: { key: NavKey; label: string; href: string }[] = [
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--space-section-sm) var(--space-page-margin) var(--space-inset-lg);
+    padding-block: var(--space-section-sm) var(--space-inset-lg);
+    padding-inline: max(var(--space-page-margin), (100% - var(--size-content-max)) / 2);
     background: var(--surface-card);
   }
 
@@ -107,7 +108,8 @@ const links: { key: NavKey; label: string; href: string }[] = [
     inset-inline: 0;
     top: 100%;
     z-index: 1;
-    padding: calc(var(--space-section-lg) - var(--space-inset-lg)) var(--space-page-margin) var(--space-inset-lg);
+    padding-block: calc(var(--space-section-lg) - var(--space-inset-lg)) var(--space-inset-lg);
+    padding-inline: max(var(--space-page-margin), (100% - var(--size-content-max)) / 2);
     background: var(--surface-card);
     border-block-end: var(--border-width-default) solid var(--border-strong);
   }

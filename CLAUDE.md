@@ -7,8 +7,9 @@ Portfolio for **Dan Morgan** (UX/Product Designer). v2 is a **full front-end reb
 - **Astro 7** static output, `build.format: 'file'` so URLs stay flat (`/library-lite.html`, as on the old site).
 - **Plain CSS.** No Tailwind, no CSS framework, no utility classes beyond the few in `src/styles/global.css`. Component styles go in each `.astro` file's scoped `<style>`.
 - **Vanilla JS**, only where a component needs it (menu, lightbox, carousel, contact form, theme toggle, back to top). Use `<script>` in the component. No UI frameworks or islands unless asked.
-- **Fonts:** self-hosted Latin WOFF2 in `public/fonts/` (Google Sans Flex 400/500 for body, Montserrat 700 for headlines), `@font-face` in `src/styles/fonts.css`. Don't add weights the Figma text styles don't use. The "DM" logo uses Montserrat Black, but it ships as SVG, so that weight is never loaded.
+- **Fonts:** self-hosted Latin WOFF2 in `public/fonts/` (Google Sans Flex variable with wght + opsz for body, since the optical-size axis is needed to match Figma at 14px; Montserrat 700 static for headlines), `@font-face` in `src/styles/fonts.css`. Don't add weights the Figma text styles don't use. The "DM" logo uses Montserrat Black, but it ships as SVG, so that weight is never loaded.
 - **Contact form:** Web3Forms. The logic (honeypot, obfuscated copy-email button) is in `src/scripts/contact-form.js`, carried over from v1. It still toggles old Tailwind status classes (`text-green-600`/`text-red-600`) and needs rewiring to the new Contact component and the Form Status states. The access key is meant to be client-side; whether it's restricted to the domain in the Web3Forms dashboard is **unconfirmed**.
+- **Redirects:** `/about.html` → `/` (Home is the About page now), via `redirects` in `astro.config.mjs`. It's a static meta-refresh page because GitHub Pages can't send real 301s.
 - **Hosting:** GitHub Pages via `.github/workflows/deploy.yml` (Node 24, `npm run build` → `dist/`). It runs on push to `main`. **Before merging `restyle` → `main`, switch Settings → Pages → Source to "GitHub Actions".** Custom domain via `public/CNAME`.
 
 ```bash
@@ -99,7 +100,6 @@ File **`Hrq0aL2IaT6DpSCmuTW7uY`** ("Dan Morgan Design Website"). Pages: Prototyp
 
 ## Open decisions
 
-- `about.html`: Figma has no About page (Home is the about). Redirect it or drop it?
 - Web3Forms key domain restriction is unconfirmed.
 
 ## Git

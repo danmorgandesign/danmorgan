@@ -19,7 +19,8 @@ import NeutralButton from './NeutralButton.astro';
     flex-direction: column;
     align-items: center;
     gap: var(--space-stack-lg);
-    padding: var(--space-inset-lg) var(--space-page-margin);
+    padding-block: var(--space-inset-lg);
+    padding-inline: max(var(--space-page-margin), (100% - var(--size-content-max)) / 2);
     text-align: center;
   }
 

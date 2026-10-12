@@ -116,6 +116,8 @@
   --space-16: 64px;
   --space-24: 96px;
   --space-30: 120px;
+  --space-40: 160px;
+  --space-50: 200px;
 
   /* Radius */
   --radius-sm: 4px;
@@ -123,6 +125,8 @@
   --radius-lg: 12px;
 
   /* Size */
+  --size-400: 400px;
+  --size-612: 612px;
   --size-1728: 1728px;
 
   /* Stroke */
@@ -273,6 +277,10 @@
   --size-bracket-length-sm: var(--space-12);
   --size-bracket-weight-sm: var(--space-2);
   --size-content-max: var(--size-1728);
+  --size-measure-body: var(--size-612);
+  --size-avatar-sm: var(--space-50);
+  --size-avatar-photo-sm: var(--space-40);
+  --size-avatar-cell-max: var(--size-400);
 
   /* Effects */
   --shadow-offset: var(--space-2);

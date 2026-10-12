@@ -1,12 +1,13 @@
 ---
 // "Dan Morgan" WordMark, exported from Figma (Desktop Header instance, text outlined).
-// Colours are swapped for semantic tokens so it follows Light/Dark.
+// Colours are swapped for semantic tokens so it follows Light/Dark. The root is
+// sized to the Figma box (516×116); the offset shadow overflows it, as in Figma.
 import type { HTMLAttributes } from 'astro/types';
 
 type Props = HTMLAttributes<'svg'>;
 const { class: className, ...attrs } = Astro.props;
 ---
-<svg class={className} {...attrs} width="524" height="124" viewBox="0 0 524 124" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+<svg class={className} {...attrs} width="516" height="116" viewBox="0 0 516 116" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
   <g filter="url(#wordmark-shadow)">
     <mask id="wordmark-border" fill="white">
       <path d="M0 0H516V116H0V0Z"/>
