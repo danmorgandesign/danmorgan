@@ -2,7 +2,8 @@
 // Feature Row (Figma 582:308): text column (h3 Headline/M, optional Label
 // subtitle, Body/Large body; 320–560) beside a media panel (min 700) that
 // wraps underneath when there's no room. Stacked on Mobile.
-// `spaced` reproduces Figma's blank lines between paragraphs and lists.
+// `spaced` reproduces Figma's blank line between every block of the body; for
+// a blank line before just one block, give that block class="blank-before".
 interface Props {
   title: string;
   subtitle?: string;
@@ -40,7 +41,8 @@ const { title, subtitle, spaced = false } = Astro.props;
 
   .subtitle { color: var(--text-muted); }
 
-  .spaced > :global(* + *) { margin-block-start: 1lh; }
+  .spaced > :global(* + *),
+  .feature-body > :global(.blank-before) { margin-block-start: 1lh; }
 
   @media (min-width: 768px) {
     .feature-row {

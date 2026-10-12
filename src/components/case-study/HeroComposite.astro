@@ -1,0 +1,61 @@
+---
+// Composite hero (e.g. Easy Invoice "Hero / Onboarding to Dashboard", Figma
+// 960:2538): a row of phone screenshots that acts as ONE image, with one alt
+// text, and opens the lightbox as a group (Tablet and Desktop).
+// Desktop shows the strip at its natural size (3 × 490 = 1470 wide). Below
+// Desktop, and in the lightbox, Figma frames it in a 3:2 box (max 1246) with the
+// strip scaled to 1470/1246 of the box, centred and cropped at the edges.
+import type { ImageMetadata } from 'astro';
+import { Image, getImage } from 'astro:assets';
+
+interface Props { images: ImageMetadata[]; alt: string }
+const { images, alt } = Astro.props;
+const fulls = await Promise.all(images.map((src) => getImage({ src, width: Math.min(src.width, 1080), format: 'webp' })));
+---
+<div class="composite" role="img" aria-label={alt} data-zoomable-group>
+  <div class="strip">
+    {images.map((src, i) => (
+      <Image class="phone" src={src} alt="" widths={[300, 600, 980]} sizes="(min-width: 1280px) 25vw, 40vw" data-full={fulls[i].src} loading="eager" />
+    ))}
+  </div>
+</div>
+
+<style>
+  .composite {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    inline-size: 100%;
+    max-inline-size: var(--size-hero-composite-max);
+    margin-inline: auto;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+  }
+
+  .strip {
+    display: flex;
+    flex: 0 0 auto;
+    inline-size: calc(100% * 1470 / 1246);
+  }
+
+  .phone {
+    flex: 1 1 0;
+    min-inline-size: 0;
+    block-size: auto;
+  }
+
+  /* Desktop: natural strip (1470 wide at most), no crop. */
+  @media (min-width: 1280px) {
+    .composite:not(:global(.in-lightbox)) {
+      max-inline-size: calc(var(--size-hero-composite-max) * 1470 / 1246);
+      aspect-ratio: auto;
+    }
+    .composite:not(:global(.in-lightbox)) .strip { inline-size: 100%; }
+  }
+
+  /* Inside the lightbox: the 3:2 crop at up to the 3:2 natural width (1389). */
+  :global(.composite.in-lightbox) {
+    max-inline-size: min(100%, var(--size-lightbox-image-max-3x2));
+    max-block-size: 100%;
+  }
+</style>

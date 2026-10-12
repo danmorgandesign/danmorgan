@@ -54,6 +54,8 @@ import IconClose from '../icons/IconClose.astro';
     justify-content: center;
   }
 
+  .image[hidden] { display: none; }
+
   .image {
     max-inline-size: 100%;
     max-block-size: 100%;
@@ -88,35 +90,52 @@ import IconClose from '../icons/IconClose.astro';
   const dialog = document.querySelector<HTMLDialogElement>('[data-lightbox]');
   const image = dialog?.querySelector<HTMLImageElement>('[data-lightbox-image]');
   const closeButton = dialog?.querySelector<HTMLButtonElement>('[data-lightbox-close]');
-  const zoomables = document.querySelectorAll<HTMLImageElement>('img[data-zoomable]');
+  const media = dialog?.querySelector<HTMLElement>('[data-lightbox-media]');
+  // Single images, plus composite groups (several images that act as one).
+  const zoomables = document.querySelectorAll<HTMLElement>('img[data-zoomable], [data-zoomable-group]');
   const lightboxRange = window.matchMedia('(min-width: 768px)');
   const tabletRange = window.matchMedia('(min-width: 768px) and (max-width: 1279px)');
   let opener: HTMLElement | null = null;
 
-  const wrap = (img: HTMLImageElement) => {
-    if (img.parentElement?.classList.contains('zoom-button')) return;
+  const wrap = (el: HTMLElement) => {
+    if (el.parentElement?.classList.contains('zoom-button')) return;
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'zoom-button';
-    img.replaceWith(button);
-    button.append(img);
-    button.addEventListener('click', () => open(img, button));
+    el.replaceWith(button);
+    button.append(el);
+    button.addEventListener('click', () => open(el, button));
   };
 
-  const unwrap = (img: HTMLImageElement) => {
-    const button = img.parentElement;
-    if (button?.classList.contains('zoom-button')) button.replaceWith(img);
+  const unwrap = (el: HTMLElement) => {
+    const button = el.parentElement;
+    if (button?.classList.contains('zoom-button')) button.replaceWith(el);
   };
 
   const sync = () => zoomables.forEach((img) => (lightboxRange.matches ? wrap(img) : unwrap(img)));
 
-  function open(img: HTMLImageElement, button: HTMLElement) {
-    if (!dialog || !image) return;
-    const zoom = tabletRange.matches ? img.dataset.zoom : undefined;
-    image.src = zoom || img.dataset.full || img.currentSrc;
-    image.alt = img.alt;
-    image.dataset.ratio = img.dataset.ratio ?? '';
-    dialog.setAttribute('aria-label', img.alt);
+  function open(el: HTMLElement, button: HTMLElement) {
+    if (!dialog || !image || !media) return;
+    media.querySelector('.in-lightbox')?.remove();
+    if (el instanceof HTMLImageElement) {
+      const zoom = tabletRange.matches ? el.dataset.zoom : undefined;
+      image.hidden = false;
+      image.src = zoom || el.dataset.full || el.currentSrc;
+      image.alt = el.alt;
+      image.dataset.ratio = el.dataset.ratio ?? '';
+      dialog.setAttribute('aria-label', el.alt);
+    } else {
+      // Composite: show a copy with each image upgraded to its full source.
+      const copy = el.cloneNode(true) as HTMLElement;
+      copy.classList.add('in-lightbox');
+      copy.removeAttribute('data-zoomable-group');
+      copy.querySelectorAll<HTMLImageElement>('img').forEach((img) => {
+        if (img.dataset.full) { img.removeAttribute('srcset'); img.src = img.dataset.full; }
+      });
+      image.hidden = true;
+      media.append(copy);
+      dialog.setAttribute('aria-label', el.getAttribute('aria-label') ?? '');
+    }
     opener = button;
     document.documentElement.classList.add('scroll-locked');
     dialog.showModal();
