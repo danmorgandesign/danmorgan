@@ -27,8 +27,9 @@ const { href, current = false, fill = false } = Astro.props;
 
   .fill { inline-size: 100%; }
 
+  /* The current page isn't a destination, so it gets no hover shadow. */
   @media (hover: hover) {
-    .menu-button:hover {
+    .menu-button:not([aria-current='page']):hover {
       box-shadow: var(--shadow-offset) var(--shadow-offset) 0 0 var(--brand-accent);
     }
   }
