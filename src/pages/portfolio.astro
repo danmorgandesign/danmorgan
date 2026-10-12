@@ -1,0 +1,15 @@
+---
+// Portfolio (Figma 828:1787 / Tablet 828:1858 / Mobile 828:1897).
+// Same sections as Home in reverse order, with the grid as the page h1.
+import Base from '../layouts/Base.astro';
+import AboutSection from '../components/AboutSection.astro';
+import ProjectsSection from '../components/ProjectsSection.astro';
+---
+<Base
+  title="Portfolio – Dan Morgan"
+  description="Case studies by Dan Morgan: Library Lite, Easy Invoice and Bike Bus."
+  current="portfolio"
+>
+  <ProjectsSection headingLevel={1} />
+  <AboutSection headingLevel={2} />
+</Base>

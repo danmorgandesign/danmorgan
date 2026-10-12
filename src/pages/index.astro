@@ -2,91 +2,14 @@
 // Home (Figma Home-Light 264:99 / Tablet 644:481 / Mobile 370:51).
 // Home is also the About page: the nav marks "About" as current.
 import Base from '../layouts/Base.astro';
-import Avatar from '../components/Avatar.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import { projects } from '../data/projects';
+import AboutSection from '../components/AboutSection.astro';
+import ProjectsSection from '../components/ProjectsSection.astro';
 ---
 <Base
   title="Dan Morgan – UX Product Designer"
   description="Portfolio of Dan Morgan, a UX product designer and former primary school teacher."
   current="about"
 >
-  <section class="about page-gutter" aria-labelledby="about-title">
-    <h1 id="about-title" class="headline-l">Hello, I’m Dan – UX Product Designer</h1>
-    <div class="about-row">
-      <div class="avatar-cell"><Avatar /></div>
-      <div class="bio body">
-        <p>I’ve spent the last 16 years teaching in primary schools, fascinated by how people learn, navigate, and solve problems. I love diving into the ‘why’ behind user behaviour and turning that understanding into products that are simple, intuitive, and actually work.</p>
-        <p>For me, design is all about empathy and common sense; I’m a firm believer in data-driven iteration and making sure every pixel serves a real human purpose. I’m always looking for ways to bridge the gap between technical systems and the people who use them to create products that genuinely make life a bit easier.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="projects page-gutter" aria-labelledby="projects-title">
-    <h2 id="projects-title" class="headline-l">Portfolio</h2>
-    <ul class="project-grid" role="list">
-      {projects.map((project) => (
-        <li><ProjectCard project={project} headingLevel={3} /></li>
-      ))}
-    </ul>
-  </section>
+  <AboutSection headingLevel={1} />
+  <ProjectsSection headingLevel={2} />
 </Base>
-
-<style>
-  .about,
-  .projects {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-stack-lg);
-    text-align: center;
-  }
-
-  .about-row {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-stack-lg);
-    inline-size: 100%;
-    text-align: start;
-  }
-
-  .avatar-cell {
-    display: flex;
-    justify-content: center;
-    inline-size: 100%;
-    min-inline-size: var(--size-avatar-sm);
-    max-inline-size: var(--size-avatar-cell-max);
-  }
-
-  .bio { max-inline-size: var(--size-measure-body); }
-  .bio p + p { margin-block-start: var(--space-stack-lg); }
-
-  .project-grid {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-stack-lg);
-    inline-size: 100%;
-    padding: 0;
-    list-style: none;
-    text-align: start;
-  }
-
-  @media (min-width: 768px) {
-    .about-row {
-      flex-direction: row;
-      justify-content: center;
-      gap: var(--space-grid-gutter);
-    }
-
-    .avatar-cell,
-    .bio { flex: 1 1 0; }
-
-    .project-grid {
-      flex-direction: row;
-      gap: var(--space-grid-gutter);
-    }
-
-    .project-grid > li { flex: 1 1 0; }
-  }
-</style>
