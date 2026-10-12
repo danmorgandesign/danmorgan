@@ -1,0 +1,61 @@
+---
+// Form Field (Figma 821:499): label + Input or Text Area, with an error
+// message (Caption, text-error) linked by aria-describedby when invalid.
+interface Props {
+  id: string;
+  name: string;
+  label: string;
+  placeholder?: string;
+  type?: 'text' | 'email';
+  multiline?: boolean;
+  autocomplete?: string;
+}
+const { id, name, label, placeholder, type = 'text', multiline = false, autocomplete } = Astro.props;
+const errorId = `${id}-error`;
+---
+<div class="field">
+  <label class="label" for={id}>{label}</label>
+  {multiline ? (
+    <textarea class="input body textarea" id={id} name={name} placeholder={placeholder} required data-field />
+  ) : (
+    <input class="input body" id={id} name={name} type={type} placeholder={placeholder} autocomplete={autocomplete} required data-field />
+  )}
+  <p class="error caption" id={errorId} hidden data-field-error></p>
+</div>
+
+<style>
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-stack-sm);
+  }
+
+  label { color: var(--text-primary); }
+
+  .input {
+    inline-size: 100%;
+    padding: var(--space-control-y) var(--space-control-x);
+    background: var(--surface-card);
+    border: var(--border-width-default) solid var(--border-strong);
+    border-radius: 0;
+    color: var(--text-primary);
+  }
+  .input::placeholder { color: var(--text-muted); opacity: 1; }
+
+  .textarea {
+    block-size: var(--size-textarea-height);
+    resize: vertical;
+  }
+
+  /* Focus: focus-ring border + Offset Shadow (Figma State=Focus). */
+  .input:focus-visible {
+    outline: none;
+    border-color: var(--focus-ring);
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 0 0 var(--brand-accent);
+  }
+
+  .input[aria-invalid='true'] { border-color: var(--status-error); }
+
+  .error { color: var(--text-error); }
+  .error[hidden] { display: none; }
+</style>

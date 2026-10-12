@@ -1,0 +1,115 @@
+---
+// Contact (Figma 821:1807 / Tablet 824:1780 / Mobile 824:1836).
+import Base from '../layouts/Base.astro';
+import FormField from '../components/FormField.astro';
+import PrimaryButton from '../components/PrimaryButton.astro';
+import CopyEmailLink from '../components/CopyEmailLink.astro';
+---
+<Base
+  title="Contact – Dan Morgan"
+  description="Have a project, a role, or just a question? Send Dan Morgan a message."
+  current="contact"
+>
+  <section class="contact" aria-labelledby="contact-title">
+    <div class="intro">
+      <p class="eyebrow label">Get in touch</p>
+      <h1 id="contact-title" class="headline-xl">Let's talk</h1>
+      <p class="summary body-lg">Have a project, a role, or just a question? Send me a message and I'll get back to you.</p>
+      <div class="email-fallback">
+        <p class="body">Prefer email?</p>
+        <CopyEmailLink />
+      </div>
+    </div>
+
+    <div class="form-section">
+      <form class="form" novalidate data-contact-form>
+        <FormField id="contact-name" name="name" label="Name" placeholder="Your name" autocomplete="name" />
+        <FormField id="contact-email" name="email" label="Email" type="email" placeholder="you@example.com" autocomplete="email" />
+        <FormField id="contact-message" name="message" label="Message" placeholder="What's on your mind?" multiline />
+        <input class="visually-hidden" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <PrimaryButton type="submit">Send message</PrimaryButton>
+      </form>
+      <p class="form-status body" aria-live="polite" hidden data-form-status></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-section-sm);
+    padding-block: var(--space-section-lg);
+  }
+
+  .intro,
+  .form-section {
+    padding-inline: var(--space-page-margin);
+  }
+
+  .intro {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-stack-md);
+  }
+
+  .eyebrow,
+  .email-fallback > p { color: var(--text-muted); }
+
+  .summary { max-inline-size: var(--size-content-column-max); }
+
+  .email-fallback {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-stack-sm);
+  }
+
+  .form-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-section-sm);
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-stack-lg);
+    max-inline-size: var(--size-content-column-max);
+  }
+  .form > :global(.primary-button) { align-self: flex-start; }
+
+  /* Form Status (Figma "Form Status / Sent" and "/ Error"). */
+  .form-status {
+    max-inline-size: var(--size-form-width);
+    padding: var(--space-control-y) var(--space-control-x);
+    border: var(--border-width-default) solid var(--border-strong);
+    color: var(--text-on-brand);
+  }
+  .form-status[hidden] { display: none; }
+  .form-status[data-status='sent'] { background: var(--status-success); }
+  .form-status[data-status='error'] { background: var(--status-error); }
+
+  @media (min-width: 1280px) {
+    .contact {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: var(--space-section-lg);
+      padding-inline: max(var(--space-page-margin), (100% - var(--size-content-max)) / 2);
+    }
+
+    .intro,
+    .form-section {
+      flex: 1 1 0;
+      padding-inline: 0;
+    }
+
+    .intro { max-inline-size: var(--size-contact-intro-max); }
+  }
+</style>
+
+<script>
+  import '../scripts/contact-form.js';
+</script>
