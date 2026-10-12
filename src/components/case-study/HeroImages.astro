@@ -1,0 +1,56 @@
+---
+// Hero Images row (e.g. Figma 465:178): three screenshots side by side,
+// wrapping to one per row on Mobile. Each opens the lightbox (Tablet/Desktop).
+import type { ImageMetadata } from 'astro';
+import ZoomableImage from './ZoomableImage.astro';
+
+interface HeroImage { src: ImageMetadata; alt: string; ratio: '5:4' | '3:2'; zoom?: ImageMetadata }
+interface Props { images: HeroImage[] }
+const { images } = Astro.props;
+---
+<ul class="hero-images" role="list">
+  {images.map((image, i) => (
+    <li class="cell">
+      <ZoomableImage
+        class="hero-image"
+        src={image.src}
+        alt={image.alt}
+        ratio={image.ratio}
+        zoom={image.zoom}
+        sizes="(min-width: 1280px) 30vw, (min-width: 768px) 28vw, 90vw"
+        loading={i === 0 ? 'eager' : 'lazy'}
+      />
+    </li>
+  ))}
+</ul>
+
+<style>
+  .hero-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-grid-gutter);
+    padding: 0;
+    list-style: none;
+  }
+
+  .cell {
+    flex: 1 1 0;
+    min-inline-size: var(--size-column-min-mobile);
+    max-inline-size: var(--size-column-max);
+  }
+
+  /* Figma crops the hero screenshots into a 561:449 box. */
+  .cell :global(img) {
+    inline-size: 100%;
+    aspect-ratio: 561 / 449;
+    object-fit: cover;
+  }
+
+  @media (min-width: 768px) {
+    .cell { min-inline-size: 0; }
+  }
+
+  @media (min-width: 1280px) {
+    .cell { min-inline-size: var(--size-column-min); }
+  }
+</style>

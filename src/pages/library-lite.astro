@@ -1,0 +1,176 @@
+---
+// Case Study / Library Lite (Figma 399:121 / Tablet 616:635 / Mobile 566:258).
+// Copy and alt text come from the Figma frames and their Dev Mode annotations.
+import CaseStudy from '../layouts/CaseStudy.astro';
+import CaseStudyHero from '../components/case-study/CaseStudyHero.astro';
+import HeroImages from '../components/case-study/HeroImages.astro';
+import Divider from '../components/case-study/Divider.astro';
+import CaseSection from '../components/case-study/CaseSection.astro';
+import FeatureRow from '../components/case-study/FeatureRow.astro';
+import FeatureMedia from '../components/case-study/FeatureMedia.astro';
+import Carousel from '../components/case-study/Carousel.astro';
+import ZoomableImage from '../components/case-study/ZoomableImage.astro';
+
+import heroClassLoans from '../assets/images/library-lite/hero-class-loans.png';
+import heroStudentLoanHistory from '../assets/images/library-lite/hero-student-loan-history.png';
+import heroManageClass from '../assets/images/library-lite/hero-manage-class.png';
+import scanAvailable from '../assets/images/card-library-lite.png';
+import scanOnLoan from '../assets/images/library-lite/feature-scan-on-loan.png';
+import scanNotInCatalogue from '../assets/images/library-lite/feature-scan-not-in-catalogue.png';
+import classDashboard from '../assets/images/library-lite/feature-class-dashboard.png';
+import classLoans from '../assets/images/library-lite/feature-class-loans.png';
+import logIn from '../assets/images/library-lite/feature-log-in.png';
+
+const mediaSizes = '(min-width: 1280px) 55vw, 90vw';
+---
+<CaseStudy
+  title="Library Lite – Dan Morgan"
+  description="A fast, scan-first library management app designed for the reality of a busy school."
+>
+  <section class="hero page-gutter" aria-labelledby="hero-title">
+    <CaseStudyHero
+      tags={['UX Design', 'Interaction Design', 'Tablet First']}
+      title="Library Lite"
+      summary="A fast, scan-first library management app designed for the reality of a busy school."
+      date="June 2026"
+      details={[
+        { label: 'Role', value: 'Product Designer' },
+        { label: 'Context', value: 'Personal Project' },
+        { label: 'Focus', value: 'Streamlined & Clear' },
+        { label: 'Tools', value: 'Figma, Claude Code, Supabase & GitHub' },
+      ]}
+    />
+    <HeroImages
+      images={[
+        { src: heroClassLoans, ratio: '3:2', alt: 'Library Lite Class Loans screen listing a class’s book loans, with the borrower, due date and an Overdue or On Loan status for each book.' },
+        { src: heroStudentLoanHistory, ratio: '3:2', alt: 'Library Lite student page for Ava M., showing two current loans (one overdue) above her loan history.' },
+        { src: heroManageClass, ratio: '3:2', alt: 'Library Lite Manage Class screen: a grid of pupil cards, each with Edit and Remove buttons.' },
+      ]}
+    />
+  </section>
+
+  <Divider />
+
+  <CaseSection id="problem" title="01 — The Problem">
+    <p>Teachers (or other adults managing ‘library time’, teaching assistants or volunteers) were either using a scrap of paper, jotting down which children borrowed which books or they were getting frustrated in trying to use a piece of legacy library management software (designed for public libraries) on an aging laptop.</p>
+    <p>This friction increases stress and cognitive load on the teachers who whilst trying to loan books out are also fielding questions, encouraging those children who are reluctant readers to choose books, managing behaviour all whilst conscious of a finite window of time. Ultimately, the less friction in the school day for teachers results in a better emotional experience for the children.</p>
+  </CaseSection>
+
+  <Divider />
+
+  <CaseSection id="hypothesis" title="02 — The Hypothesis">
+    <p>A dedicated software product designed specifically for time strapped, cognitively overloaded teachers. A tablet first design because most teachers have access to those, web based to meet an MVP to check viability.</p>
+
+    <Fragment slot="features">
+      <FeatureRow
+        title="Inventory & Catalogue Management"
+        subtitle="Everything related to indexing, tracking, and visually representing the books."
+        spaced
+      >
+        <p>Barcode Scanning: Use the tablet’s camera to scan barcodes to instantly identify and look up books.</p>
+        <p>Book Status Workflow:</p>
+        <ul class="bullets">
+          <li>Needs to be added to library</li>
+          <li>Available to loan</li>
+          <li>On loan</li>
+        </ul>
+        <p>Visual Status Indicators: Symbolic, colour-coded visual cues for loaned items:</p>
+        <ul class="bullets">
+          <li>Green: On loan for less than a week</li>
+          <li>Orange: On loan for less than 2 weeks</li>
+          <li>Red: Overdue (on loan for more than 2 weeks, requires return)</li>
+        </ul>
+        <FeatureMedia slot="media" carousel>
+          <Carousel
+            label="Book scan results"
+            ratio="5:4"
+            sizes={mediaSizes}
+            slides={[
+              { src: scanAvailable, alt: 'Scan result for Charlotte’s Web marked Available, with a Loan This Book button.' },
+              { src: scanOnLoan, alt: 'Scan result for The Hobbit marked On Loan, with a Return This Book button.' },
+              { src: scanNotInCatalogue, alt: 'Scan result for Nineteen Eighty-Four marked Not in Catalogue, with an Add & Loan Book button.' },
+            ]}
+          />
+        </FeatureMedia>
+      </FeatureRow>
+
+      <FeatureRow title="Pupil & Classroom Management">
+        <p>Structure for managing organizational hierarchies and student data privacy.</p>
+        <ul class="bullets">
+          <li>Classroom Hierarchy: Set up schools and classes so children are organized and managed directly by their respective teachers.</li>
+          <li>Student Roster Management: Annual lifecycle management for pupils, particularly year-end rollover procedures when children move up a year group.</li>
+          <li>Privacy-Conscious Identification: Display pupils using first names only, adding last-name initials solely to resolve duplicates (e.g., Steve A. and Steve B.).</li>
+        </ul>
+        <FeatureMedia slot="media">
+          <ZoomableImage src={classDashboard} ratio="5:4" sizes={mediaSizes} alt="Library Lite class dashboard with View Class and Scan Book shortcuts above a grid of pupils, each showing how many books they have on loan or overdue." />
+        </FeatureMedia>
+      </FeatureRow>
+
+      <FeatureRow title="Circulation & Loan Tracking">
+        <p>The transactional features mapping books to readers.</p>
+        <ul class="bullets">
+          <li>Reading Logs: Maintain a persistent historical log of which books have been read and by whom.</li>
+        </ul>
+        <FeatureMedia slot="media">
+          <ZoomableImage src={classLoans} ratio="5:4" sizes={mediaSizes} alt="Library Lite Class Loans table listing each book, its borrower, due date and status, with one loan flagged Overdue." />
+        </FeatureMedia>
+      </FeatureRow>
+
+      <FeatureRow title="System Security & Access Control">
+        <p>Infrastructure and security constraints governing app availability.</p>
+        <ul class="bullets">
+          <li>Walled Garden Access: The application is a closed ecosystem, restricted strictly to use within the school network/environment.</li>
+          <li>Session Management: Automatic session timeout requiring re-authentication after a set period of inactivity to prevent unauthorized access.</li>
+        </ul>
+        <FeatureMedia slot="media">
+          <ZoomableImage src={logIn} ratio="5:4" sizes={mediaSizes} alt="Library Lite log-in screen with email and password fields plus Google and Microsoft sign-in options." />
+        </FeatureMedia>
+      </FeatureRow>
+    </Fragment>
+  </CaseSection>
+
+  <Divider />
+
+  <CaseSection id="journey" title="03 — The Journey">
+    <p>Two predominant types of stakeholders were used in testing — teachers and the volunteer librarian.</p>
+    <p>The volunteer librarian's main concern was loss of books because of inefficient management by teachers or children — either books not being properly loaned out and recorded, or children returning books without the teacher's knowledge. The librarian would always do a year-end book audit to catch what had gone missing.</p>
+    <p>Teachers needed a system that was straightforward and effective:</p>
+    <ul class="bullets">
+      <li>A weekly report of who had books overdue, so they could chase them up.</li>
+      <li>Symbolic, colour-coded visuals for overdue books — overdue books were marked red.</li>
+      <li>The ability to manage pupils themselves, particularly at the end of the year when children moved up a year group.</li>
+    </ul>
+    <p>The app also needed to meet GDPR and child safety concerns:</p>
+    <ul class="bullets">
+      <li>The system is a closed app, only available within the school.</li>
+      <li>First names for pupils, with initials only if required (two Steves in a class, for example).</li>
+      <li>The app times out and requires logging in again after a period of inactivity.</li>
+    </ul>
+  </CaseSection>
+
+  <Divider />
+
+  <CaseSection id="outcome" title="04 — Outcome & Reflection">
+    <p>Library Lite went from a prototype nobody knew how to use to a working, deployed app. A teacher can scan a real barcode, and the app knows straight away whether the book is new, available or already on loan.</p>
+    <p>What changed after testing:</p>
+    <ul class="bullets">
+      <li>The first prototype was tested with five teachers. It looked good but there was a lot of hesitation so it needed to be simplified.</li>
+      <li>There needed be clearer colour coding on the status of books.</li>
+      <li>Confirmations needed to be explicit and clear, leaving no room for misinterpretations. The text was being read in a loaded cognitive state.</li>
+      <li>Clear annotations needed on the logic when moving into the build stage.</li>
+    </ul>
+    <p>What I'd take into the next project:</p>
+    <ul class="bullets">
+      <li>Clearer documentation when using Claude to minimise errors.</li>
+      <li>Start a clear design system, albeit minimal setup in place before building.</li>
+    </ul>
+  </CaseSection>
+</CaseStudy>
+
+<style>
+  .hero {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-section-sm);
+  }
+</style>

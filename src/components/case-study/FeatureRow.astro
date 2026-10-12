@@ -1,0 +1,67 @@
+---
+// Feature Row (Figma 582:308): text column (h3 Headline/M, optional Label
+// subtitle, Body/Large body; 320–560) beside a media panel (min 700) that
+// wraps underneath when there's no room. Stacked on Mobile.
+// `spaced` reproduces Figma's blank lines between paragraphs and lists.
+interface Props {
+  title: string;
+  subtitle?: string;
+  spaced?: boolean;
+}
+const { title, subtitle, spaced = false } = Astro.props;
+---
+<div class="feature-row">
+  <div class="description">
+    <h3 class="headline-m">{title}</h3>
+    {subtitle && <p class="subtitle label">{subtitle}</p>}
+    <div class:list={['feature-body body-lg', { spaced }]}>
+      <slot />
+    </div>
+  </div>
+  <div class="media-slot">
+    <slot name="media" />
+  </div>
+</div>
+
+<style>
+  .feature-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-grid-gutter);
+  }
+
+  .description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--space-stack-sm);
+    max-inline-size: var(--size-column-max);
+  }
+
+  .subtitle { color: var(--text-muted); }
+
+  .spaced > :global(* + *) { margin-block-start: 1lh; }
+
+  @media (min-width: 768px) {
+    .feature-row {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .description {
+      flex: 1 1 0;
+      min-inline-size: var(--size-column-min);
+    }
+
+    .media-slot {
+      flex: 1 1 0;
+      min-inline-size: var(--size-media-slot-min);
+    }
+  }
+
+  /* Only the Desktop variant pads the text column. */
+  @media (min-width: 1280px) {
+    .description { padding-inline: var(--space-inset-md); }
+  }
+</style>
